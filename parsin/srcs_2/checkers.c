@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 20:44:30 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/27 18:40:22 by sbadr            ###   ########.fr       */
+/*   Created: 2023/03/29 16:30:39 by sbadr             #+#    #+#             */
+/*   Updated: 2023/03/29 16:30:52 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../mini_shell.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+int check_type(t_token *lex)
 {
-	char	*p;
+	if (lex && (lex->type == DOUBLE_QUOTE || lex->type == SINGLE_QUOTE || 
+			lex->type == GREATGREAT || lex->type == GREAT ||
+			lex->type == HEREDOC || lex->type == LESS))
+		return 1;
+	else
+		return 0;
+}
 
-	if (!s)
-		return (NULL);
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
-	if (start > ft_strlen(s))
-		return (ft_strdup(""));
-	p = malloc(sizeof(char) * (len + 1));
-	if (!p)
-		return (NULL);
-	ft_memcpy(p, s + start, len);
-	p[len] = '\0';
-	return (p);
+int check(int x)
+{
+	if (x == GREAT || x == LESS || x == GREATGREAT || x == HEREDOC)
+		return 1;
+	else
+		return 0;
 }
