@@ -3,47 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 15:55:15 by isbarka           #+#    #+#             */
-/*   Updated: 2023/02/12 17:51:16 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/04/27 18:03:09 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] != '\0')
-	{
-		i++;
-	}
-	return (i);
-}
-
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	unsigned char	*my_dest;
-	unsigned char	*my_src;
-	size_t			i;
-
-	if (n < 0)
-		n = ft_strlen(src);
-	my_dest = (unsigned char *)dest;
-	my_src = (unsigned char *)src;
-	i = 0;
-	if (!dest && !src)
-		return (NULL);
-	while (i < n)
-	{
-		my_dest[i] = my_src[i];
-		i++;
-	}
-	return (dest);
-}
 
 // static char	*ft_word(const char *s, char c)
 // {

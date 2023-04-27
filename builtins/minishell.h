@@ -6,7 +6,7 @@
     #include <string.h>
     #include <limits.h>
     #include <fcntl.h>
-
+    #include "../libft/libft.h"
     #include <unistd.h>
 
 typedef struct s_parsed
