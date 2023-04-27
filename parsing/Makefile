@@ -30,7 +30,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^  -o $(NAME)
 
-%.o: %.c mini_shell.h
+%.o: %.c mini_shell.h 
 	$(CC) -c $< -o $@
 
 clean:

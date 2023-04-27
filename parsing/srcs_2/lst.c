@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 11:05:58 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/27 15:16:09 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/27 22:39:39 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_export	*ft_lstnew_export(void *var, char* value)
 		return (NULL);
 	new->value = value;
 	new->variable = var;
+	new->there_is_equal = 1;
 	new->next = NULL;
 	return (new);
 }
