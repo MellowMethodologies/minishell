@@ -42,4 +42,5 @@ void ft_echo(t_parsed *lexe)
     }
     if(!is_n)
         write(1,"\n", 1);
+        exit(0);
 }

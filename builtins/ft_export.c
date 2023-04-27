@@ -20,13 +20,10 @@ void ft_add_variable(char *str, t_export **export)
     char *str1 = str_befor_equal(str, 1);
     if(there_already(str1, export))
     {
-        printf("str1 = %s\n", str1);
-        
         return ;
     }
     else
     {
-  
         ft_lstadd_back_texport(export, ft_lstnew_texport(str1));
         t_export *tmp = (*export);
     }
@@ -39,7 +36,6 @@ int error_var(char *str)
             || (str[count] >= 'A' && str[count] <= 'Z') ||
             str[count] == '_')
     {
-
     }
     else
         return 1;
@@ -157,15 +153,18 @@ void ft_export(t_parsed *lexe, t_export **export)
 
     t_export *tmp = (*export);
     if(lexe->args[1] == NULL)
+    {
         show_export(export, lexe);
+        exit(0);
+    }
     else
     {
         while(lexe->args[i])
         {
             if(error_var(lexe->args[i]) == 1)
             {
-                
                 write(2, "error input\n", 12);
+                exit(1);
             }
             else
             {
@@ -183,6 +182,7 @@ void ft_export(t_parsed *lexe, t_export **export)
             i++;
         }
     }
+    exit(0);
 }
 
 int there_is_plus_equal(char *str)

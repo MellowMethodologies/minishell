@@ -112,4 +112,5 @@ void show_env(t_export **export, t_parsed *lexe)
         } 
         tmp = tmp->next;
     }
+    exit(0);
 }
