@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/28 17:03:46 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/28 20:17:38 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void check_words(t_token **lex,  char *str, int *i, int here)
 	t = *i;
 	while(str[*i])
 	{
-		if ((str[*i] == '$' || special(str[*i])) && cas && !here)
+		if (((str[*i] == '$' || special(str[*i])) && cas && !here) || (special(str[*i])))
 		{
 			(*i)--;
 			break ;

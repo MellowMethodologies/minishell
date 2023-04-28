@@ -23,7 +23,7 @@ SRCS_BUILTINS= ../builtins/check_error_bonus.c ../builtins/env.c  ../builtins/ft
 OBJS := $(SRCS:.c=.o)
 CC  = cc -g #-fsanitize=address
 CFLAGS =  -lreadline -Wall -Wextra -Werror
-NAME = shell
+NAME = minishell
 
 all: $(NAME)
 	

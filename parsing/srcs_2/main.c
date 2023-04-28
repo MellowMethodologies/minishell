@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/28 16:47:09 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/28 20:40:54 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ void *parse(char *str, t_export *env, char **envs)
 		}
 		if (tmp->type == DOUBLE_QUOTE)
 			tmp->value = ft_quote_expander(tmp->value, env);
-			printf("tmp-> value = %s\n",tmp -> value);
 		tmp = tmp->next;
 	}
 	join_word_tokens(lexe);
@@ -158,6 +157,7 @@ void *parse(char *str, t_export *env, char **envs)
 	if (cmd)
 		cmd->envs = envs;
 	// free_token(lex_without_spaces);
+	system("leaks minishell");
 	return (cmd);
 }
 void sigint_handler(int sig)
@@ -181,7 +181,7 @@ int main(int ac, char **av, char **env)
 	while(1)
 	{
 
-		line = readline("shell> ");
+		line = readline("minishell> ");
 		if (!line || !ft_strcmp(line, "exit"))
 			break;
 		add_history(line);
