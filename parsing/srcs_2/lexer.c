@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/26 20:29:55 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/28 17:03:46 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,52 +68,50 @@ void check_for_quotes(t_token **lex, char *str, int *i)
 	}
 }
 
-void check_for_specials(t_token **lex, char *str, int *i)
+int check_for_specials(t_token **lex, char *str, int *i)
 {
+	int c;
 
+	c = 0;
 	if (str[*i] == '|')
-		add_back(lex, ft_lstne(ft_strdup("|"), PIPE));
+		add_back(lex, ft_lstne("|", PIPE));
 	else if (str[*i] == '>')
 	{
 		if (str[*i + 1] == '>')
 		{
-			add_back(lex, ft_lstne(ft_strdup(">>"), GREATGREAT));
+			add_back(lex, ft_lstne(">>", GREATGREAT));
 			(*i)++;
 		}
 		else
-			add_back(lex, ft_lstne(ft_strdup(">"), GREAT));
+			add_back(lex, ft_lstne(">", GREAT));
 		}
 	else if (str[*i] == '<')
 	{
 		if (str[*i + 1] == '<')
 		{
-			add_back(lex, ft_lstne(ft_strdup("<<"), HEREDOC));
+			add_back(lex, ft_lstne("<<", HEREDOC));
+			c = 1;
 			(*i)++;
 		}
 		else
-			add_back(lex, ft_lstne(ft_strdup("<"), LESS));
+			add_back(lex, ft_lstne("<", LESS));
 	}
+	return c;
 }
 
-void check_words(t_token **lex, t_export *env, char *str, int *i)
+void check_words(t_token **lex,  char *str, int *i, int here)
 {
 	int	t;
 	int	j;
 	int	cas;
 
 	j = 0;
-	t = 0;
 	cas = 0;
 	t = *i;
 	while(str[*i])
 	{
-		if ((str[*i] == '$' || special(str[*i])) && cas)
+		if ((str[*i] == '$' || special(str[*i])) && cas && !here)
 		{
-			// if (str[*i + 1] == '$')
-			// {
-			// 	while(str[(*i)++] == '$')
-			// 		j++;
-			// }
 			(*i)--;
 			break ;
 		}
@@ -135,26 +133,30 @@ void space_it(t_token **lex, char *str, int *i)
 				(*i)++;
 			(*i)--;	
 		}
-		add_back(lex, ft_lstne(strdup(" "), WHITESPACE));
+		add_back(lex, ft_lstne(" ", WHITESPACE));
 	}
 }
 
 t_token* lexer(char *str, t_token *lex, t_export *env)
 {
 	int i = 0;
+	int c = 0;
 
 	lex = NULL;
 	while (str[i])
 	{
 		if (str[i] == ' ')
 			space_it(&lex, str, &i);
+		else if (str[i] == '$' && str[i + 1] == '$' && !c)
+			i += 1;
 		else if (str[i] == 34 || str[i] == 39)
 			check_for_quotes(&lex, str, &i);
 		else if (str[i] == '>' || str[i] == '<' || str[i] == '|')
-			check_for_specials(&lex, str, &i);
+			c = check_for_specials(&lex, str, &i);
 		else if (str[i] && special(str[i]) == 0)
-			check_words(&lex, env ,str, &i);
+			check_words(&lex, str, &i, c);
 		i++;
 	}
 	return (lex);
 }
+	

@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/26 18:07:25 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/28 13:31:26 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		wait(0);
 		close(pipefd[1]);
 		(*cmd)->in = pipefd[0];
 		return (1);

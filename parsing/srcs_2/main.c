@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/27 16:00:44 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/28 16:47:09 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,6 @@ t_parsed* check_lex(t_token *lex, t_export *env)
 				return (NULL);
 			else if (tmp->type == GREATGREAT && !append_red(&cmd, &tmp))
 				return (NULL);
-			else if (tmp->type == HEREDOC && !heredoc_red(&cmd, &tmp, env))
-				return (NULL);
 		} 
 		if (tmp->type == PIPE) 
 		{   
@@ -139,9 +137,9 @@ void *parse(char *str, t_export *env, char **envs)
 	while(tmp)
 	{
 		if (tmp->type == HEREDOC && tmp->next && tmp->next->next)
-		{
 			tmp->next = tmp->next->next;
-		}
+		if (tmp->type == HEREDOC && !heredoc_red(&cmd, &tmp, env))
+			return (NULL);
 		if (tmp->type == WORD)
 		{
 			if (tmp->value[0] == '$')
@@ -149,6 +147,7 @@ void *parse(char *str, t_export *env, char **envs)
 		}
 		if (tmp->type == DOUBLE_QUOTE)
 			tmp->value = ft_quote_expander(tmp->value, env);
+			printf("tmp-> value = %s\n",tmp -> value);
 		tmp = tmp->next;
 	}
 	join_word_tokens(lexe);
@@ -161,28 +160,35 @@ void *parse(char *str, t_export *env, char **envs)
 	// free_token(lex_without_spaces);
 	return (cmd);
 }
+void sigint_handler(int sig)
+{
+    // exit(0);
+}
 
 int main(int ac, char **av, char **env)
 {
 	int fd[2];
 	int i;
 	char *line;
+
 	t_export *export;
 	
 	export = NULL;
 	fill_export(&export, env);
 	t_parsed *cmd = NULL;
 
+	signal(SIGQUIT, sigint_handler);
 	while(1)
 	{
+
 		line = readline("shell> ");
-		if (!line)
+		if (!line || !ft_strcmp(line, "exit"))
 			break;
 		add_history(line);
 		if (!check_quotes(line))
 			continue ;
 		cmd = parse(line, export, env);
-		ft_execution(cmd, &export, env);
+		ft_execution(cmd, &export, env);	
 		// cmd->envs = env;
 		// free_parsed(cmd);
 		// free(cmd);
@@ -194,5 +200,6 @@ int main(int ac, char **av, char **env)
 				//     free(cmd);
 				//     cmd = cmd -> next;
 				// }
+		
 	}
 }

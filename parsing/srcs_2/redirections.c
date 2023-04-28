@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:03:08 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/25 15:04:35 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/28 12:03:19 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int great_red(t_parsed **cmd, t_token **tmp)
     if (fd < 0) 
     { 
         ft_putstr_fd("error opening file\n", 2); 
+        if (*cmd)
+            (*cmd)->args = NULL; 
         return 1; 
     }
     if (*cmd)
@@ -47,7 +49,9 @@ int append_red(t_parsed **cmd, t_token **tmp)
     fd = open((*tmp)->next->value, O_CREAT | O_WRONLY | O_APPEND, 0644); 
     if (fd < 0) 
     { 
-        ft_putstr_fd("error opening file\n", 2); 
+        ft_putstr_fd("error opening file\n", 2);
+        if (*cmd)
+            (*cmd)->args = NULL; 
         return 1; 
     } 
     if (*cmd)
@@ -69,7 +73,9 @@ int less_red(t_parsed **cmd, t_token **tmp)
     fd = open((*tmp)->next->value, O_RDONLY); 
     if (fd < 0) 
     { 
-        ft_putstr_fd("error opening file\n", 2); 
+        ft_putstr_fd("error opening file\n", 2);
+        if (*cmd)
+            (*cmd)->args = NULL; 
         return 1; 
     }
     if (*cmd)

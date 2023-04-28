@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 22:58:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/26 13:30:05 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/28 17:09:55 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	fill_export(t_export **exp, char **env)
 		1 + ft_strrchr(env[i], '=')));
 		i++;	
 	}
+		ft_lstadd_back_texport(exp, ft_lstnew_export("?",\
+		"-1"));
+	
 }
 
 //calculate how many c is in the str

@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/27 18:40:07 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/28 15:02:52 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 #include <readline/history.h>
 #include <curses.h>
 
+#define PID -2
 #define WHITESPACE -1
 #define WORD 0
 #define DOUBLE_QUOTE 1
@@ -45,6 +46,7 @@
 //for the lexer part
 typedef struct s_token{	
 	int		type;
+	int		dollars;
 	char	*value;
 	int		index;
 	struct s_token *next;
