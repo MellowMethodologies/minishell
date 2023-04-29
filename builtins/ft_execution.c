@@ -105,8 +105,9 @@ void fill_export_with_1(t_export **export)
     }
 }
 
-void    ft_execution(t_parsed *lexe, t_export **export, char **env)
+void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
+    t_parsed *lexe = lexe_1;
     int count = 0;
     int id = 0;
     pid_t status  = 100;
@@ -127,6 +128,8 @@ void    ft_execution(t_parsed *lexe, t_export **export, char **env)
     while(lexe && lexe->next)
     {
         if((strcmp(lexe->args[0], "export") != 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+            ft_cmnd_one(lexe, count, 0,export);
+        else
         {
             id = fork();
             if(id == 0)
@@ -136,14 +139,14 @@ void    ft_execution(t_parsed *lexe, t_export **export, char **env)
             }
             wait(&status);
         }
-        else
-            ft_cmnd_one(lexe, count, 0,export);
         lexe = lexe->next;
         count++;
     }
     if(lexe)
     {
         if((strcmp(lexe->args[0], "export") != 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+            ft_cmnd(lexe, count, 0, export);
+        else
         {
         id = fork();
         if(id == 0)
@@ -153,8 +156,6 @@ void    ft_execution(t_parsed *lexe, t_export **export, char **env)
         }
         wait(&status);
         }
-        else
-            ft_cmnd(lexe, count, 0, export);
     }
     printf("statu = %d\n", WEXITSTATUS(status));
 }
