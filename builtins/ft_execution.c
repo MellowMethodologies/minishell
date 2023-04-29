@@ -90,35 +90,64 @@ void    ft_cmnd(t_parsed *lexe, int count, int is_first, t_export **export)
     ft_execut_cmnd(lexe,export);
 }
 
-void    ft_execution(t_parsed *lexe, t_export **export, char **env)
+void    ft_cmnd_one(t_parsed *lexe, int count, int is_first, t_export **export)
 {
-    // write(2, "test\n", 5);
+    ft_execut_cmnd(lexe,export);
+}
+
+void fill_export_with_1(t_export **export)
+{
+    t_export *tmp = (*export);
+    while(tmp)
+    {
+        tmp->there_is_equal = 1;
+        tmp = tmp->next;
+    }
+}
+
+void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
+{
+    t_parsed *lexe = lexe_1;
     int count = 0;
     int id = 0;
     pid_t status  = 100;
     if(lexe == NULL)
         return ;
     lexe->envs = env;
-    id = fork();
-    if(id == 0)
-        ft_cmnd(lexe, count, 1,export);
-    wait(&status);
+    if((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+        ft_cmnd_one(lexe, count, 1,export);
+    else
+    {
+        id = fork();
+        if(id == 0)
+            ft_cmnd(lexe, count, 1,export);
+        wait(&status);
+    }
     count++;
     lexe = lexe->next;
     while(lexe && lexe->next)
     {
-        id = fork();
-        if(id == 0)
+        if((strcmp(lexe->args[0], "export") != 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+            ft_cmnd_one(lexe, count, 0,export);
+        else
         {
-            lexe->envs = env;
-            ft_cmnd(lexe, count, 0,export);
+            id = fork();
+            if(id == 0)
+            {
+                lexe->envs = env;
+                ft_cmnd(lexe, count, 0,export);
+            }
+            wait(&status);
         }
-        wait(&status);
         lexe = lexe->next;
         count++;
     }
     if(lexe)
     {
+        if((strcmp(lexe->args[0], "export") != 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+            ft_cmnd(lexe, count, 0, export);
+        else
+        {
         id = fork();
         if(id == 0)
         {
@@ -126,6 +155,7 @@ void    ft_execution(t_parsed *lexe, t_export **export, char **env)
             ft_cmnd(lexe, count, 0, export);
         }
         wait(&status);
+        }
     }
     printf("statu = %d\n", WEXITSTATUS(status));
 }
