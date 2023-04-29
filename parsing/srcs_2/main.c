@@ -175,12 +175,12 @@ int main(int ac, char **av, char **env)
 	
 	export = NULL;
 	fill_export(&export, env);
+	fill_export_with_1(&export);
 	t_parsed *cmd = NULL;
 
 	signal(SIGQUIT, sigint_handler);
 	while(1)
 	{
-
 		line = readline("minishell> ");
 		if (!line || !ft_strcmp(line, "exit"))
 			break;

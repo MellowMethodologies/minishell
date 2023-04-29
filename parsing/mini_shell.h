@@ -113,5 +113,7 @@ void		ft_lstadd_back_texport(t_export **lst, t_export *new);
 void		ft_lstadd_back_tparsed(t_parsed **lst, t_parsed *new);
 void		ft_execution(t_parsed *lexe, t_export **export, char **env);
 void		append_list(t_token** lst1, t_token **lst2);
+void fill_export_with_1(t_export **export);
+
 
 #endif

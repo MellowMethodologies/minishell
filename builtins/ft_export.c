@@ -182,7 +182,6 @@ void ft_export(t_parsed *lexe, t_export **export)
             i++;
         }
     }
-    exit(0);
 }
 
 int there_is_plus_equal(char *str)

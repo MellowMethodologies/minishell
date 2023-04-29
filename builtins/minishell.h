@@ -69,5 +69,7 @@ void	ft_putstr(int fd, char *str);
 int	word_len(const char *s, char c);
 char	**str_count(char **str, const char *s, char c);
 t_export	*ft_lstnew_texport_one();
+void fill_export_with_1(t_export **export);
+
 
 #endif
