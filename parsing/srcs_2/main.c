@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/28 20:40:54 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/29 10:35:18 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,6 @@ void *parse(char *str, t_export *env, char **envs)
 	if (cmd)
 		cmd->envs = envs;
 	// free_token(lex_without_spaces);
-	system("leaks minishell");
 	return (cmd);
 }
 void sigint_handler(int sig)
