@@ -188,6 +188,7 @@ int main(int ac, char **av, char **env)
 		if (!check_quotes(line))
 			continue ;
 		cmd = parse(line, export, env);
+		
 		ft_execution(cmd, &export, env);	
 		// cmd->envs = env;
 		// free_parsed(cmd);
