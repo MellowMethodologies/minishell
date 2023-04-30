@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/29 10:55:51 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/30 15:58:45 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*ft_getenv(char *var, t_export *env)
 	char	*s1;
 	char	*s2;
 	char	*result;
+	char	**s;
 
 	i = 0;
 	if (ft_isdigit(var[i]))
@@ -76,6 +77,8 @@ char	*ft_getenv(char *var, t_export *env)
 		if (ft_strcmp(s1, var) == 0)
 		{
 			result = ft_strdup(s2);
+			if (ft_count(result, ' ') > 1)
+				s = ft_split(result, 2);
 			free(s1);
 			free(s2);
 			return (result);
@@ -86,3 +89,4 @@ char	*ft_getenv(char *var, t_export *env)
 	}
 	return (ft_strdup(""));
 }
+

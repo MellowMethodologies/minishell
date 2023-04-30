@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/29 10:35:18 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/30 15:59:03 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_parsed* check_lex(t_token *lex, t_export *env)
 			else if (tmp->type == GREATGREAT && !append_red(&cmd, &tmp))
 				return (NULL);
 		} 
-		if (tmp->type == PIPE) 
+		if (tmp->type == PIPE)
 		{   
 			if (cmd == NULL || (tmp->next == NULL )) 
 			{
@@ -136,26 +136,33 @@ void *parse(char *str, t_export *env, char **envs)
 	tmp = lexe;
 	while(tmp)
 	{
-		if (tmp->type == HEREDOC && tmp->next && tmp->next->next)
-			tmp->next = tmp->next->next;
-		if (tmp->type == HEREDOC && !heredoc_red(&cmd, &tmp, env))
-			return (NULL);
-		if (tmp->type == WORD)
+		if (tmp->type == HEREDOC)
 		{
-			if (tmp->value[0] == '$')
-				tmp->value = ft_getenv(tmp->value + 1, env);
+			tmp = tmp->next;
+			while (tmp->type == WHITESPACE)
+					tmp = tmp->next;
+			while (tmp && check_arguments(tmp->type))
+				tmp = tmp->next;
 		}
-		if (tmp->type == DOUBLE_QUOTE)
+		if (tmp && (tmp->type == DOUBLE_QUOTE || tmp->type == WORD))
 			tmp->value = ft_quote_expander(tmp->value, env);
-		tmp = tmp->next;
+		if (tmp)
+			tmp = tmp->next;
 	}
 	join_word_tokens(lexe);
 	indexer(&lexe);
 	lex_without_spaces = rm_space(lexe);
+	tmp = lex_without_spaces;
+	while(tmp)
+	{
+		if (tmp->type == HEREDOC && !heredoc_red(&cmd, &tmp,env))
+			return (NULL);
+		tmp = tmp->next;
+	}
 	// free_token(lexe);
 	cmd = check_lex(lex_without_spaces, env);
-	if (cmd)
-		cmd->envs = envs;
+	// if (cmd)
+	// 	cmd->envs = envs;
 	// free_token(lex_without_spaces);
 	return (cmd);
 }
@@ -174,7 +181,6 @@ int main(int ac, char **av, char **env)
 	
 	export = NULL;
 	fill_export(&export, env);
-	fill_export_with_1(&export);
 	t_parsed *cmd = NULL;
 
 	signal(SIGQUIT, sigint_handler);

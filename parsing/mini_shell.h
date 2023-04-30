@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/28 15:02:52 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/30 13:35:04 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@
 #define HEREDOC 55
 #define VAR 7
 #define SYNTAX_ERROR 9
+
+extern struct globvar
+{
+	int sigquit;
+}glob;
 
 //for the lexer part
 typedef struct s_token{	

@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/28 13:31:26 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/04/30 10:55:51 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ int heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 	char *delimiter;
 	int	delimiter_type;
 	t_token *remember;
+	*cmd = malloc(sizeof(t_parsed));
+	(*cmd)->args = NULL;
+	if (!(*cmd))
+		return (0);
 	if ((*tmp)->next && (check_arguments((*tmp)->next->type)))
 	{
-		if (!*cmd)
-		{
-			*cmd = malloc(sizeof(t_parsed));
-			(*cmd)->args = NULL;
-		}
-		if (!(*cmd))
-			return (0);
 		delimiter = (*tmp)->next->value;
 		delimiter_type = (*tmp)->next->type;
 		(*tmp)->next = (*tmp)->next->next;
