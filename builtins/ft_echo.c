@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../mini_shell.h"
 
 int ft_is_n(char *str)
 {

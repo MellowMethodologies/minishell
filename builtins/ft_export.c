@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../mini_shell.h"
 
 int there_already(char *str1, t_export **export)
 {

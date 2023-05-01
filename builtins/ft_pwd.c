@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../mini_shell.h"
 
 void ft_pwd(t_parsed *lexe)
 {

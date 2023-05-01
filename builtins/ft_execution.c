@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../mini_shell.h"
 
 void ft_dup(t_parsed *lexe, int is_first, int count)
 {

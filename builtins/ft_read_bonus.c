@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 03:31:37 by isbarka           #+#    #+#             */
-/*   Updated: 2023/02/12 18:06:37 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/01 12:17:08 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../mini_shell.h"
 
 void	ft_putstr(int fd, char *str)
 {

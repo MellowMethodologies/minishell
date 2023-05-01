@@ -6,11 +6,11 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 15:55:15 by isbarka           #+#    #+#             */
-/*   Updated: 2023/04/27 18:03:09 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/01 12:17:11 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../mini_shell.h"
 
 // static char	*ft_word(const char *s, char c)
 // {
