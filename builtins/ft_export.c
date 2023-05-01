@@ -163,8 +163,9 @@ void ft_export(t_parsed *lexe, t_export **export)
         {
             if(error_var(lexe->args[i]) == 1)
             {
+                //remove this and don't exit in error
                 write(2, "error input\n", 12);
-                exit(1);
+                // exit(1);
             }
             else
             {

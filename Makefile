@@ -7,7 +7,7 @@ SRCS_2 = ./parsing/main.c ./parsing/lexer.c ./parsing/list_utils.c ./parsing/lex
 SRCS=$(SRCS_LIBFT) $(SRCS_BUILTINS) $(SRCS_2)
 
 
-SRCS_LIBFT =		./libft/ft_itoa.c ./libft/ft_split.c ./libft/ft_strmapi.c ./libft/ft_putchar_fd.c ./libft/ft_putstr_fd.c ./libft/ft_striteri.c\
+SRCS_LIBFT = ./libft/ft_itoa.c ./libft/ft_split.c ./libft/ft_strmapi.c ./libft/ft_putchar_fd.c ./libft/ft_putstr_fd.c ./libft/ft_striteri.c\
 			./libft/ft_putendl_fd.c ./libft/ft_putnbr_fd.c ./libft/ft_strtrim.c ./libft/ft_strjoin.c ./libft/ft_atoi.c ./libft/ft_bzero.c\
 			./libft/ft_calloc.c ./libft/ft_isalnum.c ./libft/ft_isalpha.c ./libft/ft_isascii.c ./libft/ft_isdigit.c ./libft/ft_isprint.c\
 			./libft/ft_memchr.c ./libft/ft_memcmp.c ./libft/ft_memcpy.c ./libft/ft_memmove.c ./libft/ft_memset.c ./libft/ft_strchr.c\

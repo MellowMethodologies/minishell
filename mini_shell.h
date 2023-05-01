@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/01 12:26:52 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/02 00:39:59 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ extern struct	s_globvar
 //for the lexer part
 typedef struct s_token{	
 	int				type;
-	int				dollars;
+	int				ambiguous;
 	char			*value;
 	int				index;
 	struct s_token	*next;
@@ -90,6 +90,8 @@ typedef struct s_var
 	t_token			*lexe;
 	t_token			*lex_without_spaces;
 	t_parsed		*head;
+	char			*temp;
+	char			*result;
 	char			*res;
 	char			*var;
 	char			*value;
@@ -113,9 +115,9 @@ int			check_arguments(int c);
 int			check_redirection(int c);
 void		join_word_tokens(t_token *lex);
 void		args_creation(t_parsed **cmd, t_token *tmp);
-int			less_red(t_parsed **cmd, t_token **tmp);
-int			great_red(t_parsed **cmd, t_token **tmp);
-int			append_red(t_parsed **cmd, t_token **tmp);
+int			less_red(t_parsed **cmd, t_token *tmp);
+int			great_red(t_parsed **cmd, t_token *tmp);
+int			append_red(t_parsed **cmd, t_token *tmp);
 int			heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env);
 t_token		*rm_space(t_token *lex);
 t_token		*find_node(t_token *lex, int index);

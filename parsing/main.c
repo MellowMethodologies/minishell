@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/01 12:03:09 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/02 00:41:48 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 	int i = 1;
 	int args;
 	t_token *tmp1;
-	tmp1 = tmp;
 	t_token *prev;
+	
+	tmp1 = tmp;
 	args = 0;
 
 	while (tmp)
@@ -75,20 +76,20 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 //the parser part
 t_parsed	*check_lex(t_token *lex, t_export *env)
 {
-	t_parsed *head = NULL;
-	t_parsed *cmd = NULL;
-	t_token *tmp = lex;
-	while (tmp) 
+	t_parsed	*head = NULL;
+	t_parsed	*cmd = NULL;
+	t_token		*tmp = lex;
+	while (tmp)
 	{
 		if (cmd == NULL)
 			args_creation(&cmd, tmp);
-		if (check_redirection(tmp-> type)) 
+		if (check_redirection(tmp->type)) 
 		{
-			if (tmp->type == GREAT && !great_red(&cmd, &tmp))
+			if (tmp->type == GREAT && !great_red(&cmd, tmp))
 				return (NULL);
-			else if (tmp->type == LESS && !less_red(&cmd, &tmp))
+			else if (tmp->type == LESS && !less_red(&cmd, tmp))
 				return (NULL);
-			else if (tmp->type == GREATGREAT && !append_red(&cmd, &tmp))
+			else if (tmp->type == GREATGREAT && !append_red(&cmd, tmp))
 				return (NULL);
 		}
 		if (tmp->type == PIPE)
@@ -114,6 +115,11 @@ void	ft_expand(t_token *lexe, t_export *env)
 	tmp = lexe;
 	while (tmp)
 	{
+		if ((tmp->type == GREAT || tmp->type == GREATGREAT || tmp->type == LESS)
+			&& (tmp->next->type == WORD && tmp->next->value[0] == '$'))
+			if (!ft_quote_expander(tmp->next->value, env)
+				|| ft_count(ft_quote_expander(tmp->next->value, env), ' ') > 1)
+				tmp->next->ambiguous = 1;
 		if (tmp->type == HEREDOC)
 		{
 			tmp = tmp->next;
@@ -157,9 +163,7 @@ int	main(int ac, char **av, char **env)
 	int fd[2];
 	int i;
 	char *line;
-
 	t_export *export;
-	
 	export = NULL;
 	fill_export(&export, env);
 	t_parsed *cmd = NULL;
