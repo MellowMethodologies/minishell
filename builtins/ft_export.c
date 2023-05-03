@@ -225,6 +225,9 @@ int arg_exist(char *str, t_export **export)
 
 void show_export(t_export **export, t_parsed *lexe)
 {
+
+
+    
     t_export *tmp = (*export);
     while(tmp)
     {
