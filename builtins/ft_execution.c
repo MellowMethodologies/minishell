@@ -115,6 +115,7 @@ void ft_change_exit_st(t_export **export, int exit_statu)
 
 void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
+    write(2, "tttt\n", 5);
     t_parsed *lexe = lexe_1;
     int exit_status = 0;
     int count = 0;
