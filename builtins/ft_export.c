@@ -227,13 +227,15 @@ void show_export(t_export **export, t_parsed *lexe)
     t_export *tmp = (*export);
     while(tmp)
     {
-        if(tmp->there_is_equal == 0)
+        if(strcmp(tmp->variable, "?") == 0)
+            tmp = tmp->next;
+        if(tmp && tmp->there_is_equal == 0)
         {
             ft_putstr_fd("declare -x " , 1);
             ft_putstr_fd(tmp->variable , 1);
             write(1, "\n", 1);
         }
-        else if (tmp->there_is_equal == 1 && tmp->value == NULL)
+        else if (tmp && tmp->there_is_equal == 1 && tmp->value == NULL)
         {
             ft_putstr_fd("declare -x " , 1);
             ft_putstr_fd(tmp->variable , 1);
@@ -241,7 +243,7 @@ void show_export(t_export **export, t_parsed *lexe)
             write(1, "\n", 1);
 
         }
-        else
+        else if (tmp)
         {
             ft_putstr_fd("declare -x " , 1);
             ft_putstr_fd(tmp->variable , 1);
@@ -250,7 +252,8 @@ void show_export(t_export **export, t_parsed *lexe)
             ft_putstr_fd(tmp->value , 1);
             ft_putstr_fd("\"" , 1);
             write(1, "\n", 1);
-        } 
-        tmp = tmp->next;
+        }
+        if(tmp)
+            tmp = tmp->next;
     }
 }

@@ -105,9 +105,18 @@ void fill_export_with_1(t_export **export)
     }
 }
 
+void ft_change_exit_st(t_export **export, int exit_statu)
+{
+    t_export *tmp = (*export);
+    while(tmp && strcmp(tmp->variable, "?") != 0)
+        tmp = tmp->next;
+    tmp->value = ft_itoa(exit_statu);
+}
+
 void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
     t_parsed *lexe = lexe_1;
+    int exit_status = 0;
     int count = 0;
     int id = 0;
     pid_t status  = 100;
@@ -127,7 +136,7 @@ void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
     lexe = lexe->next;
     while(lexe && lexe->next)
     {
-        if((strcmp(lexe->args[0], "export") != 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+        if((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
             ft_cmnd_one(lexe, count, 0,export);
         else
         {
@@ -142,10 +151,11 @@ void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
         lexe = lexe->next;
         count++;
     }
+    write(2, "test\n", 5);
     if(lexe)
     {
-        if((strcmp(lexe->args[0], "export") != 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
-            ft_cmnd(lexe, count, 0, export);
+        if((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+            ft_cmnd_one(lexe, count, 0, export);
         else
         {
         id = fork();
@@ -157,5 +167,6 @@ void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
         wait(&status);
         }
     }
-    printf("statu = %d\n", WEXITSTATUS(status));
+    exit_status = WEXITSTATUS(status);
+    ft_change_exit_st(export, exit_status);
 }
