@@ -152,7 +152,6 @@ void ft_export(t_parsed *lexe, t_export **export)
    int there_is_equal = -2;
 
     t_export *tmp = (*export);
-    printf("|||%s|||\n", lexe->args[1]);
     if(lexe->args[1] == NULL || strcmp(lexe->args[1], "") == 0)
     {
         show_export(export, lexe);

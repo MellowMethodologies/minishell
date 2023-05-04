@@ -64,7 +64,10 @@ void ft_execut_cmnd_one(t_parsed *lexe)
 void ft_execut_cmnd(t_parsed *lexe, t_export **export)
 {
     if(lexe->args[0] == NULL)
+    {
+        ft_change_exit_st(export, 1);
         return;
+    }
     else if(strcmp(lexe->args[0], "echo") == 0)
         ft_echo(lexe);
     else if(strcmp(lexe->args[0], "pwd") == 0)
