@@ -63,7 +63,6 @@ void ft_execut_cmnd_one(t_parsed *lexe)
 
 void ft_execut_cmnd(t_parsed *lexe, t_export **export)
 {
-
     if(strcmp(lexe->args[0], "echo") == 0)
         ft_echo(lexe);
     else if(strcmp(lexe->args[0], "pwd") == 0)
@@ -115,17 +114,16 @@ void ft_change_exit_st(t_export **export, int exit_statu)
 
 void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
-    write(2, "tttt\n", 5);
     t_parsed *lexe = lexe_1;
     int exit_status = 0;
     int count = 0;
     int id = 0;
     pid_t status  = 100;
-    if(lexe == NULL)
-        return ;
     lexe->envs = env;
-    if((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+    if(lexe->args[0] && ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
+    {
         ft_cmnd_one(lexe, count, 1,export);
+    }
     else
     {
         id = fork();
@@ -137,15 +135,19 @@ void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
     lexe = lexe->next;
     while(lexe && lexe->next)
     {
-        if((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
-            ft_cmnd_one(lexe, count, 0,export);
+        if(lexe->args[0] && ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
+        {
+                ft_cmnd_one(lexe, count, 0,export);
+        }
         else
         {
             id = fork();
             if(id == 0)
             {
                 lexe->envs = env;
-                ft_cmnd(lexe, count, 0,export);
+                {
+                    ft_cmnd(lexe, count, 0,export);
+                }
             }
             wait(&status);
         }
@@ -155,8 +157,10 @@ void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
     write(2, "test\n", 5);
     if(lexe)
     {
-        if((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0)
+        if(lexe->args[0] && ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
+        {
             ft_cmnd_one(lexe, count, 0, export);
+        }
         else
         {
         id = fork();
