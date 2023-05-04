@@ -63,7 +63,9 @@ void ft_execut_cmnd_one(t_parsed *lexe)
 
 void ft_execut_cmnd(t_parsed *lexe, t_export **export)
 {
-    if(strcmp(lexe->args[0], "echo") == 0)
+    if(lexe->args[0] == NULL)
+        return;
+    else if(strcmp(lexe->args[0], "echo") == 0)
         ft_echo(lexe);
     else if(strcmp(lexe->args[0], "pwd") == 0)
         ft_pwd(lexe);
@@ -120,7 +122,7 @@ void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
     int id = 0;
     pid_t status  = 100;
     lexe->envs = env;
-    if(lexe->args[0] && ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
+    if(!lexe->args[0] || ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
     {
         ft_cmnd_one(lexe, count, 1,export);
     }
@@ -135,7 +137,7 @@ void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
     lexe = lexe->next;
     while(lexe && lexe->next)
     {
-        if(lexe->args[0] && ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
+        if(!lexe->args[0] || ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
         {
                 ft_cmnd_one(lexe, count, 0,export);
         }
@@ -157,7 +159,7 @@ void    ft_execution(t_parsed *lexe_1, t_export **export, char **env)
     write(2, "test\n", 5);
     if(lexe)
     {
-        if(lexe->args[0] && ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
+        if(!lexe->args[0] || ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL) || strcmp(lexe->args[0], "unset") == 0))
         {
             ft_cmnd_one(lexe, count, 0, export);
         }
