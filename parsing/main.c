@@ -213,7 +213,7 @@ int main(int ac, char **av, char **env)
 		if (!check_quotes(line))
 			continue ;
 		cmd = parse(line, export, env);
-		// ft_execution(cmd, &export, env);
+		ft_execution(cmd, &export, env);
 		free(line);
 	}
 }

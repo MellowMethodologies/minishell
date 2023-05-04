@@ -164,4 +164,5 @@ int			word_len(const char *s, char c);
 char		**str_count(char **str, const char *s, char c);
 void		fill_export_with_1(t_export **export);
 t_export	*ft_lstnew_texport_one();
+void ft_change_exit_st(t_export **export, int exit_statu);
 #endif
