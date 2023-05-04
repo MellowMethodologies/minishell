@@ -6,22 +6,24 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:59:18 by sbadr             #+#    #+#             */
-/*   Updated: 2023/03/30 17:18:40 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/03 00:33:15 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-void indexer(t_token **lex)
+void	indexer(t_token **lex)
 {
-	t_token *temp;
+	t_token	*temp;
 	int		i;
+	int		count;
 
+	count = 1;
 	i = 0;
 	temp = *lex;
-	while(temp)
+	while (temp)
 	{
-		if(temp->type == -1)
+		if (temp->type == -1)
 			temp->index = -1;
 		else
 			temp->index = i++;
@@ -32,10 +34,10 @@ void indexer(t_token **lex)
 t_token *find_node(t_token *lex, int index)
 {
 	t_token	*temp;
-	
+
 	temp = lex;
 	if (index < 0)
-		return NULL;
+		return (NULL);
 	while (temp)
 	{
 		if (temp->index == index)
@@ -70,5 +72,5 @@ t_token *rm_space(t_token *lex)
 		}
 		curr = curr->next;
 	}
-	return new_list;
+	return (new_list);
 }

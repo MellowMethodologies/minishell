@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/01 13:06:57 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/04 12:59:12 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void handle(int sig)
 {
 }
 
-int	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
+void	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 {
 	int			pipefd[2];
 	pid_t		pid;
@@ -24,10 +24,6 @@ int	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 	char		*delimiter;
 	int			delimiter_type;
 
-	*cmd = malloc(sizeof(t_parsed));
-	(*cmd)->args = NULL;
-	if (!(*cmd))
-		return (0);
 	if ((*tmp)->next && (check_arguments((*tmp)->next->type)))
 	{
 		delimiter = (*tmp)->next->value;
@@ -36,19 +32,22 @@ int	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 	}
 	else if (!(*tmp)->next || !(check_arguments((*tmp)->next-> type)))
 	{
-		ft_putstr_fd("syntax error near unexpected '<<\n", 2);
-		return (0);
+		(*cmd)->error_str="syntax error near unexpected '<<\n";
+		(*cmd)->error = 1;
+		return ;
 	}
 	if (pipe(pipefd) < 0)
 	{
-		ft_putstr_fd("pipe error!\n", 2);
-		return (0);
+		(*cmd)->error_str="pipe error!\n";
+		(*cmd)->error = 1;
+		return ;
 	}
 	pid = fork();
 	if (pid < 0)
 	{
-		ft_putstr_fd("fork error !\n", 2);
-		return (0);
+		(*cmd)->error_str="fork error !\n";
+		(*cmd)->error = 1;
+		return ;
 	}
 	else if (pid == 0)
 	{
@@ -56,7 +55,6 @@ int	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 		while (1)
 		{
 			line = readline("> ");
-
 			if (!ft_strcmp(line, delimiter))
 			{
 				free(line);
@@ -77,7 +75,7 @@ int	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 		wait(0);
 		close(pipefd[1]);
 		(*cmd)->in = pipefd[0];
-		return (1);
+		return ;
 	}
 	(*tmp) = (*tmp)->next;
 }

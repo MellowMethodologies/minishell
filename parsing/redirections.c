@@ -6,94 +6,95 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:03:08 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/02 00:46:24 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/04 13:37:09 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-int	great_red(t_parsed **cmd, t_token *tmp)
+void	great_red(t_parsed *cmd, t_token *tmp)
 {
 	int	fd;
 
-	if (!cmd || !tmp->next || !check_arguments(tmp->next->type))
+	if (!tmp->next || !check_arguments(tmp->next->type))
 	{
-		ft_putstr_fd("syntax error near unexpected token '>\n", 2); 
-		return (0);
+		cmd->error_str = "syntax error near unexpected token '<'\n";
+		cmd->error = 1;
+		return ;
 	}
 	else if (tmp->next->ambiguous == 1)
 	{
-		ft_putstr_fd("ambiguous redirect\n", 2); 
-		return (0);
+		cmd->error_str = "ambiguous redirect\n"; 
+		cmd->error = 2;
+		return ;
 	}
 	fd = open(tmp->next->value, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd < 0)
 	{
-		ft_putstr_fd("error opening file\n", 2); 
-		if (*cmd)
-			(*cmd)->args = NULL;
-		return (1);
+		cmd->error_str = "error opening file\n";
+		cmd->error = 2;
+		return ;
 	}
-	if (*cmd)
-		(*cmd)->out = fd;
+	if (cmd)
+		cmd->out = fd;
 	tmp = tmp->next;
-	return (1);
+	cmd->error = 0;
 }
 
-int	append_red(t_parsed **cmd, t_token *tmp)
+void	append_red(t_parsed *cmd, t_token *tmp)
 {
 	int	fd;
 
 	if (!cmd || !tmp->next || !check_arguments(tmp->next-> type))
 	{
-		tmp = tmp->next;
-		ft_putstr_fd("syntax error near unexpected token '>\n", 2); 
-		return (0);
+		cmd->error_str = "syntax error near unexpected token '<'\n";
+		cmd->error = 1;
+		return ;
 	}
 	else if (tmp->next->ambiguous == 1)
 	{
-		ft_putstr_fd("ambiguous redirect\n", 2); 
-		return (0);
+		cmd->error_str = "ambiguous redirect\n"; 
+		cmd->error = 2;
+		return ;
 	}
 	fd = open(tmp->next->value, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd < 0)
 	{
-		ft_putstr_fd("error opening file\n", 2);
-		if (*cmd)
-			(*cmd)->args = NULL;
-		return (1);
+		cmd->error_str = "error opening file\n";
+		cmd->error = 2;
+		return ;
 	}
-	if (*cmd)
-		(*cmd)->out = fd;
+	if (cmd)
+		cmd->out = fd;
 	tmp = tmp->next;
-	return (1);
+	cmd->error = 0;
 }
 
-int	less_red(t_parsed **cmd, t_token *tmp)
+void	less_red(t_parsed *cmd, t_token *tmp)
 {
 	int	fd;
 
 	if (!cmd || !tmp->next || !check_arguments(tmp->next-> type))
 	{
-		tmp = tmp->next;
-		ft_putstr_fd("syntax error near unexpected token '<'\n", 2); 
-		return (0);
+		cmd->error_str = "syntax error near unexpected token '<'\n";
+		cmd->error = 1;
+		return ;
 	}
 	else if (tmp->next->ambiguous == 1)
 	{
-		ft_putstr_fd("ambiguous redirect\n", 2); 
-		return (0);
+		cmd->error_str = "ambiguous redirect\n"; 
+		cmd->error = 2;
+		return ;
 	}
 	fd = open(tmp->next->value, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("error opening file\n", 2);
-		if (*cmd)
-			(*cmd)->args = NULL;
-		return (1);
+		cmd->error_str = "error opening file\n";
+		cmd->error = 2;
+		return ;
 	}
-	if (*cmd)
-		(*cmd)->in = fd;
+	if (cmd)
+		cmd->in = fd;
 	tmp = tmp->next;
-	return (1);
+	cmd->error = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/01 11:58:25 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/04 12:58:16 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,12 @@ t_token* lexer(char *str, t_export *env)
 			space_it(&lex, str, &i);
 		else if (str[i] == '$' && str[i + 1] == '$' && !c)
 			i += 1;
+		else if ((str[i] == 34 && str[i + 1] == 34)
+			|| (str[i] == 39 && str[i + 1] == 39))
+		{
+			add_back(&lex, ft_lstne("", DOUBLE_QUOTE));
+			i += 1;
+		}
 		else if (str[i] == 34 || str[i] == 39)
 			check_for_quotes(&lex, str, &i);
 		else if (str[i] == '>' || str[i] == '<' || str[i] == '|')
@@ -164,4 +170,3 @@ t_token* lexer(char *str, t_export *env)
 	join_word_tokens(lex);
 	return (lex);
 }
-	

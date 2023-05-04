@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/01 18:02:38 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/04 01:33:20 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char *ft_quote_expander(char *str, t_export *env)
 			j = i + 1;
 			while (ft_isalnum(str[j]) || str[j] == '_')
 				j++;
-			char *var = ft_substr(str, i, j - i);
+			char *var = ft_substr(str, i, j - i +1);
 			char *value = ft_getenv(1 + var, env);
 			if (value)
 			{
