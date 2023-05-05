@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/04 16:19:16 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/05 18:59:42 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int args_count(t_token *lst)
 	return (i);
 }
 
-void	args_creation(t_parsed **cmd_ptr, t_token *tmp)
+void args_creation(t_parsed **cmd_ptr, t_token *tmp)
 {
-	int		i = 0;
-	int		args;
+	int i = 0;
+	int args;
 	t_token *tmp1;
 	t_token *prev;
 
@@ -58,9 +58,7 @@ void	args_creation(t_parsed **cmd_ptr, t_token *tmp)
 		}
 		if (tmp)
 			prev = find_node(tmp1, tmp->index - 1);
-		if ((check_arguments(tmp->type) == 1 && (tmp->index == 0 || !prev))
-			|| ((check_arguments(tmp->type) == 1) && prev
-				&& check_redirection(prev->type) == 0))
+		if ((check_arguments(tmp->type) == 1 && (tmp->index == 0 || !prev)) || ((check_arguments(tmp->type) == 1) && prev && check_redirection(prev->type) == 0))
 			(*cmd_ptr)->args[i++] = ft_strdup(tmp->value);
 		else if (tmp->type == PIPE)
 			break ;
@@ -75,11 +73,12 @@ void	ft_expand(t_token *lexe, t_export *env)
 	tmp = lexe;
 	while (tmp)
 	{
-		if ((tmp->type == GREAT || tmp->type == GREATGREAT || tmp->type == LESS)
-			&& tmp->next && (tmp->next->type == WORD && tmp->next->value[0] == '$'))
+		if ((tmp->type == GREAT || tmp->type == GREATGREAT
+				|| tmp->type == LESS) && tmp->next
+			&& (tmp->next->type && tmp->next->value[0] == '$'))
 			if (!ft_quote_expander(tmp->next->value, env)
 				|| ft_count(ft_quote_expander(tmp->next->value, env), ' ') > 1)
-					tmp->next->ambiguous = 1;
+				tmp->next->ambiguous = 1;
 		if (tmp && tmp->type == HEREDOC)
 		{
 			tmp = tmp->next;
@@ -95,52 +94,73 @@ void	ft_expand(t_token *lexe, t_export *env)
 	}
 }
 
-void	check_lex(t_parsed *head, t_token *lex)
+void check_lex(t_parsed *head, t_token *lex)
 {
 	t_token		*tmp;
-	t_parsed	*tmp1;
-	int c;
+	int			c;
 
+	c = 0;
 	tmp = lex;
-	tmp1 = head;
-	while (tmp1)
+	if (head->error == 1)
 	{
-		c = 0;
-		if (tmp1->error == 1)
-		{
-			printf("tmp1->error = %d | c %d\n", tmp1->error, c);
-			printf("%s", tmp1->error_str);
-			break ;
-		}
+		printf("%s", head->error_str);
+		head = head->next;
+	}
+	while (head)
+	{
 		while (tmp && c == 0)
 		{
 			if (tmp && tmp->type == GREAT)
-				great_red(tmp1, tmp);
+				great_red(head, tmp);
 			else if (tmp && tmp->type == LESS)
-				less_red(tmp1, tmp);
+				less_red(head, tmp);
 			else if (tmp && tmp->type == GREATGREAT)
-				append_red(tmp1, tmp);
+				append_red(head, tmp);
 			else if (tmp && tmp->type == PIPE)
-			{
-				if (!tmp->next || (tmp->next && check_redirection(tmp->next->type)))
-				{
-					tmp1->error_str = "parse error near `|\'\n";
-					tmp1->error = 1;
-				}
 				c = 1;
-			}
-			else if (tmp1 && tmp1->error == 2)
-			{
-				c = 1;
-			}
 			tmp = tmp->next;
 		}
-		tmp1 = tmp1->next;
+		c = 0;
+		if (head->error == 2)
+		{
+			printf("%s", head->error_str);
+			break ;
+		}
+		else if (head->error == 1)
+		{
+			printf("%s", head->error_str);
+			head = head->next;
+			continue ;
+		}
+		head = head->next;
 	}
 }
 
+int	check_syntax(t_token *tmp)
+{
+	t_token	*prev;
+	t_token	*lex;
 
-void *parse(char *str, t_export *env, char **envs)
+	lex = tmp;
+	while (tmp)
+	{
+		prev = find_node(lex, tmp->index - 1);
+		if ((check_redirection(tmp->type) && !tmp->next)
+			|| (((check_redirection(tmp->type)
+						&& (prev && check_redirection(prev->type)))
+					|| (check_redirection(tmp->type)
+						&& tmp->next->type == PIPE))
+				|| (tmp->type == PIPE && tmp->index == 0)))
+		{
+			ft_putstr_fd("syntax error\n", 2);
+			return (0);
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+void	*parse(char *str, t_export *env, char **envs)
 {
 	t_parsed	*cmd;
 	t_parsed	*head;
@@ -174,22 +194,9 @@ void *parse(char *str, t_export *env, char **envs)
 			tmp = tmp->next;
 	}
 	add_back_parsed(&head, cmd);
+	if (!check_syntax(lex_without_spaces))
+		return (head);
 	check_lex(head, lex_without_spaces);
-	cmd = head;
-	// int i;
-	// while(cmd)
-	// {
-	// 	printf("in = %d out = %d\n",cmd->in,cmd->out);
-	// 	i = 0;
-	// 	while(cmd->args[i])
-	// 	{
-	// 		printf("{arg = %s}",cmd->args[i]);
-	// 		i++;
-	// 	}
-	// 	cmd = cmd->next;
-	// }
-	if (cmd)
-		cmd->envs = envs;
 	return (head);
 }
 
@@ -207,8 +214,12 @@ int main(int ac, char **av, char **env)
 	while (1)
 	{
 		line = readline("minishell> ");
-		if (!line || !ft_strcmp(line, "exit"))
+		if (strcmp(line, "") == 0)
+			continue;
+		if (!line)
 			break ;
+		if (!ft_strcmp(line,"\n"))
+			continue ;
 		add_history(line);
 		if (!check_quotes(line))
 			continue ;

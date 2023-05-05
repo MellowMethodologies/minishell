@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/04 12:59:12 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/05 17:23:53 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,17 @@ void	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 		delimiter_type = (*tmp)->next->type;
 		(*tmp)->next = (*tmp)->next->next;
 	}
-	else if (!(*tmp)->next || !(check_arguments((*tmp)->next-> type)))
-	{
-		(*cmd)->error_str="syntax error near unexpected '<<\n";
-		(*cmd)->error = 1;
-		return ;
-	}
 	if (pipe(pipefd) < 0)
 	{
-		(*cmd)->error_str="pipe error!\n";
-		(*cmd)->error = 1;
+		(*cmd)->error_str = "pipe error!\n";
+		(*cmd)->error = 2;
 		return ;
 	}
 	pid = fork();
 	if (pid < 0)
 	{
-		(*cmd)->error_str="fork error !\n";
-		(*cmd)->error = 1;
+		(*cmd)->error_str = "fork error !\n";
+		(*cmd)->error = 2;
 		return ;
 	}
 	else if (pid == 0)

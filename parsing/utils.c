@@ -6,66 +6,11 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/04 01:33:20 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/04 16:50:56 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
-
-// void	completer(char *str, t_var *va, t_export *env)
-// {
-// 	while (str[va->i])
-// 	{
-// 		if (str[va->i] == '$')
-// 		{
-// 			va->dollar_found = 1;
-// 			va->j = va->i + 1;
-// 			while (ft_isalnum(str[va->j]) || str[va->j] == '_')
-// 				va->j++;
-// 			va->var = ft_substr(str, va->i, va->j - va->i);
-// 			va->value = ft_getenv(1 + va->var, env);
-// 			if (va->value)
-// 			{
-// 				va->temp = va->result;
-// 				va->result = ft_strjoin(va->result, ft_substr(str, 0, va->i));
-// 				free(va->temp);
-// 				va->temp = va->result;
-// 				va->result = ft_strjoin(va->result, va->value);
-// 				free(va->temp);
-// 				str += va->j;
-// 				va->i = -1;
-// 			}
-// 			else
-// 				free(va->var);
-// 		}
-// 		va->i++;
-// 	}
-// }
-
-// char	*ft_quote_expander(char *str, t_export *env)
-// {
-// 	t_var	*va;
-
-// 	va = malloc(sizeof(t_var));
-// 	va->dollar_found = 0;
-// 	va->i = 0;
-// 	va->j = 0;
-// 	va->result=ft_strdup("");
-// 	completer(str, va, env);
-// 	if (va->dollar_found)
-// 	{
-// 		va->temp = va->result;
-// 		va->result = ft_strjoin(va->result, str);
-// 		free(va->temp);
-// 	}
-// 	else
-// 	{
-// 		free(va->result);
-// 		va->result = ft_strdup(str);
-// 	}
-// 	return (va->result);
-// }
-
 
 char *ft_quote_expander(char *str, t_export *env)
 {
