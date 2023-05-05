@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/05 15:55:02 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/05 17:09:26 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,32 @@ void	ft_change_exit_st(t_export **export, int exit_statu)
 	tmp->value = ft_itoa(exit_statu);
 }
 
+void ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
+{
+	int	id;
+
+	id = 0;
+	if (lexe)
+	{
+		if (!lexe->args[0]
+			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
+				|| strcmp(lexe->args[0], "unset") == 0))
+			ft_cmnd_one(lexe, (*ex_vars)->count, 0, export);
+		else
+		{
+			id = fork();
+			if (id == 0)
+			{
+				lexe->envs = (*ex_vars)->env;
+				ft_cmnd(lexe, (*ex_vars)->count, 0, export);
+			}
+			wait(&((*ex_vars)->status));
+		}
+	}
+	(*ex_vars)->exit_status = WEXITSTATUS((*ex_vars)->status);
+	ft_change_exit_st(export, (*ex_vars)->exit_status);
+}
+
 void	ft_execution_1(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 {
 	int	id;
@@ -161,25 +187,8 @@ void	ft_execution_1(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 		lexe = lexe->next;
 		(*ex_vars)->count = (*ex_vars)->count + 1;
 	}
-	if (lexe)
-	{
-		if (!lexe->args[0]
-			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
-				|| strcmp(lexe->args[0], "unset") == 0))
-			ft_cmnd_one(lexe, (*ex_vars)->count, 0, export);
-		else
-		{
-			id = fork();
-			if (id == 0)
-			{
-				lexe->envs = (*ex_vars)->env;
-				ft_cmnd(lexe, (*ex_vars)->count, 0, export);
-			}
-			wait(&((*ex_vars)->status));
-		}
-	}
-	(*ex_vars)->exit_status = WEXITSTATUS((*ex_vars)->status);
-	ft_change_exit_st(export, (*ex_vars)->exit_status);
+	ft_execution_2(lexe, export, ex_vars);
+	
 }
 
 void	ft_instantiate_ex_vars(t_ex_vars **ex_vars, char **env)
