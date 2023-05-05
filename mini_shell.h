@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/04 12:57:58 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/05 15:57:08 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ extern struct	s_globvar
 {
 	int	sigquit;
 }	t_glob;
+
+//for the execution part
+typedef struct s_ex_vars{	
+	int			exit_status;
+	int			count;
+	int			id;
+	pid_t		status;
+	char		**env;
+}	t_ex_vars;
 
 //for the lexer part
 typedef struct s_token{	
@@ -98,7 +107,6 @@ typedef struct s_var
 	char			*value;
 	char			**envs;
 }	t_var;
-
 
 char		*ft_quote_expander(char *str, t_export *env);
 t_export	*ft_lstnew_export(void *var, char *value);
