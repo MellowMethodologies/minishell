@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/05 17:09:26 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/05 20:57:53 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,8 +202,19 @@ void	ft_instantiate_ex_vars(t_ex_vars **ex_vars, char **env)
 	(*ex_vars)->env = env;
 }
 
+void show_args(t_parsed *lexe)
+{
+	t_parsed *tmp = lexe;
+	while(tmp)
+	{
+		printf("%s\n", tmp->args[0]);
+		tmp = tmp->next;
+	}
+}
+
 void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
+	// show_args(lexe_1);
 	t_parsed	*lexe;
 	t_ex_vars	*ex_vars;
 
@@ -220,8 +231,8 @@ void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 		ft_cmnd_one(lexe, ex_vars->count, 1, export);
 	else
 	{
-		ex_vars->count = fork();
-		if (ex_vars->count == 0)
+		ex_vars->id  = fork();
+		if (ex_vars->id  == 0)
 			ft_cmnd(lexe, ex_vars->count, 1, export);
 		wait(&(ex_vars->status));
 	}
