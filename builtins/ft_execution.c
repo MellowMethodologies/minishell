@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/05 20:57:53 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/05 22:05:30 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,8 @@ void show_args(t_parsed *lexe)
 	while(tmp)
 	{
 		printf("%s\n", tmp->args[0]);
+		printf("in = %d\n", tmp->in);
+		printf("out = %d\n", tmp->out);
 		tmp = tmp->next;
 	}
 }
@@ -239,4 +241,6 @@ void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 	ex_vars->count = ex_vars->count + 1;
 	lexe = lexe->next;
 	ft_execution_1(lexe, export, &ex_vars);
+	unlink("/tmp/b.txt");
+	unlink("/tmp/a.txt");
 }
