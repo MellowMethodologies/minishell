@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/05 22:05:30 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/06 16:01:46 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_dup_1(int is_first, int *fd, int count, t_parsed *lexe)
 {
-	if (is_first == 0)
+	if (is_first == 0 && lexe->in == -2)
 	{
 		if (count % 2 == 0)
 		{
@@ -36,7 +36,7 @@ void	ft_dup(t_parsed *lexe, int is_first, int count)
 	int	fd[2];
 
 	ft_dup_1(is_first, fd, count, lexe);
-	if (lexe->next)
+	if (lexe->next && lexe->out == -2)
 	{
 		if (count % 2 == 0)
 		{
@@ -50,7 +50,9 @@ void	ft_dup(t_parsed *lexe, int is_first, int count)
 		}
 	}
 	else if (lexe->out != -2 && lexe->out != 1)
+	{
 		dup2(lexe->out, 1);
+	}
 }
 
 char	**errs(char **env)
@@ -87,19 +89,15 @@ void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
 	else if (strcmp(lexe->args[0], "echo") == 0)
 		ft_echo(lexe);
 	else if (strcmp(lexe->args[0], "pwd") == 0)
-		ft_pwd(lexe);
+		ft_pwd(lexe, export);
 	else if (strcmp(lexe->args[0], "cd") == 0)
-		ft_cd(lexe);
+		ft_cd(lexe, export);
 	else if (strcmp(lexe->args[0], "export") == 0)
 		ft_export(lexe, export);
 	else if (strcmp(lexe->args[0], "unset") == 0)
 		ft_unset(lexe, export);
 	else if (strcmp(lexe->args[0], "env") == 0)
 		show_env(export, lexe);
-	else if (strcmp(lexe->args[0], "exit") == 0)
-	{
-		exit(0);
-	}
 	else
 		ft_execut_cmnd_one(lexe);
 }
@@ -214,12 +212,21 @@ void show_args(t_parsed *lexe)
 	}
 }
 
+// void ft_exit(t_parsed *lexe1)
+// {
+// 	t_parsed *tmp = lexe1;
+// 	if(tmp && strcmp("exit", tmp->args[0]) == 0 && ft_isdigit() && tmp->args[2] == NULL)
+// 	{
+// 		exit()
+// 	}
+// }
 void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
 	// show_args(lexe_1);
 	t_parsed	*lexe;
 	t_ex_vars	*ex_vars;
 
+	// ft_exit(lexe_1);
 	ft_instantiate_ex_vars(&ex_vars, env);
 	lexe = lexe_1;
 	ex_vars->exit_status = 0;

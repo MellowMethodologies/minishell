@@ -1,6 +1,15 @@
 #include "../mini_shell.h"
 
-void ft_go_home(char *home)
+void ft_setenv(char *variable, char *new_value, t_export **export)
+{
+    t_export *tmp = (*export);
+
+    while(tmp && strcmp(tmp->variable, variable) != 0)
+        tmp = tmp->next;
+    tmp->value = ft_strdup(new_value);
+}
+
+void ft_go_home(char *home, t_export **export)
 {
     char cwd[1024];
     if(chdir(home) != 0)
@@ -10,11 +19,13 @@ void ft_go_home(char *home)
     }
     char *oldpwd = getenv("PWD");
     setenv("OLDPWD", oldpwd, 1);
+    ft_setenv("OLDPWD", oldpwd, export);
     getcwd(cwd, 1024);
     setenv("PWD", cwd, 1);
+    ft_setenv("PWD", cwd, export);
 }
 
-void ft_go_direction(char *dir)
+void ft_go_direction(char *dir, t_export **export)
 {
     char cwd[1024];
     if(chdir(dir) != 0)
@@ -24,19 +35,32 @@ void ft_go_direction(char *dir)
     }
     char *oldpwd = getenv("PWD");
     setenv("OLDPWD", oldpwd, 1);
+    ft_setenv("OLDPWD", oldpwd, export);
     getcwd(cwd, 1024);
     setenv("PWD", cwd, 1);
+    ft_setenv("PWD", cwd, export);
 }
 
-void ft_cd(t_parsed *lexe)
+char *ft_home(t_export **export)
 {
-    char *home = getenv("HOME");
+    t_export *tmp = (*export);
+
+    while(tmp && strcmp(tmp->variable, "HOME") != 0)
+    {
+        tmp = tmp->next;
+    }
+    return (tmp->value);
+}
+
+void ft_cd(t_parsed *lexe, t_export **export)
+{
+    char *home = ft_home(export);
     if(lexe->args[1] == NULL)
     {
-        ft_go_home(home);
+        ft_go_home(home, export);
     }
     else
     {
-        ft_go_direction(lexe->args[1]);
+        ft_go_direction(lexe->args[1], export);
     }
 }
