@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/05 17:23:53 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 00:16:09 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void handle(int sig)
 {
+	exit(1);
 }
 
 void	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
@@ -48,6 +49,7 @@ void	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 		close(pipefd[0]);
 		while (1)
 		{
+			signal(SIGINT, handle);
 			line = readline("> ");
 			if (!ft_strcmp(line, delimiter))
 			{

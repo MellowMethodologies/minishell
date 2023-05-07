@@ -2,7 +2,7 @@
 SRCS_2 = ./parsing/main.c ./parsing/lexer.c ./parsing/list_utils.c ./parsing/lexer.c \
 		./parsing/lst.c ./parsing/free_functionss.c ./parsing/redirections.c\
 		./parsing/heredoc.c ./parsing/checkers.c ./parsing/utils.c \
-		./parsing/global_used_utils.c 
+		./parsing/global_used_utils.c ./parsing/lexer_functions.c
 
 SRCS=$(SRCS_LIBFT) $(SRCS_BUILTINS) $(SRCS_2)
 
@@ -22,13 +22,13 @@ SRCS_BUILTINS= ./builtins/check_error_bonus.c ./builtins/env.c  ./builtins/ft_cd
 
 OBJS := $(SRCS:.c=.o)
 CC  = cc -g #-fsanitize=address
-CFLAGS =  -lreadline -Wall -Wextra -Werror
+CFLAGS = -I/USERS/sbadr/.brew/opt/readline/include -lreadline -Wall -Wextra -Werror
 NAME = minishell
 
 all: $(NAME)
 	
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^  -o $(NAME)
+	$(CC) $(CFLAGS) $^ -lreadline -L/USERS/sbadr/.brew/opt/readline/lib -lhistory -o $(NAME)
 
 %.o: %.c mini_shell.h 
 	$(CC) -c $< -o $@

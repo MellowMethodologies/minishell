@@ -6,19 +6,23 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/04 16:50:56 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 00:06:50 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-char *ft_quote_expander(char *str, t_export *env)
+char	*ft_quote_expander(char *str, t_export *env)
 {
-	char *result = ft_strdup("");
-	int i = 0;
-	int j = 0;
-	int dollar_found = 0;
+	char	*result;
+	char	*temp;
+	char	*var;
+	char	*value;
+	int		i = 0;
+	int		j = 0;
+	int		dollar_found = 0;
 
+	result = ft_strdup("");
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -27,14 +31,15 @@ char *ft_quote_expander(char *str, t_export *env)
 			j = i + 1;
 			while (ft_isalnum(str[j]) || str[j] == '_')
 				j++;
-			char *var = ft_substr(str, i, j - i +1);
-			char *value = ft_getenv(1 + var, env);
+			var = ft_substr(str, i, j - i);
+			value = ft_getenv(1 + var, env);
+
 			if (value)
 			{
-				char *temp = result;
+				temp = ft_strdup(result);
 				result = ft_strjoin(result, ft_substr(str, 0, i));
 				free(temp);
-				temp = result;
+				temp = ft_strdup(result);
 				result = ft_strjoin(result, value);
 				free(temp);
 				str += j;
@@ -77,6 +82,7 @@ char	*ft_getenv(char *var, t_export *env)
 		if (ft_strcmp(s1, var) == 0)
 		{
 			result = ft_strdup(s2);
+
 			if (ft_count(result, ' ') > 1)
 				s = ft_split(result, 2);
 			free(s1);

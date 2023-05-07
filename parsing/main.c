@@ -6,32 +6,34 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/05 18:59:42 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 00:06:28 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-int args_count(t_token *lst)
+int	args_count(t_token *lst)
 {
-	t_token *tmp;
-	int i = 0;
+	t_token	*tmp;
+	int		i;
 
+	i = 0;
 	tmp = lst;
 	while (tmp)
 	{
 		if (check_arguments(tmp->type) && tmp->index == 0)
 			i++;
-		else if (check_arguments(tmp->type) && !check_type(find_node(lst, tmp->index - 1)))
+		else if (check_arguments(tmp->type)
+			&& !check_type(find_node(lst, tmp->index - 1)))
 			i++;
 		else if (tmp->type == PIPE)
-			break;
+			break ;
 		tmp = tmp->next;
 	}
 	return (i);
 }
 
-void args_creation(t_parsed **cmd_ptr, t_token *tmp)
+void	args_creation(t_parsed **cmd_ptr, t_token *tmp)
 {
 	int i = 0;
 	int args;
@@ -58,7 +60,9 @@ void args_creation(t_parsed **cmd_ptr, t_token *tmp)
 		}
 		if (tmp)
 			prev = find_node(tmp1, tmp->index - 1);
-		if ((check_arguments(tmp->type) == 1 && (tmp->index == 0 || !prev)) || ((check_arguments(tmp->type) == 1) && prev && check_redirection(prev->type) == 0))
+		if ((check_arguments(tmp->type) == 1 && (tmp->index == 0 || !prev))
+			|| ((check_arguments(tmp->type) == 1) && \
+			prev && check_redirection(prev->type) == 0))
 			(*cmd_ptr)->args[i++] = ft_strdup(tmp->value);
 		else if (tmp->type == PIPE)
 			break ;
@@ -88,13 +92,13 @@ void	ft_expand(t_token *lexe, t_export *env)
 				tmp = tmp->next;
 		}
 		if (tmp && (tmp->type == DOUBLE_QUOTE || tmp->type == WORD))
-			tmp->value = ft_quote_expander(tmp->value, env);
+				tmp->value = ft_quote_expander(tmp->value, env);
 		if (tmp)
 			tmp = tmp->next;
 	}
 }
 
-void check_lex(t_parsed *head, t_token *lex)
+void	check_lex(t_parsed *head, t_token *lex)
 {
 	t_token		*tmp;
 	int			c;
@@ -144,13 +148,11 @@ int	check_syntax(t_token *tmp)
 	lex = tmp;
 	while (tmp)
 	{
-		prev = find_node(lex, tmp->index - 1);
-		if ((check_redirection(tmp->type) && !tmp->next)
-			|| (((check_redirection(tmp->type)
-						&& (prev && check_redirection(prev->type)))
-					|| (check_redirection(tmp->type)
-						&& tmp->next->type == PIPE))
-				|| (tmp->type == PIPE && tmp->index == 0)))
+		if ((check_redirection(tmp->type) && !tmp->next) \
+		|| ((check_redirection(tmp->type) && check_redirection(tmp->next->type))
+				|| (check_redirection(tmp->type)
+					&& tmp->next->type == PIPE))
+			|| (tmp->type == PIPE && (tmp->index == 0 || !tmp->next)))
 		{
 			ft_putstr_fd("syntax error\n", 2);
 			return (0);
@@ -174,6 +176,8 @@ void	*parse(char *str, t_export *env, char **envs)
 	indexer(&lexe);
 	lex_without_spaces = rm_space(lexe);
 	tmp = lex_without_spaces;
+	if (!check_syntax(lex_without_spaces))
+		return (head);
 	while (tmp)
 	{
 		if (cmd == NULL)
@@ -182,11 +186,6 @@ void	*parse(char *str, t_export *env, char **envs)
 			heredoc_red(&cmd, &tmp, env);
 		if (tmp && tmp->type == PIPE)
 		{
-			if (cmd == NULL || tmp->next == NULL)
-			{
-				ft_putstr_fd("syntax error near `|\n", 2);
-				return (NULL);
-			}
 			add_back_parsed(&head, cmd);
 			cmd = NULL;
 		}
@@ -194,10 +193,20 @@ void	*parse(char *str, t_export *env, char **envs)
 			tmp = tmp->next;
 	}
 	add_back_parsed(&head, cmd);
-	if (!check_syntax(lex_without_spaces))
-		return (head);
 	check_lex(head, lex_without_spaces);
 	return (head);
+}
+
+void	handler(int sig)
+{
+	(void)sig;
+	if (waitpid(-1, NULL, WNOHANG))
+	{
+		ft_putchar_fd('\n', 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 int main(int ac, char **av, char **env)
@@ -213,12 +222,14 @@ int main(int ac, char **av, char **env)
 	fill_export(&export, env);
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, handler);
 		line = readline("minishell> ");
-		if (strcmp(line, "") == 0)
-			continue;
 		if (!line)
 			break ;
-		if (!ft_strcmp(line,"\n"))
+		if (!strcmp(line, ""))
+			continue ;
+		if (!ft_strcmp(line, ""))
 			continue ;
 		add_history(line);
 		if (!check_quotes(line))
