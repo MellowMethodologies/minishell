@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/06 19:11:30 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/08 00:43:14 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,5 +176,13 @@ int			word_len(const char *s, char c);
 char		**str_count(char **str, const char *s, char c);
 void		fill_export_with_1(t_export **export);
 t_export	*ft_lstnew_texport_one();
-void ft_change_exit_st(t_export **export, int exit_statu);
+int			find_me(char *str, int endquot, int stat);
+int			special(int c);
+void		check_for_quotes(t_token **lex, char *str, int *i);
+int			check_for_specials(t_token **lex, char *str, int *i, int c);
+void		check_words(t_token **lex, char *str, int *i, int here);
+void		space_it(t_token **lex, char *str, int *i);\
+void		ft_change_exit_st(t_export **export, int exit_statu);
+void		rl_replace_line (const char *text, int clear_undo);
+
 #endif
