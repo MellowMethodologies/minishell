@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/05 19:28:44 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/06 19:11:30 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "./libft/libft.h"
 # include <stdio.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
@@ -146,9 +147,9 @@ void		ft_lstadd_back_tparsed(t_parsed **lst, t_parsed *new);
 void		ft_execution(t_parsed *lexe, t_export **export, char **env);
 void		fill_export_with_1(t_export **export);
 void		ft_expand(t_token *lexe, t_export *env);
-void		ft_cd(t_parsed *lexe);
+void		ft_cd(t_parsed *lexe, t_export **export);
 void		ft_echo(t_parsed *lexe);
-void		ft_pwd(t_parsed *lexe);
+void		ft_pwd(t_parsed *lexe, t_export **export);
 void		ft_lstdelone_texport(t_export *lst);
 void		ft_lstdelone_tparsed(t_parsed *lst);
 void		ft_lstadd_back_texport(t_export **lst, t_export *new);
