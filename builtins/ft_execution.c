@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/06 16:01:46 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/07 03:21:45 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_dup_1(int is_first, int *fd, int count, t_parsed *lexe)
 		{
 			fd[0] = open("/tmp/a.txt", O_CREAT | O_RDWR, 0644);
 			dup2(fd[0], 0);
+			close(fd[0]);
 		}
 	}
 	else if (lexe->in != -2 && lexe->in != 0)
@@ -47,6 +48,7 @@ void	ft_dup(t_parsed *lexe, int is_first, int count)
 		{
 			fd[1] = open("/tmp/b.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
 			dup2(fd[1], 1);
+			close(fd[1]);
 		}
 	}
 	else if (lexe->out != -2 && lexe->out != 1)
@@ -151,6 +153,8 @@ void ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 			id = fork();
 			if (id == 0)
 			{
+				signal(SIGINT, SIG_DFL);
+				signal(SIGQUIT, SIG_DFL);
 				lexe->envs = (*ex_vars)->env;
 				ft_cmnd(lexe, (*ex_vars)->count, 0, export);
 			}
@@ -177,6 +181,8 @@ void	ft_execution_1(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 			id = fork();
 			if (id == 0)
 			{
+				signal(SIGINT, SIG_DFL);
+				signal(SIGQUIT, SIG_DFL);
 				lexe->envs = (*ex_vars)->env;
 				ft_cmnd(lexe, (*ex_vars)->count, 0, export);
 			}
@@ -212,21 +218,48 @@ void show_args(t_parsed *lexe)
 	}
 }
 
-// void ft_exit(t_parsed *lexe1)
-// {
-// 	t_parsed *tmp = lexe1;
-// 	if(tmp && strcmp("exit", tmp->args[0]) == 0 && ft_isdigit() && tmp->args[2] == NULL)
-// 	{
-// 		exit()
-// 	}
-// }
+void ft_exit(t_parsed *lexe1, t_export **export)
+{
+	int i = 0;
+	t_parsed *tmp = lexe1;
+	if (strcmp(tmp->args[0], "exit") == 0)
+	{
+		if (!tmp->next)
+		{
+			if(tmp->args[1] == NULL)
+			{
+				write(1, "exit\n", 5);
+				exit(0);
+			}
+			else if(tmp->args[1] != NULL && tmp->args[2] != NULL)
+			{
+				write(1, "exit: too many arguments\n", 25);
+				ft_change_exit_st(export, 1);
+				return ;
+			}
+			while(tmp->args[1][i])
+			{
+				if(!ft_isdigit(tmp->args[1][i]))
+				{
+					write(1, "exit\n", 5);
+					write(1, "exit: ", 25);
+					ft_putstr(2, tmp->args[1]);
+					write(1, ": numeric argument required\n", 28);
+					exit(1);
+				}
+				i++;
+			}
+			exit(ft_atoi(tmp->args[1])) ;
+		}
+	}
+}
 void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
 	// show_args(lexe_1);
 	t_parsed	*lexe;
 	t_ex_vars	*ex_vars;
 
-	// ft_exit(lexe_1);
+	ft_exit(lexe_1, export);
 	ft_instantiate_ex_vars(&ex_vars, env);
 	lexe = lexe_1;
 	ex_vars->exit_status = 0;
@@ -242,7 +275,11 @@ void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 	{
 		ex_vars->id  = fork();
 		if (ex_vars->id  == 0)
+		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			ft_cmnd(lexe, ex_vars->count, 1, export);
+		}
 		wait(&(ex_vars->status));
 	}
 	ex_vars->count = ex_vars->count + 1;
