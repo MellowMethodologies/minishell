@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 00:43:14 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 18:10:57 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,13 @@ typedef struct s_var
 	char			**envs;
 }	t_var;
 
+void		free_tokens(t_token **lst);
 char		*ft_quote_expander(char *str, t_export *env);
 t_export	*ft_lstnew_export(void *var, char *value);
 char		*ft_getenv(char *var, t_export *env);
 int			check_type(t_token *lex);
 char		*write_until(char *str, int c);
-void		free_token(t_token *lst);
-void		free_parsed(t_parsed *lst);
+void		free_parsed(t_parsed **lst);
 void		free_args(char **str);
 int			special(int c);
 int			calc_char(char *str, int c);
@@ -132,7 +132,7 @@ void		less_red(t_parsed *cmd, t_token *tmp);
 void		great_red(t_parsed *cmd, t_token *tmp);
 void		append_red(t_parsed *cmd, t_token *tmp);
 void		heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env);
-t_token		*rm_space(t_token *lex);
+void		rm_space(t_token **lex);
 t_token		*find_node(t_token *lex, int index);
 t_token		*ft_lstne(void *value, int type);
 t_token		*lexer(char *str, t_export *env);
@@ -183,6 +183,6 @@ int			check_for_specials(t_token **lex, char *str, int *i, int c);
 void		check_words(t_token **lex, char *str, int *i, int here);
 void		space_it(t_token **lex, char *str, int *i);\
 void		ft_change_exit_st(t_export **export, int exit_statu);
-void		rl_replace_line (const char *text, int clear_undo);
+void		rl_replace_line(const char *text, int clear_undo);
 
 #endif
