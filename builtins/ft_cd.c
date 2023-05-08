@@ -6,7 +6,8 @@ void ft_setenv(char *variable, char *new_value, t_export **export)
 
     while(tmp && strcmp(tmp->variable, variable) != 0)
         tmp = tmp->next;
-    tmp->value = ft_strdup(new_value);
+    if(tmp)
+        tmp->value = ft_strdup(new_value);
 }
 
 void ft_go_home(char *home, t_export **export)
@@ -63,4 +64,5 @@ void ft_cd(t_parsed *lexe, t_export **export)
     {
         ft_go_direction(lexe->args[1], export);
     }
+    exit(0);
 }
