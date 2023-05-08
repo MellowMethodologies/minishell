@@ -2,12 +2,21 @@
 
 void ft_last_del_head(t_export **node)
 {
+    t_export *tmp = (*node);
     (*node) = (*node)->next;
+    free(tmp->variable);
+    free(tmp->value);
+    free(tmp);
+    tmp = NULL;
 }
 
 void ft_last_del_node(t_export **node, t_export **prev_node)
 {
     (*prev_node)->next = (*prev_node)->next->next;
+    free((*node)->variable);
+    free((*node)->value);
+    free(*node);
+    (*node) = NULL;
 }
 
 void ft_delet_node(char *str, t_export **export)

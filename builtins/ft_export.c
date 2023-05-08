@@ -173,12 +173,12 @@ void ft_export(t_parsed *lexe, t_export **export)
                 ft_add_variable(lexe->args[i], export);
                 there_is_equal = ft_equal(lexe->args[i], export);
                 ft_add_value(lexe->args[i], export, there_is_equal);
-                t_export *tmp = (*export);
-                while(tmp)
-                {
-                    printf("%s\neqaul = %d\n", tmp->variable, tmp->there_is_equal);
-                    tmp = tmp->next;
-                }
+                // t_export *tmp = (*export);
+                // while(tmp)
+                // {
+                //     printf("%s\neqaul = %d\n", tmp->variable, tmp->there_is_equal);
+                //     tmp = tmp->next;
+                // }
             }
             i++;
         }
@@ -224,9 +224,6 @@ int arg_exist(char *str, t_export **export)
 
 void show_export(t_export **export, t_parsed *lexe)
 {
-
-
-    
     t_export *tmp = (*export);
     while(tmp)
     {

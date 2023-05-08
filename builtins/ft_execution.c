@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/08 18:57:08 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/08 20:41:34 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,9 +248,15 @@ void ft_exit(t_parsed *lexe1, t_export **export)
 		}
 	}
 }
+
+void free_lexe(t_parsed *lexe)
+{
+	
+}
+
 void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
-	// show_args(lexe_1);
+	// s h o w _ a r g s ( l e x e _ 1 ) ; 
 	t_parsed	*lexe;
 	t_ex_vars	*ex_vars;
 
