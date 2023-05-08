@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/08 03:52:50 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/08 18:57:08 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,7 @@ void	ft_execut_cmnd_one(t_parsed *lexe)
 
 void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
 {
-	if (lexe->args[0] == NULL)
-	{
-		ft_change_exit_st(export, 1);
-		return ;
-	}
-	else if (strcmp(lexe->args[0], "echo") == 0)
+	if (strcmp(lexe->args[0], "echo") == 0)
 		ft_echo(lexe);
 	else if (strcmp(lexe->args[0], "pwd") == 0)
 		ft_pwd(lexe, export);
@@ -146,7 +141,7 @@ void ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 	{
 		if (!lexe->args[0]
 			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
-				|| strcmp(lexe->args[0], "unset") == 0))
+				|| strcmp(lexe->args[0], "unset") == 0) || strcmp(lexe->args[0], "cd") == 0)
 			ft_cmnd_one(lexe, (*ex_vars)->count, 0, export);
 		else
 		{
@@ -174,7 +169,7 @@ void	ft_execution_1(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 	{
 		if (!lexe->args[0]
 			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
-				|| strcmp(lexe->args[0], "unset") == 0))
+				|| strcmp(lexe->args[0], "unset") == 0) || strcmp(lexe->args[0], "cd") == 0)
 			ft_cmnd_one(lexe, (*ex_vars)->count, 0, export);
 		else
 		{
@@ -259,6 +254,11 @@ void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 	t_parsed	*lexe;
 	t_ex_vars	*ex_vars;
 
+	if (lexe_1->args[0] == NULL)
+	{
+		ft_change_exit_st(export, 1);
+		return ;
+	}
 	ft_exit(lexe_1, export);
 	ft_instantiate_ex_vars(&ex_vars, env);
 	lexe = lexe_1;
@@ -269,7 +269,7 @@ void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 	lexe->envs = ex_vars->env;
 	if (!lexe->args[0]
 		|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
-			|| strcmp(lexe->args[0], "unset") == 0))
+			|| strcmp(lexe->args[0], "unset") == 0) || strcmp(lexe->args[0], "cd") == 0)
 		ft_cmnd_one(lexe, ex_vars->count, 1, export);
 	else
 	{

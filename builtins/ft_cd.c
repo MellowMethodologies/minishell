@@ -32,7 +32,8 @@ void ft_go_direction(char *dir, t_export **export)
     if(chdir(dir) != 0)
     {
         write(2, "error dir path", 15);
-        exit(1);
+        ft_change_exit_st(export, 0);
+        return ;
     }
     char *oldpwd = getenv("PWD");
     setenv("OLDPWD", oldpwd, 1);
@@ -64,5 +65,6 @@ void ft_cd(t_parsed *lexe, t_export **export)
     {
         ft_go_direction(lexe->args[1], export);
     }
-    exit(0);
+    ft_change_exit_st(export, 0);
+    return ;
 }
