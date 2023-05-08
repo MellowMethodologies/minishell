@@ -6,48 +6,45 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 10:51:27 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/01 12:06:09 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 18:10:41 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-void free_args(char **str)
+void	free_args(char **str)
 {
-    int i;
-    i = 0;
-    while(str[i])
-        free(str[i++]);
-    // free(str);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		str[i++] = NULL;
+	}
 }
 
-void free_parsed(t_parsed *lst)
+void	free_parsed(t_parsed **lst)
 {
-    t_parsed *temp;
-    int i = 0;
+	t_parsed	*tmp;
 
-    while(lst)
-    {
-        temp = lst->next;
-        while (temp->args[i])
-            free(temp->args[i++]);
-        // free(lst->cmd);
-        // free(lst);
-        lst = lst->next;
-    }
-    // free(str);
+	while (*lst)
+	{
+		free_args((*lst)->args);
+		tmp = *lst;
+		(*lst) = (*lst)->next;
+		free(tmp);
+	}
 }
 
-void free_token(t_token *lst)
+void	free_tokens(t_token **lst)
 {
-    t_token *temp;
+	t_token *tmp;
 
-    while(lst)
-    {
-        temp = lst->next;
-        free(lst->value);
-        free(lst);
-        lst = lst->next;
-    }
-    // free(str);
+	while (*lst)
+	{
+		tmp = *lst;
+		(*lst) = (*lst) ->next;
+		free(tmp);
+	}
 }

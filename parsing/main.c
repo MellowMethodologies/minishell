@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 00:06:28 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 18:56:33 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,37 @@ int	args_count(t_token *lst)
 	return (i);
 }
 
-void	args_creation(t_parsed **cmd_ptr, t_token *tmp)
+void	args_creation(t_parsed **cmd, t_token *tmp)
 {
-	int i = 0;
-	int args;
-	t_token *tmp1;
-	t_token *prev;
+	int		i = 0;
+	int		args;
+	t_token	*tmp1;
+	t_token	*prev;
 
 	tmp1 = tmp;
 	args = 0;
 	while (tmp)
 	{
-		if (*cmd_ptr == NULL)
+		if (*cmd == NULL)
 		{
-			*cmd_ptr = malloc(sizeof(t_parsed));
-			if (*cmd_ptr == NULL)
+			*cmd = malloc(sizeof(t_parsed));
+			if (*cmd == NULL)
 				return ;
 			args = args_count(tmp);
-			(*cmd_ptr)->args = ft_calloc(sizeof(char *), (args) + 1);
-			if ((*cmd_ptr)->args == NULL)
+			(*cmd)->args = ft_calloc(sizeof(char *), (args) + 1);
+			if ((*cmd)->args == NULL)
 				return ;
-			(*cmd_ptr)->error = 0;
-			(*cmd_ptr)->in = -2;
-			(*cmd_ptr)->out = -2;
-			(*cmd_ptr)->next = NULL;
+			(*cmd)->error = 0;
+			(*cmd)->in = -2;
+			(*cmd)->out = -2;
+			(*cmd)->next = NULL;
 		}
 		if (tmp)
 			prev = find_node(tmp1, tmp->index - 1);
 		if ((check_arguments(tmp->type) == 1 && (tmp->index == 0 || !prev))
 			|| ((check_arguments(tmp->type) == 1) && \
 			prev && check_redirection(prev->type) == 0))
-			(*cmd_ptr)->args[i++] = ft_strdup(tmp->value);
+			(*cmd)->args[i++] = ft_strdup(tmp->value);
 		else if (tmp->type == PIPE)
 			break ;
 		tmp = tmp->next;
@@ -168,16 +168,15 @@ void	*parse(char *str, t_export *env, char **envs)
 	t_parsed	*head;
 	t_token		*lexe;
 	t_token		*tmp;
-	t_token		*lex_without_spaces;
 
 	head = NULL;
 	cmd = NULL;
 	lexe = lexer(str, env);
 	indexer(&lexe);
-	lex_without_spaces = rm_space(lexe);
-	tmp = lex_without_spaces;
-	if (!check_syntax(lex_without_spaces))
+	rm_space(&lexe);
+	if (!check_syntax(lexe))
 		return (head);
+	tmp = lexe;
 	while (tmp)
 	{
 		if (cmd == NULL)
@@ -192,8 +191,10 @@ void	*parse(char *str, t_export *env, char **envs)
 		if (tmp)
 			tmp = tmp->next;
 	}
+
 	add_back_parsed(&head, cmd);
-	check_lex(head, lex_without_spaces);
+	check_lex(head, lexe);
+	free_tokens(&lexe);
 	return (head);
 }
 
@@ -227,8 +228,6 @@ int main(int ac, char **av, char **env)
 		line = readline("minishell> ");
 		if (!line)
 			break ;
-		if (!strcmp(line, ""))
-			continue ;
 		if (!ft_strcmp(line, ""))
 			continue ;
 		add_history(line);
@@ -236,6 +235,7 @@ int main(int ac, char **av, char **env)
 			continue ;
 		cmd = parse(line, export, env);
 		ft_execution(cmd, &export, env);
+		free_parsed(&cmd);
 		free(line);
 	}
 }

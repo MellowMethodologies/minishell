@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:59:18 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/03 00:33:15 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 18:04:25 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,30 +47,26 @@ t_token *find_node(t_token *lex, int index)
 	return (NULL);
 }
 
-t_token *rm_space(t_token *lex)
+void	rm_space(t_token **lex)
 {
-	t_token *curr;
-	t_token *new_list;
-	t_token **tail;
+	t_token	*curr;
+	t_token	*prev;
 
-	new_list = NULL;
-	tail = &new_list;
-	curr = lex;
+	curr = *lex;
+	prev = NULL;
 	while (curr)
 	{
-		if (curr->type != -1)
+		if (curr->index == -1)
 		{
-			t_token *new_token = malloc(sizeof(t_token));
-			if (!new_token)
-				return (NULL);
-			new_token->value = ft_strdup(curr->value);
-			new_token->index = curr->index;
-			new_token->type = curr->type;
-			new_token->next = NULL;
-			*tail = new_token;
-			tail = &new_token->next;
+			if (prev)
+				prev->next = curr->next;
+			else
+				*lex = curr->next;
+			free(curr);
+			curr = *lex;
 		}
+		else
+			prev = curr;
 		curr = curr->next;
 	}
-	return (new_list);
 }

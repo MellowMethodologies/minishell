@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 00:06:50 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 20:50:44 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ char	*ft_quote_expander(char *str, t_export *env)
 		{
 			dollar_found = 1;
 			j = i + 1;
-			while (ft_isalnum(str[j]) || str[j] == '_')
+			while (ft_isalnum(str[j]) || str[j] == '_' || str[j] == '?')
 				j++;
 			var = ft_substr(str, i, j - i);
 			value = ft_getenv(1 + var, env);
-
 			if (value)
 			{
 				temp = ft_strdup(result);
@@ -52,7 +51,7 @@ char	*ft_quote_expander(char *str, t_export *env)
 	}
 	if (dollar_found)
 	{
-		char *temp = result;
+		temp = result;
 		result = ft_strjoin(result, str);
 		free(temp);
 	}
