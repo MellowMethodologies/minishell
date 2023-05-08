@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 18:56:33 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 22:05:45 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	ft_expand(t_token *lexe, t_export *env)
 			&& (tmp->next->type && tmp->next->value[0] == '$'))
 			if (!ft_quote_expander(tmp->next->value, env)
 				|| ft_count(ft_quote_expander(tmp->next->value, env), ' ') > 1)
-				tmp->next->ambiguous = 1;
+		{
+			tmp->next->ambiguous = 1;}
 		if (tmp && tmp->type == HEREDOC)
 		{
 			tmp = tmp->next;
@@ -191,7 +192,6 @@ void	*parse(char *str, t_export *env, char **envs)
 		if (tmp)
 			tmp = tmp->next;
 	}
-
 	add_back_parsed(&head, cmd);
 	check_lex(head, lexe);
 	free_tokens(&lexe);
@@ -212,7 +212,6 @@ void	handler(int sig)
 
 int main(int ac, char **av, char **env)
 {
-	int			fd[2];
 	int			i;
 	char		*line;
 	t_export	*export;
@@ -234,7 +233,7 @@ int main(int ac, char **av, char **env)
 		if (!check_quotes(line))
 			continue ;
 		cmd = parse(line, export, env);
-		ft_execution(cmd, &export, env);
+		// ft_execution(cmd, &export, env);
 		free_parsed(&cmd);
 		free(line);
 	}

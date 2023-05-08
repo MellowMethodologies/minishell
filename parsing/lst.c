@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 11:05:58 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/01 23:57:15 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 22:06:56 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token	*ft_lstne(void *value, int type)
 	return (new);
 }
 
-t_export	*ft_lstnew_export(void *var, char* value)
+t_export	*ft_lstnew_export(void *var, char *value)
 {
 	t_export	*new;
 
@@ -71,10 +71,10 @@ void	add_back_parsed(t_parsed **lst, t_parsed *new)
 	last = *lst;
 	while (last)
 	{
-		if(!last -> next)
+		if (!last -> next)
 			break ;
 		last = last->next;
 	}
 	last->next = new;
-	new-> next = NULL;
+	new->next = NULL;
 }
