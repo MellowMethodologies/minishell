@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:13:44 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/08 22:11:23 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/09 01:08:03 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_char_is_exist(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -41,6 +41,8 @@ char	*str_befor_equal(char *str, int there_is_equal)
 	while (str[count] && str[count] != '=' && str[count] != '+')
 		count++;
 	to_return = malloc(count + 1);
+	if (!to_return)
+		exit(1);
 	while (str[i] && str[i] != '=' && str[i] != '+')
 	{
 		to_return[i] = str[i];
@@ -53,6 +55,8 @@ char	*str_befor_equal(char *str, int there_is_equal)
 void	ft_estantiate_str_after_equal(t_ex_vars **vars)
 {
 	(*vars) = malloc(sizeof(t_ex_vars));
+	if (!(*vars))
+		exit(1);
 	(*vars)->start = 0;
 	(*vars)->end = 0;
 	(*vars)->i = 0;
@@ -74,6 +78,8 @@ char	*str_after_equal(char *str, int there_is_equal)
 	if (vars->end - vars->start == 0)
 		return (NULL);
 	to_return = malloc(vars->end - vars->start + 1);
+	if (!to_return)
+		exit(1);
 	while (str[vars->start])
 	{
 		to_return[vars->i] = str[vars->start];
@@ -84,20 +90,21 @@ char	*str_after_equal(char *str, int there_is_equal)
 	return (to_return);
 }
 
-void fill_export_with_env(t_export *export, t_parsed *lexe)
+void	fill_export_with_env(t_export *export, t_parsed *lexe)
 {
-	t_export *tmp;
+	t_export	*tmp;
+	int			i ;
+
 	export->there_is_equal = check_char_is_exist(lexe->envs[0]);
 	export->variable = str_befor_equal(lexe->envs[0], export->there_is_equal);
 	export->value = str_after_equal(lexe->envs[0], export->there_is_equal);
-
-	int i = 1;
+	i = 1;
 	export->next = NULL;
-	while(lexe->envs[i])
+	while (lexe->envs[i])
 	{
 		ft_lstadd_back_texport(&export, ft_lstnew_texport_one());
 		tmp = export;
-		while(tmp->next)
+		while (tmp->next)
 			tmp = tmp->next;
 		tmp->there_is_equal = check_char_is_exist(lexe->envs[i]);
 		tmp->variable = str_befor_equal(lexe->envs[i], export->there_is_equal);
@@ -106,30 +113,35 @@ void fill_export_with_env(t_export *export, t_parsed *lexe)
 	}
 }
 
-void show_env(t_export **export, t_parsed *lexe)
+void	ft_print_strs(t_export **tmp)
 {
-	t_export *tmp = (*export);
-	while(tmp)
+	ft_putstr_fd((*tmp)->variable, 1);
+	ft_putstr_fd("=", 1);
+	ft_putstr_fd((*tmp)->value, 1);
+	write(1, "\n", 1);
+}
+
+void	show_env(t_export **export, t_parsed *lexe)
+{
+	t_export	*tmp;
+
+	tmp = (*export);
+	while (tmp)
 	{
-		if(strcmp(tmp->variable, "?") == 0)
+		if (strcmp(tmp->variable, "?") == 0)
 			tmp = tmp->next;
-		if(tmp && tmp->there_is_equal == 0)
+		if (tmp && tmp->there_is_equal == 0)
 		{
 		}
 		else if (tmp && tmp->there_is_equal == 1 && tmp->value == NULL)
 		{
-			ft_putstr_fd(tmp->variable , 1);
-			write(1, "=",2);
+			ft_putstr_fd(tmp->variable, 1);
+			write(1, "=", 2);
 			write(1, "\n", 1);
 		}
 		else if (tmp)
-		{
-			ft_putstr_fd(tmp->variable , 1);
-			ft_putstr_fd("=" , 1);
-			ft_putstr_fd(tmp->value , 1);
-			write(1, "\n", 1);
-		}
-		if(tmp)
+			ft_print_strs(&tmp);
+		if (tmp)
 			tmp = tmp->next;
 	}
 	exit(0);

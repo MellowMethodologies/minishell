@@ -3,9 +3,12 @@
 void ft_pwd(t_parsed *lexe, t_export **export)
 {
     char cwd[1024];
-    if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        printf("%s\n", cwd);
+    if (getcwd(cwd, sizeof(cwd)) != NULL)
+    {
+        ft_putstr(1, cwd);
+        ft_putstr(1, "\n");
     }
+
     else
     {
         perror("getcwd() error");

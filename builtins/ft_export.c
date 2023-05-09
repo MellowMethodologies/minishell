@@ -6,9 +6,7 @@ int there_already(char *str1, t_export **export)
     while(tmp)
     {
         if(strcmp(str1, tmp->variable) == 0)
-        {
             return 1;
-        }
         tmp = tmp->next;
     }
     return 0;
@@ -19,9 +17,7 @@ void ft_add_variable(char *str, t_export **export)
     
     char *str1 = str_befor_equal(str, 1);
     if(there_already(str1, export))
-    {
         return ;
-    }
     else
     {
         ft_lstadd_back_texport(export, ft_lstnew_texport(str1));
@@ -76,9 +72,7 @@ int ft_equal(char *str, t_export **export)
     t_export *tmp = (*export);
 
     while(tmp && strcmp(str_befor_equal(str,1), tmp->variable) != 0)
-    {
         tmp = tmp->next;
-    }
     if(there_is_equal(str))
     {
         tmp->there_is_equal = 1;
@@ -162,23 +156,13 @@ void ft_export(t_parsed *lexe, t_export **export)
         while(lexe->args[i])
         {
             if(error_var(lexe->args[i]) == 1)
-            {
-                //remove this and don't exit in error
                 write(2, "error input\n", 12);
-                // exit(1);
-            }
             else
             {
                 
                 ft_add_variable(lexe->args[i], export);
                 there_is_equal = ft_equal(lexe->args[i], export);
                 ft_add_value(lexe->args[i], export, there_is_equal);
-                // t_export *tmp = (*export);
-                // while(tmp)
-                // {
-                //     printf("%s\neqaul = %d\n", tmp->variable, tmp->there_is_equal);
-                //     tmp = tmp->next;
-                // }
             }
             i++;
         }
