@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 22:05:45 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 14:03:13 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,7 @@ int	check_syntax(t_token *tmp)
 		|| ((check_redirection(tmp->type) && check_redirection(tmp->next->type))
 				|| (check_redirection(tmp->type)
 					&& tmp->next->type == PIPE))
-			|| (tmp->type == PIPE && (tmp->index == 0 || !tmp->next)))
+			|| (tmp->type == PIPE && ((tmp->index == 0 || !tmp->next) || tmp->next->type == PIPE)))
 		{
 			ft_putstr_fd("syntax error\n", 2);
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:59:18 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 18:04:25 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 14:01:25 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,28 @@ t_token *find_node(t_token *lex, int index)
 
 void	rm_space(t_token **lex)
 {
-	t_token	*curr;
+	t_token	*current;
 	t_token	*prev;
+	t_token	*temp;
 
-	curr = *lex;
+	current = *lex;
 	prev = NULL;
-	while (curr)
+	while (current)
 	{
-		if (curr->index == -1)
+		if (current->index == -1)
 		{
-			if (prev)
-				prev->next = curr->next;
+			if (!prev)
+				*lex = current->next;
 			else
-				*lex = curr->next;
-			free(curr);
-			curr = *lex;
+				prev->next = current->next;
+			temp = current;
+			current = current->next;
+			free(temp);
 		}
 		else
-			prev = curr;
-		curr = curr->next;
+		{
+		prev = current;
+		current = current->next;
+		}
 	}
 }
