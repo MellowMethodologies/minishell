@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:44:53 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 00:47:23 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 14:49:21 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,27 @@ void	check_for_quotes(t_token **lex, char *str, int *i)
 int	check_for_specials(t_token **lex, char *str, int *i, int c)
 {
 	if (str[*i] == '|')
-		add_back(lex, ft_lstne("|", PIPE));
+		add_back(lex, ft_lstne(ft_strdup("|"), PIPE));
 	else if (str[*i] == '>')
 	{
 		if (str[*i + 1] == '>')
 		{
-			add_back(lex, ft_lstne(">>", GREATGREAT));
+			add_back(lex, ft_lstne(ft_strdup(">>"), GREATGREAT));
 			(*i)++;
 		}
 		else
-			add_back(lex, ft_lstne(">", GREAT));
+			add_back(lex, ft_lstne(ft_strdup(">"), GREAT));
 	}
 	else if (str[*i] == '<')
 	{
 		if (str[*i + 1] == '<')
 		{
-			add_back(lex, ft_lstne("<<", HEREDOC));
+			add_back(lex, ft_lstne(ft_strdup("<<"), HEREDOC));
 			c = 1;
 			(*i)++;
 		}
 		else
-			add_back(lex, ft_lstne("<", LESS));
+			add_back(lex, ft_lstne(ft_strdup("<"), LESS));
 	}
 	return (c);
 }

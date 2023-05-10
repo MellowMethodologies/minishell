@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 22:01:55 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 14:44:30 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,29 @@
 
 char	*ft_quote_expander(char *str, t_export *env)
 {
-	char	*result;
+	char	*res = ft_strdup("");
 	char	*temp;
-	char	*var;
-	char	*value;
 	int		i = 0;
 	int		j = 0;
-	int		dollar_found = 0;
+	int		found_dol = 0;
 
-	result = ft_strdup("");
 	while (str[i])
 	{
 		if (str[i] == '$')
 		{
-			dollar_found = 1;
-			j = i + 1;
-			while (ft_isalnum(str[j]) || str[j] == '_' || str[j] == '?')
-				j++;
-			var = ft_substr(str, i, j - i);
-			value = ft_getenv(1 + var, env);
-			if (value)
-			{
-				temp = ft_strdup(result);
-				result = ft_strjoin(result, ft_substr(str, 0, i));
-				free(temp);
-				temp = ft_strdup(result);
-				result = ft_strjoin(result, value);
-				free(temp);
-				str += j;
-				i = -1;
-			}
-			else
-				free(var);
+			i++;
+			found_dol = 1;
 		}
-		i++;
-	}
-	if (dollar_found)
-	{
-		temp = result;
-		result = ft_strjoin(result, str);
+		j = i;
+		while (str[i] && str[i] != '$')
+			i++;
+		temp = ft_substr(str, j, i);
+		if (found_dol)
+			temp = ft_getenv(temp, env);
+		res = ft_strjoin1(res, temp);
 		free(temp);
 	}
-	else
-	{
-		free(result);
-		result = ft_strdup(str);
-	}
-	return (result);
+	return (free(str), res);
 }
 
 char	*ft_getenv(char *var, t_export *env)
@@ -84,6 +60,7 @@ char	*ft_getenv(char *var, t_export *env)
 
 			if (ft_count(result, ' ') > 1)
 				s = ft_split(result, 2);
+			free(var);
 			free(s1);
 			free(s2);
 			return (result);
@@ -94,4 +71,3 @@ char	*ft_getenv(char *var, t_export *env)
 	}
 	return (ft_strdup(""));
 }
-

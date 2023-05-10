@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 10:51:27 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 18:10:41 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 14:48:23 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ void	free_parsed(t_parsed **lst)
 
 void	free_tokens(t_token **lst)
 {
-	t_token *tmp;
+	t_token	*tmp;
 
 	while (*lst)
 	{
 		tmp = *lst;
-		(*lst) = (*lst) ->next;
+		(*lst) = (*lst)->next;
+		free(tmp->value);
 		free(tmp);
 	}
 }
