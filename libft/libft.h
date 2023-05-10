@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 14:53:14 by sbadr             #+#    #+#             */
-/*   Updated: 2023/04/08 05:38:12 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 14:06:18 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_list {
 	struct s_list	*next;
 }	t_list;
 
+char	*ft_strjoin1(char *s1, char *s2);
 int		ft_isalpha_snak(int i);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
