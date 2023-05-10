@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 14:35:56 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 17:14:58 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_token* lexer(char *str, t_export *env)
 		else if ((str[i] == 34 && str[i + 1] == 34)
 			|| (str[i] == 39 && str[i + 1] == 39))
 		{
-			add_back(&lex, ft_lstne("", DOUBLE_QUOTE));
+			add_back(&lex, ft_lstne(ft_strdup(" "), DOUBLE_QUOTE));
 			i += 1;
 		}
 		else if (str[i] == 34 || str[i] == 39)

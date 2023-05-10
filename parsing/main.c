@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 15:11:22 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 17:13:17 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,11 @@ void	ft_expand(t_token *lexe, t_export *env)
 		if ((tmp->type == GREAT || tmp->type == GREATGREAT
 				|| tmp->type == LESS) && tmp->next)
 			while (tmp->next->type == -1)
-				tmp= tmp->next;
-			if((tmp->next && tmp->next->value[0] == '$')
-			&& (!ft_quote_expander(tmp->next->value, env)[0]
-				|| ft_count(ft_quote_expander(tmp->next->value, env), ' ') > 1))
-				tmp->next->ambiguous = 1;
+				tmp = tmp->next;
+		if ((tmp->next && tmp->next->value[0] == '$')
+			&& (!ft_quote_expander(tmp->next->value, env, 1)[0]
+			|| ft_count(ft_quote_expander(tmp->next->value, env, 1), ' ') > 1))
+					tmp->next->ambiguous = 1;
 		if (tmp && tmp->type == HEREDOC)
 		{
 			tmp = tmp->next;
@@ -95,7 +95,7 @@ void	ft_expand(t_token *lexe, t_export *env)
 				tmp = tmp->next;
 		}
 		if (tmp && (tmp->type == DOUBLE_QUOTE || tmp->type == WORD))
-				tmp->value = ft_quote_expander(tmp->value, env);
+				tmp->value = ft_quote_expander(tmp->value, env, 1);
 		if (tmp)
 			tmp = tmp->next;
 	}
@@ -174,6 +174,8 @@ void	*parse(char *str, t_export *env, char **envs)
 
 	head = NULL;
 	cmd = NULL;
+	if (!str[0])
+		return head;
 	lexe = lexer(str, env);
 	indexer(&lexe);
 	rm_space(&lexe);
@@ -229,11 +231,12 @@ int main(int ac, char **av, char **env)
 		line = readline("minishell> ");
 		if (!line)
 			break ;
-		if (!ft_strcmp(line, ""))
-			continue ;
 		add_history(line);
 		if (!check_quotes(line))
+		{
+			free(line);
 			continue ;
+		}
 		cmd = parse(line, export, env);
 		if (cmd)
 			ft_execution(cmd, &export, env);
