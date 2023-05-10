@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 16:15:12 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 18:09:23 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 	int			delimiter_type;
 
 	if ((*tmp)->next && (check_arguments((*tmp)->next->type)))
-    {
-        delimiter = (*tmp)->next->value;
-        delimiter_type = (*tmp)->next->type;
-        tmp1 = (*tmp)->next;
-        (*tmp)->next = (*tmp)->next->next;
-    }
+	{
+		delimiter = (*tmp)->next->value;
+		delimiter_type = (*tmp)->next->type;
+		tmp1 = (*tmp)->next;
+		(*tmp)->next = (*tmp)->next->next;
+	}
 	if (pipe(pipefd) < 0)
 	{
 		(*cmd)->error_str = "pipe error!\n";

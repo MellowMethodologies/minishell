@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 17:13:17 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 23:47:25 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,15 @@ void	ft_expand(t_token *lexe, t_export *env)
 	{
 		if ((tmp->type == GREAT || tmp->type == GREATGREAT
 				|| tmp->type == LESS) && tmp->next)
+		{
 			while (tmp->next->type == -1)
-				tmp = tmp->next;
-		if ((tmp->next && tmp->next->value[0] == '$')
-			&& (!ft_quote_expander(tmp->next->value, env, 1)[0]
-			|| ft_count(ft_quote_expander(tmp->next->value, env, 1), ' ') > 1))
+					tmp = tmp->next;
+			if ((tmp->next && tmp->next->value[0] == '$')
+				&& (!ft_quote_expander(tmp->next->value, env, 0)[0]
+				|| ft_count(ft_quote_expander(tmp->next->\
+				value, env, 1), ' ') > 1))
 					tmp->next->ambiguous = 1;
+		}
 		if (tmp && tmp->type == HEREDOC)
 		{
 			tmp = tmp->next;
@@ -155,7 +158,8 @@ int	check_syntax(t_token *tmp)
 		|| ((check_redirection(tmp->type) && check_redirection(tmp->next->type))
 				|| (check_redirection(tmp->type)
 					&& tmp->next->type == PIPE))
-			|| (tmp->type == PIPE && ((tmp->index == 0 || !tmp->next) || tmp->next->type == PIPE)))
+			|| (tmp->type == PIPE && ((tmp->index == 0 || !tmp->next)
+					|| tmp->next->type == PIPE)))
 		{
 			ft_putstr_fd("syntax error\n", 2);
 			return (0);
@@ -174,8 +178,12 @@ void	*parse(char *str, t_export *env, char **envs)
 
 	head = NULL;
 	cmd = NULL;
-	if (!str[0])
-		return head;
+	if (!str)
+	{
+		free(str);
+		str = NULL;
+		return (head);
+	}
 	lexe = lexer(str, env);
 	indexer(&lexe);
 	rm_space(&lexe);
@@ -241,6 +249,5 @@ int main(int ac, char **av, char **env)
 		if (cmd)
 			ft_execution(cmd, &export, env);
 		free_parsed(&cmd);
-		free(line);
 	}
 }
