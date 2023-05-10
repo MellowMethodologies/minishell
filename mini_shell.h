@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 18:10:57 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 16:04:20 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_var
 }	t_var;
 
 void		free_tokens(t_token **lst);
-char		*ft_quote_expander(char *str, t_export *env);
+char		*ft_quote_expander(char *str, t_export *env, int etat);
 t_export	*ft_lstnew_export(void *var, char *value);
 char		*ft_getenv(char *var, t_export *env);
 int			check_type(t_token *lex);
