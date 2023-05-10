@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 14:43:18 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 15:11:22 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 			break ;
 		tmp = tmp->next;
 	}
+
 }
 
 void	ft_expand(t_token *lexe, t_export *env)
@@ -78,12 +79,13 @@ void	ft_expand(t_token *lexe, t_export *env)
 	while (tmp)
 	{
 		if ((tmp->type == GREAT || tmp->type == GREATGREAT
-				|| tmp->type == LESS) && tmp->next
-			&& (tmp->next->type && tmp->next->value[0] == '$'))
-			if (!ft_quote_expander(tmp->next->value, env)
-				|| ft_count(ft_quote_expander(tmp->next->value, env), ' ') > 1)
-		{
-			tmp->next->ambiguous = 1;}
+				|| tmp->type == LESS) && tmp->next)
+			while (tmp->next->type == -1)
+				tmp= tmp->next;
+			if((tmp->next && tmp->next->value[0] == '$')
+			&& (!ft_quote_expander(tmp->next->value, env)[0]
+				|| ft_count(ft_quote_expander(tmp->next->value, env), ' ') > 1))
+				tmp->next->ambiguous = 1;
 		if (tmp && tmp->type == HEREDOC)
 		{
 			tmp = tmp->next;
@@ -233,7 +235,8 @@ int main(int ac, char **av, char **env)
 		if (!check_quotes(line))
 			continue ;
 		cmd = parse(line, export, env);
-		// ft_execution(cmd, &export, env);
+		if (cmd)
+			ft_execution(cmd, &export, env);
 		free_parsed(&cmd);
 		free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 14:44:30 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/10 14:56:50 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ char	*ft_getenv(char *var, t_export *env)
 		free(s2);
 		env = env->next;
 	}
+	free(var);
 	return (ft_strdup(""));
 }
