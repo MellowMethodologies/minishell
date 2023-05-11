@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/11 15:34:23 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/11 15:40:49 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	check_lex(t_parsed *head, t_token *lex)
 
 	c = 0;
 	tmp = lex;
-	if (head->error == 1)
+	if (head && head->error == 1)
 	{
 		printf("%s", head->error_str);
 		head = head->next;
@@ -131,12 +131,12 @@ void	check_lex(t_parsed *head, t_token *lex)
 			tmp = tmp->next;
 		}
 		c = 0;
-		if (head->error == 2)
+		if (head && head->error == 2)
 		{
 			printf("%s", head->error_str);
 			break ;
 		}
-		else if (head->error == 1)
+		else if (head && head->error == 1)
 		{
 			printf("%s", head->error_str);
 			head = head->next;
@@ -246,8 +246,8 @@ int main(int ac, char **av, char **env)
 			continue ;
 		}
 		cmd = parse(line, export, env);
-		if (cmd)
-			ft_execution(cmd, &export, env);
+		// if (cmd)
+		// 	ft_execution(cmd, &export, env);
 		free_parsed(&cmd);
 	}
 }
