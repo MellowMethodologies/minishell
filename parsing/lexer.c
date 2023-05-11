@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 21:48:10 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/11 17:57:22 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	find_me(char *str, int endquot, int stat)
 
 t_token* lexer(char *str, t_export *env)
 {
-	int		i;
-	int		c;
-	t_token *lex;
+	int			i;
+	int			c;
+	t_token		*lex;
 
 	i = 0;
 	c = 0;
@@ -67,6 +67,8 @@ t_token* lexer(char *str, t_export *env)
 			check_words(&lex, str, &i, c);
 		i++;
 	}
+	free(str);
+	str = NULL;
 	ft_expand(lex, env);
 	join_word_tokens(lex);
 	return (lex);

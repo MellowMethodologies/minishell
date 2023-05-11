@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 22:58:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 17:51:44 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/11 18:00:43 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	fill_export(t_export **exp, char **env)
 	while (env[i])
 	{
 		ft_lstadd_back_texport(exp, ft_lstnew_export(write_until(env[i],'='),
-			ft_strdup(1 + ft_strrchr(env[i], '='))));
+				ft_strdup(1 + ft_strrchr(env[i], '='))));
 		i++;
 	}
 	ft_lstadd_back_texport(exp, ft_lstnew_export("?", "-1"));
@@ -92,6 +92,7 @@ void	join_word_tokens(t_token *lex)
 			tmp->type = WORD;
 			to_free = tmp->next;
 			tmp->next = tmp->next->next;
+			free(to_free->value);
 			free(to_free);
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 16:04:20 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/11 17:24:14 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@
 # define HEREDOC 55
 # define VAR 7
 # define SYNTAX_ERROR 9
-
-extern struct	s_globvar
-{
-	int	sigquit;
-}	t_glob;
 
 //for the execution part
 typedef struct s_ex_vars{	
@@ -181,8 +176,9 @@ int			special(int c);
 void		check_for_quotes(t_token **lex, char *str, int *i);
 int			check_for_specials(t_token **lex, char *str, int *i, int c);
 void		check_words(t_token **lex, char *str, int *i, int here);
-void		space_it(t_token **lex, char *str, int *i);\
+void		space_it(t_token **lex, char *str, int *i);
 void		ft_change_exit_st(t_export **export, int exit_statu);
 void		rl_replace_line(const char *text, int clear_undo);
+void		handler(int sig);
 
 #endif

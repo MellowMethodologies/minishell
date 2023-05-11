@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 14:59:18 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 14:01:25 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/11 17:10:46 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	indexer(t_token **lex)
 	}
 }
 
-t_token *find_node(t_token *lex, int index)
+t_token	*find_node(t_token *lex, int index)
 {
 	t_token	*temp;
 

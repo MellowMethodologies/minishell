@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/11 15:40:49 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/11 18:01:41 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 			break ;
 		tmp = tmp->next;
 	}
-
 }
 
 void	ft_expand(t_token *lexe, t_export *env)
@@ -210,18 +209,6 @@ void	*parse(char *str, t_export *env, char **envs)
 	return (head);
 }
 
-void	handler(int sig)
-{
-	(void)sig;
-	if (waitpid(-1, NULL, WNOHANG))
-	{
-		ft_putchar_fd('\n', 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-}
-
 int main(int ac, char **av, char **env)
 {
 	int			i;
@@ -246,8 +233,8 @@ int main(int ac, char **av, char **env)
 			continue ;
 		}
 		cmd = parse(line, export, env);
-		// if (cmd)
-		// 	ft_execution(cmd, &export, env);
+		if (cmd)
+			ft_execution(cmd, &export, env);
 		free_parsed(&cmd);
 	}
 }
