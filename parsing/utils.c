@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 16:03:24 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/11 23:49:33 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ char	*ft_getenv(char *var, t_export *env)
 	while (env)
 	{
 		s1 = ft_strdup(env->variable);
-		s2 = ft_strdup(env->value);
+		if (env->value)
+			s2 = ft_strdup(env->value);
 		if (ft_strcmp(s1, var) == 0)
 		{
 			result = ft_strdup(s2);
@@ -64,11 +65,13 @@ char	*ft_getenv(char *var, t_export *env)
 				s = ft_split(result, 2);
 			free(var);
 			free(s1);
-			free(s2);
+			if (env->value)
+				free(s2);
 			return (result);
 		}
 		free(s1);
-		free(s2);
+		if (env->value)
+			free(s2);
 		env = env->next;
 	}
 	free(var);
