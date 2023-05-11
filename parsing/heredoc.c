@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 18:09:23 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/11 15:26:39 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,12 @@ void	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 {
 	int			pipefd[2];
 	pid_t		pid;
-	t_token	*tmp1;
+	t_token		*tmp1;
 	char		*line;
-	char		*delimiter;
 	int			delimiter_type;
 
 	if ((*tmp)->next && (check_arguments((*tmp)->next->type)))
 	{
-		delimiter = (*tmp)->next->value;
-		delimiter_type = (*tmp)->next->type;
 		tmp1 = (*tmp)->next;
 		(*tmp)->next = (*tmp)->next->next;
 	}
@@ -47,12 +44,17 @@ void	heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env)
 		while (1)
 		{
 			line = readline("> ");
-			if (!ft_strcmp(line, delimiter))
+			if (!line)
+			{
+				free(line);
+				continue ;
+			}
+			if (!ft_strcmp(line, tmp1->value))
 			{
 				free(line);
 				break ;
 			}
-			if (delimiter_type == WORD)
+			if (tmp1->type == WORD)
 				ft_putstr_fd(ft_quote_expander(line, env, 0), pipefd[1]);
 			else
 				ft_putstr_fd(line, pipefd[1]);
