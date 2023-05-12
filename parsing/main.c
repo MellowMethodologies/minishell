@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 17:49:45 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 21:13:17 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	args_count(t_token *lst)
 	while (tmp)
 	{
 		prev = find_node(lst, tmp->index - 1);
-		if (check_arguments(tmp->type) && tmp->index == 0)
+		if (check_arguments(tmp->type)
+			&& !prev)
 			i++;
 		else if (check_arguments(tmp->type)
 			&& (prev && !check_redirection(prev->type)))
