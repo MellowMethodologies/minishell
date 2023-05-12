@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/12 21:06:57 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/12 21:30:55 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ int ft_args_export(char **args)
 {
 	int i = 1;
 
-	while(args[i] && (ft_strcmp(" ", args[i]) == 0 || ft_strcmp("", args[i]) == 0))
-		i++;
-	if(!args[i])
+
+	if(args[1] == NULL)
 		return 1;
 	else
 		return 0;
