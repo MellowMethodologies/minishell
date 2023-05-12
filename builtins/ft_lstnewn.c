@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 04:52:28 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/08 22:04:10 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/09 21:02:43 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_export	*ft_lstnew_texport(char *str)
 	return (my_node);
 }
 
-t_export	*ft_lstnew_texport_one()
+t_export	*ft_lstnew_texport_one(void)
 {
 	t_export	*my_node;
 
