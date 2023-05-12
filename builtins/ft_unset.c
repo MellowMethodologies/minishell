@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:03:32 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/09 21:09:03 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/12 21:04:09 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,10 @@ void	ft_unset(t_parsed *lexe, t_export **export)
 	i = 1;
 	while (lexe->args[i])
 	{
-		ft_delet_node(lexe->args[i], export);
+		if (error_var(lexe->args[i]) == 1)
+			write(2, "not a valid identifier\n", 23);
+		else
+			ft_delet_node(lexe->args[i], export);
 		i++;
 	}
 }

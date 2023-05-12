@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/12 03:09:34 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/12 04:04:55 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,20 +65,24 @@ void	ft_dup(t_parsed *lexe, int is_first, int count)
 	}
 }
 
-char	**errs(char **env)
+char	**errs(char *env)
 {
 	char	**paths;
 
-	paths = ft_split(ft_path(env), ':');
+	paths = ft_split(env, ':');
 	return (paths);
 }
 
-void	ft_execut_cmnd_one(t_parsed *lexe)
+void	ft_execut_cmnd_one(t_parsed *lexe, t_export **export)
 {
 	char	**paths;
 	char	*valid_path;
+	t_export	*tmp = (*export);
 
-	paths = errs(lexe->envs);
+
+	while(tmp && ft_strcmp("PATH", tmp->variable) != 0)
+		tmp = tmp->next;
+	paths = errs(tmp->value);
 	valid_path = ft_valid_path(paths, lexe->args[0]);
 	if (valid_path == NULL)
 	{
@@ -86,7 +90,7 @@ void	ft_execut_cmnd_one(t_parsed *lexe)
 		exit(-1);
 	}
 	execve(valid_path, lexe->args, NULL);
-	exit(50);
+	exit(126);
 }
 
 void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
@@ -114,5 +118,5 @@ void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
 	else if (strcmp(lexe->args[0], "env") == 0)
 		show_env(export, lexe);
 	else
-		ft_execut_cmnd_one(lexe);
+		ft_execut_cmnd_one(lexe, export);
 }

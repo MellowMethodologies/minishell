@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 14:01:03 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 19:12:06 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,8 +224,8 @@ void		ft_change_exit_st(t_export **export, int exit_statu);
 void		rl_replace_line(const char *text, int clear_undo);
 void		ft_dup_1(int is_first, int *fd, int count, t_parsed *lexe);
 void		ft_dup(t_parsed *lexe, int is_first, int count);
-char		**errs(char **env);
-void		ft_execut_cmnd_one(t_parsed *lexe);
+char		**errs(char *env);
+void		ft_execut_cmnd_one(t_parsed *lexe, t_export **export);
 void		ft_execut_cmnd(t_parsed *lexe, t_export **export);
 void		ft_cmnd(t_parsed *lexe, int count, int is_first, t_export **export);
 void		ft_cmnd_one(t_parsed *lexe, int c, int is_first, t_export **ex);

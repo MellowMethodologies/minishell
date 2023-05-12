@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/12 03:16:50 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/12 21:06:57 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ int ft_args_export(char **args)
 	int i = 1;
 
 	while(args[i] && (ft_strcmp(" ", args[i]) == 0 || ft_strcmp("", args[i]) == 0))
-	{
 		i++;
-	}
 	if(!args[i])
 		return 1;
 	else
@@ -85,6 +83,7 @@ void	ft_export(t_parsed *lexe, t_export **export)
 	i = 1;
 	there_is_equal = -2;
 	tmp = (*export);
+	
 	if (ft_args_export(lexe->args))
 	{
 		show_export(export, lexe);
@@ -92,4 +91,6 @@ void	ft_export(t_parsed *lexe, t_export **export)
 	}
 	else
 		ft_export_one(lexe, i, export, there_is_equal);
+	if(lexe->args[1] == NULL)
+		exit(0);
 }
