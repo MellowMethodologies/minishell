@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/11 17:24:14 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 13:53:44 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void		args_creation(t_parsed **cmd, t_token *tmp);
 void		less_red(t_parsed *cmd, t_token *tmp);
 void		great_red(t_parsed *cmd, t_token *tmp);
 void		append_red(t_parsed *cmd, t_token *tmp);
-void		heredoc_red(t_parsed **cmd, t_token **tmp, t_export *env);
+void		heredoc_red(t_parsed *cmd, t_token *tmp, t_export *env);
 void		rm_space(t_token **lex);
 t_token		*find_node(t_token *lex, int index);
 t_token		*ft_lstne(void *value, int type);

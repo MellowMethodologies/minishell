@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/11 23:46:14 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 13:54:18 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void	*parse(char *str, t_export *env, char **envs)
 		if (cmd == NULL)
 			args_creation(&cmd, tmp);
 		if (tmp && tmp->type == HEREDOC)
-			heredoc_red(&cmd, &tmp, env);
+			heredoc_red(cmd, tmp, env);
 		if (tmp && tmp->type == PIPE)
 		{
 			add_back_parsed(&head, cmd);
