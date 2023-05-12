@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/11 23:47:01 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 17:32:58 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_token* lexer(char *str, t_export *env)
 	free(str);
 	str = NULL;
 	ft_expand(lex, env);
-
 	join_word_tokens(lex);
 	return (lex);
 }

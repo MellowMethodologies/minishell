@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 13:54:18 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 17:49:45 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 int	args_count(t_token *lst)
 {
 	t_token	*tmp;
+	t_token	*prev;
 	int		i;
 
+	prev = NULL;
 	i = 0;
 	tmp = lst;
 	while (tmp)
 	{
+		prev = find_node(lst, tmp->index - 1);
 		if (check_arguments(tmp->type) && tmp->index == 0)
 			i++;
 		else if (check_arguments(tmp->type)
-			&& !check_type(find_node(lst, tmp->index - 1)))
-			i++;
+			&& (prev && !check_redirection(prev->type)))
+				i++;
 		else if (tmp->type == PIPE)
 			break ;
 		tmp = tmp->next;
@@ -176,6 +179,7 @@ void	*parse(char *str, t_export *env, char **envs)
 	t_token		*tmp;
 
 	head = NULL;
+	lexe = NULL;
 	cmd = NULL;
 	if (!str)
 	{
