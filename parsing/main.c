@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 21:13:17 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 22:45:26 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,8 +238,8 @@ int main(int ac, char **av, char **env)
 			continue ;
 		}
 		cmd = parse(line, export, env);
-		if (cmd)
-			ft_execution(cmd, &export, env);
+		// if (cmd)
+		// 	ft_execution(cmd, &export, env);
 		free_parsed(&cmd);
 	}
 }

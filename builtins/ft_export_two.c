@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/12 21:30:55 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/12 21:33:22 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_export_one(t_parsed *lexe, int i, t_export **export, int there_is_eq)
 	while (lexe->args[i])
 	{
 		if (error_var(lexe->args[i]) == 1)
-			write(2, "error input\n", 12);
+			write(2, "not a valid identifier\n", 23);
 		else
 		{
 			ft_add_variable(lexe->args[i], export);

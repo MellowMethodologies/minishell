@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/12 03:45:21 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/12 22:45:12 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,13 +106,16 @@ void	ft_execution_4(t_parsed *lexe, t_ex_vars **ex_vars, t_export **export)
 
 void	ft_instantiate_export(t_export **export)
 {
-	t_parsed	*tmp = malloc(sizeof(t_parsed));
+	if(!(*export)->next)
+	{
+		t_parsed	*tmp = malloc(sizeof(t_parsed));
 
-	tmp->args = malloc(4 * sizeof(char *));
-	tmp->args[0] = strdup("PWD=/Users/isbarka/Desktop/mini_shell2");
-	tmp->args[1] = strdup("SHLVL=1");
-	tmp->args[2] = strdup("_=/usr/bin/env");
-	tmp->args[3] = NULL;
+		tmp->args = malloc(4 * sizeof(char *));
+		tmp->args[0] = strdup("PWD=/Users/isbarka/Desktop/mini_shell2");
+		tmp->args[1] = strdup("SHLVL=1");
+		tmp->args[2] = strdup("_=/usr/bin/env");
+		tmp->args[3] = NULL;
+	}
 	// if ((*export) == NULL)
 	// {
 	// 	ft_export(tmp, export);
@@ -152,5 +155,5 @@ void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 	if (lexe)
 		lexe->envs = ex_vars->env;
 	ft_execution_4(lexe, &ex_vars, export);
-	// free(ex_vars);
+	free(ex_vars);
 }

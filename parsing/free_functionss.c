@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functionss.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 10:51:27 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 20:53:30 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 22:45:49 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_parsed(t_parsed **lst)
 
 	while (*lst)
 	{
-		// free_args((*lst)->args);
+		free_args((*lst)->args);
 		tmp = *lst;
 		(*lst) = (*lst)->next;
 		free(tmp);
