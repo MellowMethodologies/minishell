@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:44:53 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/10 14:49:21 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/14 16:53:05 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	check_words(t_token **lex, char *str, int *i, int here)
 		if (((str[*i] == '$' || special(str[*i])) && cas && !here)
 			|| (special(str[*i])))
 		{
-			(*i)--;
+			// (*i)--;
 			break ;
 		}
 		else
@@ -101,12 +101,10 @@ void	space_it(t_token **lex, char *str, int *i)
 {
 	if (str[*i] == ' ')
 	{
-		if (str[*i + 1] == ' ')
-		{
-			while (str[*i] == ' ')
-				(*i)++;
-			(*i)--;
-		}
+		
+		while (str[*i] == ' ')
+			(*i)++;
+		// (*i)--;
 		add_back(lex, ft_lstne(" ", WHITESPACE));
 	}
 }
