@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/14 18:14:44 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/12 17:32:58 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_token* lexer(char *str, t_export *env)
 			c = check_for_specials(&lex, str, &i, c);
 		else if (str[i] && special(str[i]) == 0)
 			check_words(&lex, str, &i, c);
+		i++;
 	}
 	free(str);
 	str = NULL;

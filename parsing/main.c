@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/14 18:14:31 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/14 13:01:33 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	args_count(t_token *lst)
 	t_token	*prev;
 	int		i;
 
-	i = 0;
 	prev = NULL;
+	i = 0;
 	tmp = lst;
 	while (tmp)
 	{
@@ -54,7 +54,6 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 			if (*cmd == NULL)
 				return ;
 			args = args_count(tmp);
-			printf("args : %d\n",args);
 			(*cmd)->args = ft_calloc(sizeof(char *), (args) + 1);
 			if ((*cmd)->args == NULL)
 				return ;
@@ -152,6 +151,7 @@ void	check_lex(t_parsed *head, t_token *lex)
 
 int	check_syntax(t_token *tmp)
 {
+	t_token	*prev;
 	t_token	*lex;
 
 	lex = tmp;
@@ -172,65 +172,58 @@ int	check_syntax(t_token *tmp)
 	return (1);
 }
 
-t_var *initializer()
+void	*parse(char *str, t_export *env, char **envs)
 {
-	t_var	*var;
-
-	var = malloc(sizeof(t_var));
-	var->cmd = NULL;
-	var->head = NULL;
-	var->lexe = NULL;
-	return (var);
-}
-
-void	*parse(char *str, t_export *env)
-{
-	t_var		*vars;
+	t_parsed	*cmd;
+	t_parsed	*head;
+	t_token		*lexe;
 	t_token		*tmp;
 
-	vars = initializer();
+	head = NULL;
+	lexe = NULL;
+	cmd = NULL;
 	if (!str)
 	{
 		free(str);
 		str = NULL;
-		return (vars->head);
+		return (head);
 	}
-	vars->lexe = lexer(str, env);
-	indexer(&vars->lexe);
-	
-	rm_space(&vars->lexe);
-	if (!check_syntax(vars->lexe))
-		return (vars->head);
-	tmp = vars->lexe;
+	lexe = lexer(str, env);
+	indexer(&lexe);
+	rm_space(&lexe);
+	if (!check_syntax(lexe))
+	{
+		free_tokens(&lexe);
+		return (head);
+	}
+	tmp = lexe;
 	while (tmp)
 	{
-		if (vars->cmd == NULL)
-			args_creation(&vars->cmd, tmp);
+		if (cmd == NULL)
+			args_creation(&cmd, tmp);
 		if (tmp && tmp->type == HEREDOC)
-			heredoc_red(vars->cmd, tmp, env);
+			heredoc_red(cmd, tmp, env);
 		if (tmp && tmp->type == PIPE)
 		{
-			add_back_parsed(&vars->head, vars->cmd);
-			vars->cmd = NULL;
+			add_back_parsed(&head, cmd);
+			cmd = NULL;
 		}
 		if (tmp)
 			tmp = tmp->next;
 	}
-	add_back_parsed(&vars->head, vars->cmd);
-	check_lex(vars->head, vars->lexe);
-
-	free_tokens(&vars->lexe);
-	return (vars->head);
+	add_back_parsed(&head, cmd);
+	check_lex(head, lexe);
+	free_tokens(&lexe);
+	return (head);
 }
 
 int main(int ac, char **av, char **env)
 {
+	int			i;
 	char		*line;
 	t_export	*export;
 	t_parsed	*cmd;
 
-	(void)ac;
-	(void)av;
 	cmd = NULL;
 	export = NULL;
 	fill_export(&export, env);
@@ -247,15 +240,7 @@ int main(int ac, char **av, char **env)
 			free(line);
 			continue ;
 		}
-		cmd = parse(line, export);
-	// 	int i;
-	// while(cmd)
-	// {
-	// 	i = 0;
-	// 	while(cmd->args[i])
-	// 		{printf("args %d :%s\n", i,cmd->args[i]);i++;}
-	// 	cmd = cmd->next;
-	// }
+		cmd = parse(line, export, env);
 		if (cmd)
 			ft_execution(cmd, &export, env);
 		free_parsed(&cmd);

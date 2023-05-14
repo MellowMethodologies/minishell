@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 11:05:58 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/14 16:19:57 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/08 22:06:56 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	add_back(t_token **lst, t_token *new)
 	while (last->next)
 		last = last->next;
 	last->next = new;
-	new->next = NULL;
 }
 
 void	add_back_parsed(t_parsed **lst, t_parsed *new)
