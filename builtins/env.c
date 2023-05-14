@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:13:44 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/09 22:38:46 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 17:45:07 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ char	*str_after_equal(char *str, int there_is_equal)
 		vars->i = vars->i + 1;
 	}
 	to_return[vars->i] = '\0';
+	free(vars);
 	return (to_return);
 }
 

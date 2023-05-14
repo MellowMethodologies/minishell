@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 04:52:28 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/09 21:02:43 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 17:54:33 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_export	*ft_lstnew_texport(char *str)
 	}
 	my_node -> next = NULL;
 	my_node -> variable = str;
+	my_node->value =NULL;
 	return (my_node);
 }
 

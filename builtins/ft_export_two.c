@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/12 21:33:22 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 17:52:53 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,30 @@
 void	ft_add_value_ft(char *str, t_export **export)
 {
 	t_export	*tmp;
+	char *s1;
+	char *s2;
 
+	s1 = str_befor_equal(str, 1);
+	s2 = str_after_equal(str, 1);
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, str_befor_equal(str, 1)) != 0)
+	while (tmp && strcmp(tmp->variable, s1) != 0)
 		tmp = tmp->next;
-	tmp->value = str_after_equal(str, 1);
+	if(tmp->value)
+		free(tmp->value);
+	tmp->value = s2;
+	free(s1);
 }
 
 void	make_value_null(char *str, t_export **export)
 {
 	t_export	*tmp;
+	char *s;
 
+	s = str_befor_equal(str, 1);
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, str_befor_equal(str, 1)) != 0)
+	while (tmp && strcmp(tmp->variable, s) != 0)
 		tmp = tmp->next;
+	free(s);
 	tmp->value = NULL;
 }
 
@@ -40,6 +50,7 @@ void	ft_add_value(char *str, t_export **export, int there_is_equal)
 	}
 	else if (ft_just_equal(str))
 	{
+		
 		ft_add_value_ft(str, export);
 	}
 	else
@@ -77,11 +88,9 @@ void	ft_export(t_parsed *lexe, t_export **export)
 {
 	int			i;
 	int			there_is_equal;
-	t_export	*tmp;
 
 	i = 1;
 	there_is_equal = -2;
-	tmp = (*export);
 	
 	if (ft_args_export(lexe->args))
 	{

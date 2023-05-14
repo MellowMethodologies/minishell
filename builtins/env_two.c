@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:13:44 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/09 22:38:43 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 18:19:44 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void	show_env(t_export **export, t_parsed *lexe)
 {
 	t_export	*tmp;
 
+	if(lexe->args[1])
+		{
+			write(2, "env: asd: No such file or directory\n", 37);
+			exit(127);
+		}
 	tmp = (*export);
 	while (tmp)
 	{

@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/09 22:53:34 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 15:47:50 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@ int	there_already(char *str1, t_export **export)
 void	ft_add_variable(char *str, t_export **export)
 {
 	char		*str1;
-	t_export	*tmp;
 
 	str1 = str_befor_equal(str, 1);
 	if (there_already(str1, export))
+	{
+		free(str1);
 		return ;
+	}
 	else
 	{
 		ft_lstadd_back_texport(export, ft_lstnew_texport(str1));
-		tmp = (*export);
 	}
 }
 
