@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 22:45:26 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 13:01:33 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,10 @@ void	*parse(char *str, t_export *env, char **envs)
 	indexer(&lexe);
 	rm_space(&lexe);
 	if (!check_syntax(lexe))
+	{
+		free_tokens(&lexe);
 		return (head);
+	}
 	tmp = lexe;
 	while (tmp)
 	{
@@ -238,8 +241,8 @@ int main(int ac, char **av, char **env)
 			continue ;
 		}
 		cmd = parse(line, export, env);
-		// if (cmd)
-		// 	ft_execution(cmd, &export, env);
+		if (cmd)
+			ft_execution(cmd, &export, env);
 		free_parsed(&cmd);
 	}
 }

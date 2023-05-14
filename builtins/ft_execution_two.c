@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/12 03:10:36 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 12:51:44 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	ft_change_exit_st(t_export **export, int exit_statu)
 	tmp = (*export);
 	while (tmp && strcmp(tmp->variable, "?") != 0)
 		tmp = tmp->next;
+	free(tmp->value);
+	printf("||%s||", tmp->value);	
 	tmp->value = ft_itoa(exit_statu);
 }
 
@@ -45,8 +47,12 @@ void	ft_execution_5(t_ex_vars **ex_vars, t_parsed *lexe, t_export **export)
 void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 {
 	int	id;
+	float a = 13.5f;
+	 a = 45;
 
 	id = 0;
+	while (lexe && lexe->args[0] == NULL)
+			ignor_lexe(&lexe);
 	if (lexe)
 	{
 		if (!lexe->args[0]
@@ -67,14 +73,9 @@ void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 		}
 	}
 	(*ex_vars)->exit_status = WEXITSTATUS((*ex_vars)->status);
+	if((*ex_vars)->exit_status >= 1)
+		(*ex_vars)->exit_status = 127;
 	ft_change_exit_st(export, (*ex_vars)->exit_status);
-}
-
-void	ft_no_areg(t_parsed **lexe)
-{
-	(*lexe) = (*lexe)->next;
-	unlink("/tmp/b.txt");
-	unlink("/tmp/a.txt");
 }
 
 void	ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
@@ -82,7 +83,7 @@ void	ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 	while (lexe && lexe->next)
 	{
 		while (lexe && lexe->args[0] == NULL)
-			ft_no_areg(&lexe);
+			ignor_lexe(&lexe);
 		if (!lexe->args[0]
 			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
 				|| strcmp(lexe->args[0], "unset") == 0)

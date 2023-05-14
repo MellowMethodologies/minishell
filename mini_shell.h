@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 19:12:06 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 12:50:15 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,5 +261,6 @@ int			error_var(char *str);
 int			there_is_equal(char *str);
 void		fill_export_with_1(t_export **export);
 void		ft_change_exit_st(t_export **export, int exit_statu);
+void		ignor_lexe(t_parsed **lexe);
 
 #endif

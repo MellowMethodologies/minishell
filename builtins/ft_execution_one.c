@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/12 22:45:12 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 12:51:28 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ void	ft_execution_4(t_parsed *lexe, t_ex_vars **ex_vars, t_export **export)
 	(*ex_vars)->count = (*ex_vars)->count + 1;
 	if (lexe)
 		lexe = lexe->next;
+	while (lexe && lexe->args[0] == NULL)
+		ignor_lexe(&lexe);
 	// while (lexe && lexe->args[0] == NULL)
 	// 	lexe = lexe->next;
 	ft_execution_2(lexe, export, ex_vars);
-	
 	unlink("/tmp/b.txt");
 	unlink("/tmp/a.txt");
 }
@@ -138,20 +139,24 @@ void ft_show_args( t_parsed *lexe)
 	}
 }
 
+void ignor_lexe(t_parsed **lexe)
+{
+		(*lexe) = (*lexe)->next;
+		unlink("/tmp/b.txt");
+		unlink("/tmp/a.txt");
+}
+
 void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
-	ft_show_args(lexe_1);
-	write(2, "teet\n", 5);
+	// ft_show_args(lexe_1);
 	t_parsed	*lexe;
 	t_ex_vars	*ex_vars;
 	ft_instantiate_export(export);
-	while (lexe_1 && lexe_1->args[0] == NULL)
-	{
-		lexe_1 = lexe_1->next;
-	}
-	ft_exit(lexe_1, export);
-	ft_instantiate_ex_vars(&ex_vars, env);
 	lexe = lexe_1;
+	while (lexe && lexe->args[0] == NULL)
+		ignor_lexe(&lexe);
+	ft_exit(lexe, export);
+	ft_instantiate_ex_vars(&ex_vars, env);
 	if (lexe)
 		lexe->envs = ex_vars->env;
 	ft_execution_4(lexe, &ex_vars, export);
