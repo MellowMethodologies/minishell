@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/14 15:02:41 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/14 18:40:13 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,23 +107,22 @@ void	ft_instantiate_export(t_export **export)
 {
 	if(!(*export)->next)
 	{
+		write(2, "test\n",5);
 		t_parsed	*tmp = malloc(sizeof(t_parsed));
 
-		tmp->args = malloc(4 * sizeof(char *));
-		tmp->args[0] = strdup("PWD=/Users/isbarka/Desktop/mini_shell2");
-		tmp->args[1] = strdup("SHLVL=1");
-		tmp->args[2] = strdup("_=/usr/bin/env");
-		tmp->args[3] = NULL;
+		tmp->args = malloc(5 * sizeof(char *));
+		tmp->args[0] = strdup("export");
+		tmp->args[1] = strdup("PWD=/Users/isbarka/Desktop/mini_shell2");
+		tmp->args[2] = strdup("SHLVL=1");
+		tmp->args[3] = strdup("_=/usr/bin/env");
+		tmp->args[4] = NULL;
+		ft_export(tmp, export);
+		free(tmp->args[0]);
+		free(tmp->args[1]);
+		free(tmp->args[2]);
+		free(tmp->args);
+		free(tmp);
 	}
-	// if ((*export) == NULL)
-	// {
-	// 	ft_export(tmp, export);
-	// }
-	// free(tmp->args[0]);
-	// free(tmp->args[1]);
-	// free(tmp->args[2]);
-	// free(tmp->args);
-	// free(tmp);
 }
 
 void ft_show_args( t_parsed *lexe)
@@ -144,8 +143,20 @@ void ignor_lexe(t_parsed **lexe)
 		unlink("/tmp/a.txt");
 }
 
+void ft_show_export( t_export **export)
+{
+	t_export *tmp = (*export);
+
+	while(tmp)
+	{
+		printf("!%s!\n",tmp->variable);
+		tmp = tmp->next;
+	}
+}
+
 void	ft_execution(t_parsed *lexe_1, t_export **export, char **env)
 {
+	// ft_show_export(export);
 	ft_show_args(lexe_1);
 	t_parsed	*lexe;
 	t_ex_vars	*ex_vars;
