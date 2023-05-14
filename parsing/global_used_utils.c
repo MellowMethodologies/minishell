@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_used_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 22:58:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 23:40:48 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/11 18:00:43 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	fill_export(t_export **exp, char **env)
 				ft_strdup(1 + ft_strrchr(env[i], '='))));
 		i++;
 	}
-	ft_lstadd_back_texport(exp, ft_lstnew_export("?", ft_strdup("-1")));
+	ft_lstadd_back_texport(exp, ft_lstnew_export("?", "-1"));
 }
 
 //calculate how many c is in the str
