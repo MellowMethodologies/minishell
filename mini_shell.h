@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/14 12:50:15 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/15 16:21:13 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,12 @@ typedef struct s_var
 	int				j;
 	int				dollar_found;
 	t_parsed		*cmd;
-	t_export		*env;
-	t_token			*lexe;
-	t_token			*lex_without_spaces;
 	t_parsed		*head;
+	t_token			*lexe;
+	t_token			*tmp;
+	t_export		*env;
+	t_token			*lex_without_spaces;
+	char			*line;
 	char			*temp;
 	char			*result;
 	char			*res;
@@ -107,6 +109,11 @@ typedef struct s_var
 	char			**envs;
 }	t_var;
 
+void		ft_expand(t_token *lexe, t_export *env);
+void		parsed_filler(t_parsed *cmd, t_token *l, t_parsed **h, t_export *env);
+t_parsed	*ft_parse(char *str, t_export *env, t_var *vars);
+int			check_syntax(t_token *tmp);
+void		check_lex(t_parsed *head, t_token *lex);
 void		free_tokens(t_token **lst);
 char		*ft_quote_expander(char *str, t_export *env, int etat);
 t_export	*ft_lstnew_export(void *var, char *value);
