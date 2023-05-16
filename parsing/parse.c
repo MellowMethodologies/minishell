@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:16:37 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/15 16:19:48 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/15 16:50:40 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,29 @@ t_parsed	*ft_parse(char *str, t_export *env, t_var *vars)
 	check_lex(head, vars->lexe);
 	free_tokens(&vars->lexe);
 	return (head);
+}
+
+int	args_count(t_token *lst)
+{
+	t_token	*tmp;
+	t_token	*prev;
+	int		i;
+
+	prev = NULL;
+	i = 0;
+	tmp = lst;
+	while (tmp)
+	{
+		prev = find_node(lst, tmp->index - 1);
+		if (check_arguments(tmp->type)
+			&& !prev)
+			i++;
+		else if (check_arguments(tmp->type)
+			&& (prev && !check_redirection(prev->type)))
+				i++;
+		else if (tmp->type == PIPE)
+			break ;
+		tmp = tmp->next;
+	}
+	return (i);
 }

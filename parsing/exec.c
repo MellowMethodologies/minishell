@@ -6,36 +6,11 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/15 16:19:42 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/16 12:27:56 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
-
-int	args_count(t_token *lst)
-{
-	t_token	*tmp;
-	t_token	*prev;
-	int		i;
-
-	prev = NULL;
-	i = 0;
-	tmp = lst;
-	while (tmp)
-	{
-		prev = find_node(lst, tmp->index - 1);
-		if (check_arguments(tmp->type)
-			&& !prev)
-			i++;
-		else if (check_arguments(tmp->type)
-			&& (prev && !check_redirection(prev->type)))
-				i++;
-		else if (tmp->type == PIPE)
-			break ;
-		tmp = tmp->next;
-	}
-	return (i);
-}
 
 void	initial_cmd(int args, t_parsed **cmd, t_token *tmp)
 {
@@ -81,20 +56,17 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 void	initializer(t_var **vars)
 {
 	*vars = malloc(sizeof(t_var));
-
 	(*vars)->head = NULL;
 	(*vars)->lexe = NULL;
 	(*vars)->cmd = NULL;
 }
 
-int main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env)
 {
 	t_export	*export;
-	t_parsed	*cmd;
 	t_var		*vars;
 
 	initializer(&vars);
-	cmd = NULL;
 	export = NULL;
 	fill_export(&export, env);
 	while (1)
@@ -110,9 +82,10 @@ int main(int ac, char **av, char **env)
 			free(vars->line);
 			continue ;
 		}
-		cmd = ft_parse(vars->line, export, vars);
-		if (cmd)
-			ft_execution(cmd, &export, env);
-		free_parsed(&cmd);
+		vars->cmd = ft_parse(vars->line, export, vars);
+		if (vars->cmd)
+			ft_execution(vars->cmd, &export, env);
+		free_parsed(&vars->cmd);
 	}
+	free(vars);
 }

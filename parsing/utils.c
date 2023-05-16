@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/11 23:49:33 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/15 16:39:26 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 char	*ft_quote_expander(char *str, t_export *env, int etat)
 {
-	char	*res = ft_strdup("");
+	char	*res;
 	char	*temp;
-	int		i = 0;
-	int		j = 0;
-	int		found_dol = 0;
+	int		i;
+	int		j;
+	int		found_dol;
 
+	i = 0;
+	j = 0;
+	found_dol = 0;
+	res = ft_strdup("");
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -41,13 +45,24 @@ char	*ft_quote_expander(char *str, t_export *env, int etat)
 	return (res);
 }
 
+char	*ft_res(char *s1, char *s2, char *var, t_export *env)
+{
+	char	*result;
+
+	result = ft_strdup(s2);
+	free(var);
+	free(s1);
+	if (env->value)
+		free(s2);
+	return (result);
+}
+
 char	*ft_getenv(char *var, t_export *env)
 {
 	int		i;
 	char	*s1;
 	char	*s2;
 	char	*result;
-	char	**s;
 
 	i = 0;
 	if (ft_isdigit(var[i]))
@@ -58,17 +73,7 @@ char	*ft_getenv(char *var, t_export *env)
 		if (env->value)
 			s2 = ft_strdup(env->value);
 		if (ft_strcmp(s1, var) == 0)
-		{
-			result = ft_strdup(s2);
-
-			if (ft_count(result, ' ') > 1)
-				s = ft_split(result, 2);
-			free(var);
-			free(s1);
-			if (env->value)
-				free(s2);
-			return (result);
-		}
+			return (ft_res(s1, s2, var, env));
 		free(s1);
 		if (env->value)
 			free(s2);

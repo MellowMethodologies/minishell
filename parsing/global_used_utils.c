@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 22:58:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/14 20:19:13 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/16 12:24:17 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	fill_export(t_export **exp, char **env)
 	i = 0;
 	while (env[i])
 	{
-		ft_lstadd_back_texport(exp, ft_lstnew_export(write_until(env[i],'='),
+		ft_lstadd_back_texport(exp, ft_lstnew_export(write_until(env[i], '='),
 				ft_strdup(1 + ft_strrchr(env[i], '='))));
 		i++;
 	}
@@ -66,8 +66,6 @@ int	check_quotes(char *line)
 	}
 	return (1);
 }
-
-//join words and quoted
 
 void	join_word_tokens(t_token *lex)
 {

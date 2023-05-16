@@ -6,21 +6,11 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:30:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/15 16:02:33 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/16 12:24:56 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
-
-int	check_type(t_token *lex)
-{
-	if (lex && (lex->type == DOUBLE_QUOTE || lex->type == SINGLE_QUOTE
-			|| lex->type == GREATGREAT || lex->type == GREAT
-			|| lex->type == HEREDOC || lex->type == LESS))
-		return (1);
-	else
-		return (0);
-}
 
 int	check_redirection(int c)
 {

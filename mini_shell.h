@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/15 16:21:13 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/16 12:26:32 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ typedef struct s_var
 	char			**envs;
 }	t_var;
 
+int			args_count(t_token *lst);
 void		ft_expand(t_token *lexe, t_export *env);
-void		parsed_filler(t_parsed *cmd, t_token *l, t_parsed **h, t_export *env);
+void		parsed_filler(t_parsed *cmd, t_token *l, \
+t_parsed **h, t_export *env);
 t_parsed	*ft_parse(char *str, t_export *env, t_var *vars);
 int			check_syntax(t_token *tmp);
 void		check_lex(t_parsed *head, t_token *lex);
@@ -129,6 +131,7 @@ int			check_quotes(char *line);
 int			check_arguments(int c);
 int			check_redirection(int c);
 void		join_word_tokens(t_token *lex);
+void		args_creation(t_parsed **cmd, t_token *tmp);
 void		args_creation(t_parsed **cmd, t_token *tmp);
 void		less_red(t_parsed *cmd, t_token *tmp);
 void		great_red(t_parsed *cmd, t_token *tmp);

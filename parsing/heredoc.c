@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/12 21:39:23 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/16 12:23:18 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	child_do(int *pipefd, t_token *tmp1, t_export *env)
 {
 	char	*line;
+
 	ft_change_exit_st(&env, 1);
 	// signal(SIGINT, heredoc_handle);
 	close(pipefd[0]);
