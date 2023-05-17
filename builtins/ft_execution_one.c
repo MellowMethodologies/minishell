@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:33:59 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:37:28 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_exit(t_parsed *lexe1, t_export **export)
 	}	
 	i = 0;
 	tmp = lexe1;
-	if (tmp && strcmp(tmp->args[0], "exit") == 0)
+	if (tmp && ft_strcmp(tmp->args[0], "exit") == 0)
 	{
 		if (!tmp->next)
 		{
@@ -146,17 +146,15 @@ void exit_( t_export **export, pid_t id, t_parsed *lexe1)
 		{
 			if (WIFEXITED(exit))
 			{
-				// if(ft_strcmp(lexe->args[0], "cd") == 0 || ft_strcmp(lexe->args[0], "unset") == 0 || (ft_strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL))
-				// {
-				// }
-				// else
+				if(ft_strcmp(lexe->args[0], "cd") == 0 || ft_strcmp(lexe->args[0], "unset") == 0 || (ft_strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL))
+				{
+				}
+				else
 					global =  WEXITSTATUS(exit);
-				printf("||%d||\n", WEXITSTATUS(exit));
 			}
 		}
 		lexe = lexe->next;
 	}
-	printf("{%d}\n",global);
 }
 
 int check_builtins(char **strs)

@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 01:09:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:29:55 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:36:58 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_setenv(char *variable, char *new_value, t_export **export)
 	t_export	*tmp;
 
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, variable) != 0)
+	while (tmp && ft_strcmp(tmp->variable, variable) != 0)
 		tmp = tmp->next;
 	if (tmp)
 		tmp->value = ft_strdup(new_value);
@@ -66,7 +66,7 @@ char	*ft_home(t_export **export)
 	t_export	*tmp;
 
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, "HOME") != 0)
+	while (tmp && ft_strcmp(tmp->variable, "HOME") != 0)
 		tmp = tmp->next;
 	return (tmp->value);
 }

@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:30:56 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:36:58 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	ft_change_exit_st(t_export **export, int exit_statu)
 	t_export	*tmp;
 
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, "?") != 0)
+	while (tmp && ft_strcmp(tmp->variable, "?") != 0)
 		tmp = tmp->next;
 	free(tmp->value);
-	printf("||%s||", tmp->value);	
+	// printf("||%s||", tmp->value);	
 	tmp->value = ft_itoa(exit_statu);
 }
 
@@ -59,8 +59,8 @@ void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 	{
 		if (!lexe->args[0]
 			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
-				|| strcmp(lexe->args[0], "unset") == 0)
-			|| strcmp(lexe->args[0], "cd") == 0)
+				|| ft_strcmp(lexe->args[0], "unset") == 0)
+			|| ft_strcmp(lexe->args[0], "cd") == 0)
 			ft_cmnd_one(lexe, (*ex_vars)->count, 0, export);
 		else
 		{
@@ -88,8 +88,8 @@ void	ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 			ignor_lexe(&lexe);
 		if (!lexe->args[0]
 			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
-				|| strcmp(lexe->args[0], "unset") == 0)
-			|| strcmp(lexe->args[0], "cd") == 0)
+				|| ft_strcmp(lexe->args[0], "unset") == 0)
+			|| ft_strcmp(lexe->args[0], "cd") == 0)
 			ft_cmnd_one(lexe, (*ex_vars)->count, 0, export);
 		else
 		{

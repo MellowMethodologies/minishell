@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/14 18:15:59 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:36:58 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_join_value(t_export **export, char *str)
 	s1 = str_befor_equal(str, 1);
 	s2 = str_after_equal(str, 1);
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, s1) != 0)
+	while (tmp && ft_strcmp(tmp->variable, s1) != 0)
 		tmp = tmp->next;
 	char *s3 = ft_strjoin(tmp->value, s2);
 	if(tmp->value)
@@ -52,7 +52,7 @@ int	arg_exist(char *str, t_export **export)
 	t_export	*tmp;
 
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, str) != 0)
+	while (tmp && ft_strcmp(tmp->variable, str) != 0)
 	{
 		tmp = tmp->next;
 	}

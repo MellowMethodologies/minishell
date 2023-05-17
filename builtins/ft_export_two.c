@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:31:34 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:36:58 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_add_value_ft(char *str, t_export **export)
 	s1 = str_befor_equal(str, 1);
 	s2 = str_after_equal(str, 1);
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, s1) != 0)
+	while (tmp && ft_strcmp(tmp->variable, s1) != 0)
 		tmp = tmp->next;
 	if(tmp->value)
 		free(tmp->value);
@@ -38,7 +38,7 @@ void	make_value_null(char *str, t_export **export)
 
 	s = str_befor_equal(str, 1);
 	tmp = (*export);
-	while (tmp && strcmp(tmp->variable, s) != 0)
+	while (tmp && ft_strcmp(tmp->variable, s) != 0)
 		tmp = tmp->next;
 	free(s);
 	tmp->value = NULL;
