@@ -6,12 +6,13 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 01:09:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/09 01:11:32 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:29:55 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
+int global;
 void	ft_setenv(char *variable, char *new_value, t_export **export)
 {
 	t_export	*tmp;
@@ -49,7 +50,7 @@ void	ft_go_direction(char *dir, t_export **export)
 	if (chdir(dir) != 0)
 	{
 		write(2, "error dir path", 15);
-		ft_change_exit_st(export, 0);
+		global = 0;
 		return ;
 	}
 	oldpwd = getenv("PWD");
@@ -79,6 +80,6 @@ void	ft_cd(t_parsed *lexe, t_export **export)
 		ft_go_home(home, export);
 	else
 		ft_go_direction(lexe->args[1], export);
-	ft_change_exit_st(export, 0);
+	global = 0;
 	return ;
 }

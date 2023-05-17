@@ -6,11 +6,13 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/14 17:52:53 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:31:34 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
+
+int global;
 
 void	ft_add_value_ft(char *str, t_export **export)
 {
@@ -62,7 +64,10 @@ void	ft_export_one(t_parsed *lexe, int i, t_export **export, int there_is_eq)
 	while (lexe->args[i])
 	{
 		if (error_var(lexe->args[i]) == 1)
+		{
 			write(2, "not a valid identifier\n", 23);
+			global = 1;
+		}
 		else
 		{
 			ft_add_variable(lexe->args[i], export);
@@ -95,7 +100,7 @@ void	ft_export(t_parsed *lexe, t_export **export)
 	if (ft_args_export(lexe->args))
 	{
 		show_export(export, lexe);
-		ft_change_exit_st(export, 0);
+		global = 0;
 	}
 	else
 		ft_export_one(lexe, i, export, there_is_equal);

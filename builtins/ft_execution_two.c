@@ -6,11 +6,13 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/14 12:51:44 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:30:56 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
+
+int global;
 
 void	fill_export_with_1(t_export **export)
 {
@@ -75,7 +77,7 @@ void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 	(*ex_vars)->exit_status = WEXITSTATUS((*ex_vars)->status);
 	if((*ex_vars)->exit_status >= 1)
 		(*ex_vars)->exit_status = 127;
-	ft_change_exit_st(export, (*ex_vars)->exit_status);
+	global = (*ex_vars)->exit_status;
 }
 
 void	ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)

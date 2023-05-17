@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/12 03:26:40 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/01 12:16:35 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/16 22:24:12 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_valid_path(char **paths, char *str)
 	i = 0;
 	if (access(str, X_OK) == 0)
 		return (str);
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		if (access(ft_strjoin(ft_strjoin(paths[i], "/"), str), X_OK) == 0)
 			return (ft_strjoin(ft_strjoin(paths[i], "/"), str));
