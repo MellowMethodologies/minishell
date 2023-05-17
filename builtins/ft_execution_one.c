@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:37:28 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/17 01:53:52 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,13 +146,14 @@ void exit_( t_export **export, pid_t id, t_parsed *lexe1)
 		{
 			if (WIFEXITED(exit))
 			{
-				if(ft_strcmp(lexe->args[0], "cd") == 0 || ft_strcmp(lexe->args[0], "unset") == 0 || (ft_strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL))
+				if(lexe->args[0] &&(ft_strcmp(lexe->args[0], "cd") == 0 || ft_strcmp(lexe->args[0], "unset") == 0 || (ft_strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)))
 				{
 				}
 				else
 					global =  WEXITSTATUS(exit);
 			}
 		}
+		write(2, "test\n", 5);
 		lexe = lexe->next;
 	}
 }
@@ -241,6 +242,7 @@ void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 			lexe = lexe->next;
 	}
 	exit_(export, id, lexe1);
+
 	ft_change_exit_st(export, global);
 }
 
