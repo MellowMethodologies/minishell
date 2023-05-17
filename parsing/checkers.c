@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:30:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/16 12:24:56 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/17 13:06:19 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_arguments(int c)
 	return (0);
 }
 
-void	check_lex_2(t_parsed *head, t_token *lex)
+t_token	*check_lex_2(t_parsed *head, t_token *lex)
 {
 	t_token		*tmp;
 	int			c;
@@ -45,7 +45,7 @@ void	check_lex_2(t_parsed *head, t_token *lex)
 			c = 1;
 		tmp = tmp->next;
 	}
-	c = 0;
+	return (tmp);
 }
 
 void	check_lex(t_parsed *head, t_token *lex)
@@ -57,15 +57,17 @@ void	check_lex(t_parsed *head, t_token *lex)
 	}
 	while (head)
 	{
-		check_lex_2(head, lex);
+		lex = check_lex_2(head, lex);
 		if (head && head->error == 2)
 		{
 			printf("%s", head->error_str);
+			global = 1;
 			break ;
 		}
 		else if (head && head->error == 1)
 		{
 			printf("%s", head->error_str);
+			global = 1;
 			head = head->next;
 			continue ;
 		}
@@ -88,6 +90,7 @@ int	check_syntax(t_token *tmp)
 			|| (tmp->type == PIPE && ((tmp->index == 0 || !tmp->next)
 					|| tmp->next->type == PIPE)))
 		{
+			global = 258;
 			ft_putstr_fd("syntax error\n", 2);
 			return (0);
 		}
