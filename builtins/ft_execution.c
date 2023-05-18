@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/16 22:43:55 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/18 22:45:42 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
 		ft_unset(lexe, export);
 	else if (strcmp(lexe->args[0], "env") == 0)
 		show_env(export, lexe);
+	else if (strcmp(lexe->args[0], "exit") == 0)
+		ft_exit(lexe, export);
 	else
 		ft_execut_cmnd_one(lexe, export);
 }

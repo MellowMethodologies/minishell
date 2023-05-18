@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/18 15:50:44 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/18 22:49:12 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_exit_1( t_parsed **tmp, int i, t_export **export)
 		if (!ft_isdigit((*tmp)->args[1][i]))
 		{
 			write(1, "exit\n", 5);
-			write(1, "exit: ", 25);
+			write(1, "exit: ", 6);
 			ft_putstr(2, (*tmp)->args[1]);
 			write(1, ": numeric argument required\n", 28);
 			exit(1);
@@ -146,20 +146,21 @@ void exit_( t_export **export, pid_t id, t_parsed *lexe1)
 		{
 			if (WIFEXITED(exit))
 			{
-				if(lexe->args[0] &&(ft_strcmp(lexe->args[0], "cd") == 0 || ft_strcmp(lexe->args[0], "unset") == 0 || (ft_strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)))
+				if(lexe->args[0] &&(ft_strcmp(lexe->args[0], "cd") == 0 || ft_strcmp(lexe->args[0], "unset") == 0 ||ft_strcmp(lexe->args[0], "exit") == 0 || (ft_strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)))
 				{
 				}
 				else
 					global =  WEXITSTATUS(exit);
 			}
 		}
+		write(2, "test\n", 5);
 		lexe = lexe->next;
 	}
 }
 
 int check_builtins(char **strs)
 {
-	if(ft_strcmp(strs[0], "cd") == 0 || ft_strcmp(strs[0], "unset") == 0 || (ft_strcmp(strs[0], "export") == 0 && strs[1] != NULL))
+	if(ft_strcmp(strs[0], "cd") == 0 || ft_strcmp(strs[0], "unset") == 0 || ft_strcmp(strs[0], "exit") == 0 || (ft_strcmp(strs[0], "export") == 0 && strs[1] != NULL))
 		return 0;
 	return 1;
 }
@@ -175,7 +176,6 @@ void hundle_2(int sig)
 
 void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 {
-	// ft_show_args(lexe1);
 	signal(SIGINT, hundle_1);
 	signal(SIGQUIT, hundle_2);
 	int fd[2];
@@ -228,7 +228,6 @@ void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 				close(stdout);
 				close(fd[0]);
 				ft_execut_cmnd(lexe, export);
-				exit(127);
 			}
 		}
 		else if(lexe)
@@ -241,6 +240,7 @@ void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 			lexe = lexe->next;
 	}
 	exit_(export, id, lexe1);
+
 	ft_change_exit_st(export, global);
 }
 
