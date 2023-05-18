@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/18 11:57:59 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/18 15:50:44 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,6 @@ int check_builtins(char **strs)
 
 void hundle_1(int sig)
 {
-	// if(sig == SIGINT)
 		global = 130;
 }
 void hundle_2(int sig)
@@ -229,6 +228,7 @@ void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 				close(stdout);
 				close(fd[0]);
 				ft_execut_cmnd(lexe, export);
+				exit(127);
 			}
 		}
 		else if(lexe)
@@ -241,7 +241,6 @@ void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 			lexe = lexe->next;
 	}
 	exit_(export, id, lexe1);
-
 	ft_change_exit_st(export, global);
 }
 
