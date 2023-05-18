@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:53:52 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/18 11:57:59 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,6 @@ void exit_( t_export **export, pid_t id, t_parsed *lexe1)
 					global =  WEXITSTATUS(exit);
 			}
 		}
-		write(2, "test\n", 5);
 		lexe = lexe->next;
 	}
 }
@@ -178,8 +177,8 @@ void hundle_2(int sig)
 void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 {
 	// ft_show_args(lexe1);
-				signal(SIGINT, hundle_1);
-				signal(SIGQUIT, hundle_2);
+	signal(SIGINT, hundle_1);
+	signal(SIGQUIT, hundle_2);
 	int fd[2];
 	int stdin= -1;
 	int stdout;

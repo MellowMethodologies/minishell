@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 01:09:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:36:58 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/18 15:32:46 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	ft_setenv(char *variable, char *new_value, t_export **export)
 	while (tmp && ft_strcmp(tmp->variable, variable) != 0)
 		tmp = tmp->next;
 	if (tmp)
+	{
+		free(tmp->value);
 		tmp->value = ft_strdup(new_value);
+	}
 }
 
 void	ft_go_home(char *home, t_export **export)
@@ -31,7 +34,7 @@ void	ft_go_home(char *home, t_export **export)
 
 	if (chdir(home) != 0)
 	{
-		write(2, "error home path", 15);
+		write(2, "error home path\n", 16);
 		exit(1);
 	}
 	oldpwd = getenv("PWD");
@@ -49,7 +52,7 @@ void	ft_go_direction(char *dir, t_export **export)
 
 	if (chdir(dir) != 0)
 	{
-		write(2, "error dir path", 15);
+		write(2, "error dir path\n", 15);
 		global = 0;
 		return ;
 	}
