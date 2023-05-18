@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:30:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/17 13:06:19 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/18 23:52:09 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_token	*check_lex_2(t_parsed *head, t_token *lex)
 			less_red(head, tmp);
 		else if (tmp && tmp->type == GREATGREAT)
 			append_red(head, tmp);
-		else if (tmp && tmp->type == PIPE)
+		else if (tmp && tmp->type == PIPE || head->error)
 			c = 1;
 		tmp = tmp->next;
 	}
