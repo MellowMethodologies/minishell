@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:49:44 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/19 01:33:56 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	ft_change_exit_st(t_export **export, int exit_statu)
 	tmp = (*export);
 	while (tmp && ft_strcmp(tmp->variable, "?") != 0)
 		tmp = tmp->next;
-	free(tmp->value);
-	// printf("||%s||", tmp->value);	
+	free(tmp->value);	
 	tmp->value = ft_itoa(exit_statu);
 }
 

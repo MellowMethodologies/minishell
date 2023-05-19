@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/18 22:49:12 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/19 01:54:20 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void exit_( t_export **export, pid_t id, t_parsed *lexe1)
 	t_parsed *tmp = lexe1;
 	t_parsed *lexe = lexe1;
 	
-	while(tmp)
+	while(tmp->next)
 		tmp = tmp->next;
 	pid_t wait1;
 	int exit;
@@ -146,11 +146,18 @@ void exit_( t_export **export, pid_t id, t_parsed *lexe1)
 		{
 			if (WIFEXITED(exit))
 			{
-				if(lexe->args[0] &&(ft_strcmp(lexe->args[0], "cd") == 0 || ft_strcmp(lexe->args[0], "unset") == 0 ||ft_strcmp(lexe->args[0], "exit") == 0 || (ft_strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)))
+				if(tmp->args[0]
+				&& (ft_strcmp(tmp->args[0], "cd") == 0
+				|| ft_strcmp(tmp->args[0], "unset") == 0 
+				|| ft_strcmp(tmp->args[0], "exit") == 0
+				|| (ft_strcmp(tmp->args[0], "export") == 0 && tmp->args[1] != NULL)))
 				{
 				}
 				else
+				{
 					global =  WEXITSTATUS(exit);
+					ft_change_exit_st(export, global);
+				}
 			}
 		}
 		write(2, "test\n", 5);
@@ -240,7 +247,5 @@ void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 			lexe = lexe->next;
 	}
 	exit_(export, id, lexe1);
-
-	ft_change_exit_st(export, global);
 }
 

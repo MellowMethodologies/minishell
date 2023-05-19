@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:03:32 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/19 00:30:30 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/19 01:51:37 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	ft_delet_node(char *str, t_export **export)
 	if (strcmp(str, node->variable) == 0)
 	{
 		ft_last_del_head(export);
+		ft_change_exit_st(export, 0);
 		return ;
 	}
 	else
@@ -68,12 +69,14 @@ void	ft_delet_node(char *str, t_export **export)
 			node = node->next;
 	}
 	ft_delet_node_1(&node, &prev_node, str);
+	ft_change_exit_st(export, 0);
 }
 
 void	ft_unset(t_parsed *lexe, t_export **export)
 {
 	int	i;
-
+	write(2, "tstt\n", 5);
+	ft_change_exit_st(export, 0);
 	if (strcmp(lexe->args[0], "unset") && lexe->args[1] == NULL)
 		return ;
 	i = 1;
@@ -88,5 +91,4 @@ void	ft_unset(t_parsed *lexe, t_export **export)
 			ft_delet_node(lexe->args[i], export);
 		i++;
 	}
-	ft_change_exit_st(export, 1);
 }
