@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/19 01:54:20 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/19 20:29:18 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ void exit_( t_export **export, pid_t id, t_parsed *lexe1)
 				}
 			}
 		}
-		write(2, "test\n", 5);
 		lexe = lexe->next;
 	}
 }
