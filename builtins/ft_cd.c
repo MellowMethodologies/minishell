@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 01:09:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/18 23:10:06 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/19 00:33:06 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_go_home(char *home, t_export **export)
 
 	if (chdir(home) != 0)
 	{
-		write(2, "error home path", 15);
+		write(2, "error home path\n", 16);
 		ft_change_exit_st(export, 1);
 		return;
 	}
@@ -57,7 +57,7 @@ void	ft_go_direction(char *dir, t_export **export)
 
 	if (chdir(dir) != 0)
 	{
-		write(2, "error dir path", 15);
+		write(2, "error dir path\n", 15);
 		global = 0;
 		ft_change_exit_st(export, 1);
 		ft_change_exit_st(export, 1);

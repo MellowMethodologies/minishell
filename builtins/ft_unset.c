@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:03:32 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:31:52 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/19 00:30:30 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_delet_node(char *str, t_export **export)
 	node = (*export);
 	if (strcmp(str, node->variable) == 0)
 	{
-		ft_last_del_head(&node);
+		ft_last_del_head(export);
 		return ;
 	}
 	else
