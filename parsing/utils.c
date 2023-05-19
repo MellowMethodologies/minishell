@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/15 16:39:26 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/19 16:34:26 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*ft_quote_expander(char *str, t_export *env, int etat)
 		res = ft_strjoin1(res, temp);
 		free(temp);
 	}
-	if (etat)
-		free(str);
+	// if (etat)
+	// 	free(str);
 	return (res);
 }
 
