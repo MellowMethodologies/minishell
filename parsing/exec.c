@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/19 16:43:29 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/20 12:47:46 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ void	initial_cmd(int args, t_parsed **cmd, t_token *tmp)
 	if ((*cmd)->args == NULL)
 		return ;
 	(*cmd)->error = 0;
+	(*cmd)->args_null = 0;
+	if (!args)
+		(*cmd)->args_null = 1;
 	(*cmd)->in = -2;
 	(*cmd)->out = -2;
 	(*cmd)->next = NULL;
@@ -43,11 +46,11 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 			initial_cmd(args, cmd, tmp);
 		if (tmp)
 			prev = find_node(tmp1, tmp->index - 1);
-		if ((check_arguments(tmp->type) == 1 && (tmp->index == 0 || !prev))
+		if (tmp && ((check_arguments(tmp->type) == 1 && (tmp->index == 0 || !prev))
 			|| ((check_arguments(tmp->type) == 1) && \
-			prev && check_redirection(prev->type) == 0))
+			prev && check_redirection(prev->type) == 0)))
 			(*cmd)->args[i++] = ft_strdup(tmp->value);
-		else if (tmp->type == PIPE)
+		else if (tmp && tmp->type == PIPE)
 			break ;
 		tmp = tmp->next;
 	}
@@ -56,6 +59,8 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 void	initializer(t_var **vars)
 {
 	*vars = malloc(sizeof(t_var));
+	if (!*vars)
+		return ;
 	(*vars)->head = NULL;
 	(*vars)->lexe = NULL;
 	(*vars)->cmd = NULL;
@@ -83,8 +88,8 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		vars->cmd = ft_parse(vars->line, export, vars);
-		if (vars->cmd)
-			ft_execution(vars->cmd, &export, env);
+		// if (vars->cmd)
+		// 	ft_execution(vars->cmd, &export, env);
 		free_parsed(&vars->cmd);
 	}
 	free(vars);

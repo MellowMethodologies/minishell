@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/19 16:34:26 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/20 13:54:24 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ char	*ft_quote_expander(char *str, t_export *env, int etat)
 		if (found_dol)
 			temp = ft_getenv(temp, env);
 		res = ft_strjoin1(res, temp);
-		free(temp);
+		if (temp)
+			free(temp);
 	}
-	// if (etat)
-	// 	free(str);
+	if (etat)
+		free(str);
 	return (res);
 }
 
@@ -62,7 +63,6 @@ char	*ft_getenv(char *var, t_export *env)
 	int		i;
 	char	*s1;
 	char	*s2;
-	char	*result;
 
 	i = 0;
 	if (ft_isdigit(var[i]))
@@ -70,15 +70,16 @@ char	*ft_getenv(char *var, t_export *env)
 	while (env)
 	{
 		s1 = ft_strdup(env->variable);
-		if (env->value)
+		if (env && env->value)
 			s2 = ft_strdup(env->value);
 		if (ft_strcmp(s1, var) == 0)
 			return (ft_res(s1, s2, var, env));
 		free(s1);
-		if (env->value)
+		if (env && env->value)
 			free(s2);
 		env = env->next;
 	}
 	free(var);
+	var = NULL;
 	return (ft_strdup(""));
 }

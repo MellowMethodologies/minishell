@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:06:33 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/11 17:07:02 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/20 14:06:47 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,15 @@ void	handler(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+	}
+}
+
+void	heredoc_handle(int sig)
+{
+	(void)sig;
+	if (waitpid(-1, NULL, WNOHANG))
+	{
+		exit(130);
+		global = 130;
 	}
 }

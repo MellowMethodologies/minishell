@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/17 01:10:11 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/20 13:51:09 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_vars{
 typedef struct s_parsed
 {
 	char			**args;
+	int				args_null;
 	int				error;
 	char			*error_str;
 	char			**envs;
@@ -131,6 +132,7 @@ int			calc_char(char *str, int c);
 void		fill_export(t_export **exp, char **env);
 int			check_quotes(char *line);
 int			check_arguments(int c);
+void		heredoc_handle(int sig);
 int			check_redirection(int c);
 void		join_word_tokens(t_token *lex);
 void		args_creation(t_parsed **cmd, t_token *tmp);

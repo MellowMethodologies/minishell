@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/16 12:23:18 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/20 14:05:25 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,14 @@ void	child_do(int *pipefd, t_token *tmp1, t_export *env)
 {
 	char	*line;
 
-	ft_change_exit_st(&env, 1);
-	// signal(SIGINT, heredoc_handle);
+	signal(SIGINT, heredoc_handle);
+	signal(SIGQUIT, SIG_DFL);
 	close(pipefd[0]);
 	while (1)
 	{
 		line = readline("> ");
-		if (!line)
-		{
-			free(line);
-			continue ;
-		}
+		if (line[0] == EOF)
+			break;
 		if (!ft_strcmp(line, tmp1->value))
 		{
 			free(line);
