@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:30:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/19 16:16:10 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/21 16:33:07 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	check_lex(t_parsed *head, t_token *lex)
 		else if (head && head->error == 1)
 		{
 			printf("%s", head->error_str);
-			free_args(head->args);
 			global = 1;
+			head->args_null = 0;
 			head = head->next;
 			continue ;
 		}

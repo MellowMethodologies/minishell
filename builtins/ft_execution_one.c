@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/19 20:29:18 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 17:01:22 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void ft_show_args( t_parsed *lexe)
 	while(lexe->args && lexe->args[i])
 	{
 		printf("|%s|\n", lexe->args[i]);
+		printf("|%d|\n", lexe->args_null);
 		i++;
 	}
 }
@@ -182,6 +183,8 @@ void hundle_2(int sig)
 
 void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 {
+	write(2, "test\n", 5);
+	ft_show_args(lexe1);
 	signal(SIGINT, hundle_1);
 	signal(SIGQUIT, hundle_2);
 	int fd[2];
@@ -194,9 +197,10 @@ void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 	while(lexe)
 	{
 
-		while(lexe && lexe->args[0] == NULL)
+		while(lexe && lexe->args_null == 0)
 		{
-			ss = open("ss", O_CREAT | O_RDWR, 0777);
+			write(2, "tsst\n",5);
+			ss = open("/tmp/ss", O_CREAT | O_RDWR, 0777);
 			stdin = ss;
 			lexe = lexe->next;
 		}
@@ -246,5 +250,6 @@ void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
 			lexe = lexe->next;
 	}
 	exit_(export, id, lexe1);
+	unlink("/tmp/ss");
 }
 

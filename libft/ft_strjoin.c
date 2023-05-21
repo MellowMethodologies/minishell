@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 11:19:13 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/20 13:54:35 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/21 16:51:04 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static char	*ft_error(const char *s1, const char *s2)
 		return (ft_strdup(s2));
 	if (!s2)
 	{
-		s2 = ft_strdup("");
 		return (ft_strdup(s1));
 	}
 	return (0);

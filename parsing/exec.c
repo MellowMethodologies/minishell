@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/20 12:47:46 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/21 16:57:00 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	initial_cmd(int args, t_parsed **cmd, t_token *tmp)
 	if ((*cmd)->args == NULL)
 		return ;
 	(*cmd)->error = 0;
-	(*cmd)->args_null = 0;
-	if (!args)
-		(*cmd)->args_null = 1;
+	(*cmd)->args_null = args;
 	(*cmd)->in = -2;
 	(*cmd)->out = -2;
 	(*cmd)->next = NULL;
@@ -88,8 +86,8 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		vars->cmd = ft_parse(vars->line, export, vars);
-		// if (vars->cmd)
-		// 	ft_execution(vars->cmd, &export, env);
+		if (vars->cmd)
+			ft_execution(vars->cmd, &export, env);
 		free_parsed(&vars->cmd);
 	}
 	free(vars);
