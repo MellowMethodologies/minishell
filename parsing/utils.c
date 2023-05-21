@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/21 16:56:53 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 20:24:59 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_quote_expander(char *str, t_export *env, int etat)
 		if (found_dol)
 			temp = ft_getenv(temp, env);
 		res = ft_strjoin1(res, temp);
-		// free(temp);
+		free(temp);
 	}
 	if (etat)
 		free(str);

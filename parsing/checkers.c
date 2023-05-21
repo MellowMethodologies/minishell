@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:30:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/21 16:33:07 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 22:47:56 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_token	*check_lex_2(t_parsed *head, t_token *lex)
 			less_red(head, tmp);
 		else if (tmp && tmp->type == GREATGREAT)
 			append_red(head, tmp);
-		else if (tmp && tmp->type == PIPE || head->error)
+		else if (tmp && (tmp->type == PIPE || head->error))
 			c = 1;
 		tmp = tmp->next;
 	}
@@ -78,7 +78,6 @@ void	check_lex(t_parsed *head, t_token *lex)
 
 int	check_syntax(t_token *tmp)
 {
-	t_token	*prev;
 	t_token	*lex;
 
 	lex = tmp;
