@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:36:58 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 22:32:00 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	show_export_1(t_export **tmp)
 		(*tmp) = (*tmp)->next;
 }
 
-void	show_export(t_export **export, t_parsed *lexe)
+void	show_export(t_export **export)
 {
 	t_export	*tmp;
 

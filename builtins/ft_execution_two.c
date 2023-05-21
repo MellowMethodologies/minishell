@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/19 01:33:56 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 22:31:20 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
 				|| ft_strcmp(lexe->args[0], "unset") == 0)
 			|| ft_strcmp(lexe->args[0], "cd") == 0)
-			ft_cmnd_one(lexe, (*ex_vars)->count, 0, export);
+			ft_cmnd_one(lexe, export);
 		else
 		{
 			id = fork();
@@ -89,7 +89,7 @@ void	ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
 				|| ft_strcmp(lexe->args[0], "unset") == 0)
 			|| ft_strcmp(lexe->args[0], "cd") == 0)
-			ft_cmnd_one(lexe, (*ex_vars)->count, 0, export);
+			ft_cmnd_one(lexe, export);
 		else
 		{
 			(*ex_vars)->id = fork();

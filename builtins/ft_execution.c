@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/18 22:45:42 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 22:33:49 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
 	else if (strcmp(lexe->args[0], "echo") == 0)
 		ft_echo(lexe);
 	else if (strcmp(lexe->args[0], "pwd") == 0)
-		ft_pwd(lexe, export);
+		ft_pwd();
 	else if (strcmp(lexe->args[0], "cd") == 0)
 		ft_cd(lexe, export);
 	else if (strcmp(lexe->args[0], "export") == 0)
@@ -129,7 +129,7 @@ void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
 	else if (strcmp(lexe->args[0], "env") == 0)
 		show_env(export, lexe);
 	else if (strcmp(lexe->args[0], "exit") == 0)
-		ft_exit(lexe, export);
+		ft_exit(lexe);
 	else
 		ft_execut_cmnd_one(lexe, export);
 }

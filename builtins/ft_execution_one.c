@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/21 17:01:22 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 23:04:24 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_instantiate_ex_vars(t_ex_vars **ex_vars, char **env)
 	(*ex_vars)->env = env;
 }
 
-void	ft_exit_1( t_parsed **tmp, int i, t_export **export)
+void	ft_exit_1( t_parsed **tmp, int i)
 {
 	if ((*tmp)->args[1] == NULL)
 	{
@@ -55,7 +55,7 @@ void	ft_exit_1( t_parsed **tmp, int i, t_export **export)
 	exit(ft_atoi((*tmp)->args[1]));
 }
 
-void	ft_exit(t_parsed *lexe1, t_export **export)
+void	ft_exit(t_parsed *lexe1)
 {
 	int			i;
 	t_parsed	*tmp;
@@ -70,15 +70,11 @@ void	ft_exit(t_parsed *lexe1, t_export **export)
 	{
 		if (!tmp->next)
 		{
-			ft_exit_1(&tmp, i, export);
+			ft_exit_1(&tmp, i);
 		}
 	}
 }
 
-void	ft_execution_4(t_parsed *lexe, t_ex_vars **ex_vars, t_export **export)
-{
-	
-}
 
 void	ft_instantiate_export(t_export **export)
 {
@@ -103,7 +99,6 @@ void	ft_instantiate_export(t_export **export)
 
 void ft_show_args( t_parsed *lexe)
 {
-	t_parsed *tmp = lexe;
 	int i = 0;
 	
 	while(lexe->args && lexe->args[i])
@@ -139,7 +134,6 @@ void exit_( t_export **export, pid_t id, t_parsed *lexe1)
 	
 	while(tmp->next)
 		tmp = tmp->next;
-	pid_t wait1;
 	int exit;
 	while(lexe)
 	{
@@ -172,19 +166,19 @@ int check_builtins(char **strs)
 	return 1;
 }
 
-void hundle_1(int sig)
+void hundle_1()
 {
 		global = 130;
 }
-void hundle_2(int sig)
+void hundle_2()
 {
 	global = 0;
 }
 
-void	ft_execution(t_parsed *lexe1, t_export **export, char **env)
+void	ft_execution(t_parsed *lexe1, t_export **export)
 {
-	write(2, "test\n", 5);
-	ft_show_args(lexe1);
+	// write(2, "test\n", 5);
+	// ft_show_args(lexe1);
 	signal(SIGINT, hundle_1);
 	signal(SIGQUIT, hundle_2);
 	int fd[2];

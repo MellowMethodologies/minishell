@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 01:11:49 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/19 20:28:56 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 22:25:10 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_echo(t_parsed *lexe)
 	int	i;
 	int	check;
 
+	check = 0;
 	is_n = 0 ;
 	i = 1;
 	while (lexe->args[i])

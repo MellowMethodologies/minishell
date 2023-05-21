@@ -6,13 +6,13 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:02:57 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/09 21:09:58 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 22:33:54 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
-void	ft_pwd(t_parsed *lexe, t_export **export)
+void	ft_pwd()
 {
 	char	cwd[1024];
 

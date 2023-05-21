@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:36:58 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/21 23:03:32 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ void	make_value_null(char *str, t_export **export)
 	while (tmp && ft_strcmp(tmp->variable, s) != 0)
 		tmp = tmp->next;
 	free(s);
+	if(tmp->value)
+		free(tmp->value);
 	tmp->value = NULL;
 }
 
-void	ft_add_value(char *str, t_export **export, int there_is_equal)
+void	ft_add_value(char *str, t_export **export)
 {
 	if (plus_equal(str))
 	{
@@ -72,7 +74,7 @@ void	ft_export_one(t_parsed *lexe, int i, t_export **export, int there_is_eq)
 		{
 			ft_add_variable(lexe->args[i], export);
 			there_is_eq = ft_equal(lexe->args[i], export);
-			ft_add_value(lexe->args[i], export, there_is_eq);
+			ft_add_value(lexe->args[i], export);
 		}
 		i++;
 	}
@@ -80,9 +82,6 @@ void	ft_export_one(t_parsed *lexe, int i, t_export **export, int there_is_eq)
 
 int ft_args_export(char **args)
 {
-	int i = 1;
-
-
 	if(args[1] == NULL)
 		return 1;
 	else
@@ -99,7 +98,7 @@ void	ft_export(t_parsed *lexe, t_export **export)
 	
 	if (ft_args_export(lexe->args))
 	{
-		show_export(export, lexe);
+		show_export(export);
 		global = 0;
 	}
 	else

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/20 13:51:09 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/21 22:33:36 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,11 @@ void		add_back(t_token **lst, t_token *new);
 void		indexer(t_token **lex);
 void		ft_lstadd_back_texport(t_export **lst, t_export *new);
 void		ft_lstadd_back_tparsed(t_parsed **lst, t_parsed *new);
-void		ft_execution(t_parsed *lexe, t_export **export, char **env);
+void		ft_execution(t_parsed *lexe, t_export **export);
 void		fill_export_with_1(t_export **export);
 void		ft_expand(t_token *lexe, t_export *env);
 void		ft_cd(t_parsed *lexe, t_export **export);
 void		ft_echo(t_parsed *lexe);
-void		ft_pwd(t_parsed *lexe, t_export **export);
 void		ft_lstdelone_texport(t_export *lst);
 void		ft_lstdelone_tparsed(t_parsed *lst);
 void		ft_lstadd_back_texport(t_export **lst, t_export *new);
@@ -169,7 +168,6 @@ char		*str_after_equal(char *str, int there_is_equal);
 char		*str_befor_equal(char *str, int there_is_equal);
 int			check_char_is_exist(char *str);
 void		show_env(t_export **export, t_parsed *lexe);
-void		show_export(t_export **export, t_parsed *lexe);
 void		check_valide_args_for_export(char **strs);
 int			arg_exist(char *str, t_export **export);
 void		ft_join_value(t_export **export, char *str);
@@ -177,7 +175,6 @@ int			there_is_plus_equal(char *str);
 void		ft_export(t_parsed *lexe, t_export **export);
 void		ft_lst_delete_node_export(t_export **export, char *str);
 void		ft_unset(t_parsed *lexe, t_export **export);
-void		ft_execution(t_parsed *lexe, t_export **export, char **env);
 char		*ft_path(char **str);
 char		*ft_valid_path(char **paths, char *str);
 void		ft_putstr(int fd, char *str);
@@ -196,12 +193,11 @@ void		rl_replace_line(const char *text, int clear_undo);
 void		handler(int sig);
 void		ft_lstadd_back_texport(t_export **lst, t_export *new);
 void		ft_lstadd_back_tparsed(t_parsed **lst, t_parsed *new);
-void		ft_execution(t_parsed *lexe, t_export **export, char **env);
 void		fill_export_with_1(t_export **export);
 void		ft_expand(t_token *lexe, t_export *env);
 void		ft_cd(t_parsed *lexe, t_export **export);
 void		ft_echo(t_parsed *lexe);
-void		ft_pwd(t_parsed *lexe, t_export **export);
+void		ft_pwd();
 void		ft_lstdelone_texport(t_export *lst);
 void		ft_lstdelone_tparsed(t_parsed *lst);
 void		ft_lstadd_back_texport(t_export **lst, t_export *new);
@@ -212,7 +208,7 @@ char		*str_after_equal(char *str, int there_is_equal);
 char		*str_befor_equal(char *str, int there_is_equal);
 int			check_char_is_exist(char *str);
 void		show_env(t_export **export, t_parsed *lexe);
-void		show_export(t_export **export, t_parsed *lexe);
+void		show_export(t_export **export);
 void		check_valide_args_for_export(char **strs);
 int			arg_exist(char *str, t_export **export);
 void		ft_join_value(t_export **export, char *str);
@@ -220,7 +216,6 @@ int			there_is_plus_equal(char *str);
 void		ft_export(t_parsed *lexe, t_export **export);
 void		ft_lst_delete_node_export(t_export **export, char *str);
 void		ft_unset(t_parsed *lexe, t_export **export);
-void		ft_execution(t_parsed *lexe, t_export **export, char **env);
 char		*ft_path(char **str);
 char		*ft_valid_path(char **paths, char *str);
 void		ft_putstr(int fd, char *str);
@@ -242,17 +237,16 @@ char		**errs(char *env);
 void		ft_execut_cmnd_one(t_parsed *lexe, t_export **export);
 void		ft_execut_cmnd(t_parsed *lexe, t_export **export);
 void		ft_cmnd(t_parsed *lexe, int count, int is_first, t_export **export);
-void		ft_cmnd_one(t_parsed *lexe, int c, int is_first, t_export **ex);
+void		ft_cmnd_one(t_parsed *lexe, t_export **ex);
 void		fill_export_with_1(t_export **export);
 void		ft_change_exit_st(t_export **export, int exit_statu);
 void		ft_execution_5(t_ex_vars **ex_vars, t_parsed *lexe, t_export **ex);
 void		ft_execution_3(t_parsed *lexe, t_export **ex, t_ex_vars **ex_vars);
 void		ft_execution_2(t_parsed *lexe, t_export **ex, t_ex_vars **ex_vars);
 void		ft_instantiate_ex_vars(t_ex_vars **ex_vars, char **env);
-void		ft_exit_1( t_parsed **tmp, int i, t_export **export);
-void		ft_exit(t_parsed *lexe1, t_export **export);
-void		ft_execution_4(t_parsed *lexe, t_ex_vars **ex_vars, t_export **ex);
-void		ft_execution(t_parsed *lexe_1, t_export **export, char **env);
+void		ft_exit_1( t_parsed **tmp, int i);
+void		ft_exit(t_parsed *lexe1);
+void		ft_execution_4( t_ex_vars **ex_vars, t_export **ex);
 void		ft_print_strs(t_export **tmp);
 void		show_env(t_export **export, t_parsed *lexe);
 int			ft_equal(char *str, t_export **export);
@@ -260,14 +254,13 @@ int			plus_equal(char *str);
 int			ft_just_equal(char *str);
 void		ft_add_value_ft(char *str, t_export **export);
 void		make_value_null(char *str, t_export **export);
-void		ft_add_value(char *str, t_export **export, int there_is_equal);
+void		ft_add_value(char *str, t_export **export);
 void		ft_export_one(t_parsed *lexe, int i, t_export **ex, int is_eq);
 void		ft_export(t_parsed *lexe, t_export **export);
 int			there_is_plus_equal(char *str);
 void		ft_join_value(t_export **export, char *str);
 int			arg_exist(char *str, t_export **export);
 void		show_export_1(t_export **tmp);
-void		show_export(t_export **export, t_parsed *lexe);
 int			there_already(char *str1, t_export **export);
 void		ft_add_variable(char *str, t_export **export);
 int			error_var_1(char *str, int count);
