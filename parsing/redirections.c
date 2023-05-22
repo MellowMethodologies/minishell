@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 21:03:08 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/17 12:24:23 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/22 02:24:46 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	less_red(t_parsed *cmd, t_token *tmp)
 		cmd->error = 1;
 		return ;
 	}
-
 	cmd->in = fd;
 	tmp = tmp->next;
 }

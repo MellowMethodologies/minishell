@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/21 22:47:14 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/22 02:25:03 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	child_do(int *pipefd, t_token *tmp1, t_export *env)
 	{
 		line = readline("> ");
 		if (line[0] == EOF)
-			break;
+			break ;
 		if (!ft_strcmp(line, tmp1->value))
 		{
 			free(line);
@@ -82,4 +82,28 @@ void	heredoc_red(t_parsed *cmd, t_token *tmp, t_export *env)
 	}
 	heredoc_check(pipefd, tmp1, cmd, env);
 	tmp = tmp->next;
+}
+
+char	*ft_get_word(char *str, int *i)
+{
+	int	t;
+	int	j;
+	int	cas;
+
+	j = 0;
+	cas = 0;
+	t = *i;
+	while (str[*i])
+	{
+		if ((str[*i] == '$' || str[*i] == ' ') && cas)
+		{
+			(*i)--;
+			break ;
+		}
+		else
+			cas = 1;
+		j++;
+		(*i)++;
+	}
+	return (ft_substr(str, t, j));
 }

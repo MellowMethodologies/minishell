@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/21 22:45:34 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/22 01:43:02 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 			initial_cmd(args, cmd, tmp);
 		if (tmp)
 			prev = find_node(tmp1, tmp->index - 1);
-		if (tmp && ((check_arguments(tmp->type) == 1 && (tmp->index == 0 || !prev))
-			|| ((check_arguments(tmp->type) == 1) && \
+		if (tmp && ((check_arguments(tmp->type) == 1 && \
+			(tmp->index == 0 || !prev))
+				|| ((check_arguments(tmp->type) == 1) && \
 			prev && check_redirection(prev->type) == 0)))
 			(*cmd)->args[i++] = ft_strdup(tmp->value);
 		else if (tmp && tmp->type == PIPE)
@@ -54,8 +55,10 @@ void	args_creation(t_parsed **cmd, t_token *tmp)
 	}
 }
 
-void	initializer(t_var **vars)
+void	initializer(t_var **vars, int ac, char **av)
 {
+	(void)ac;
+	(void)av;
 	*vars = malloc(sizeof(t_var));
 	if (!*vars)
 		return ;
@@ -69,9 +72,7 @@ int	main(int ac, char **av, char **env)
 	t_export	*export;
 	t_var		*vars;
 
-	(void)av;
-	(void)ac;
-	initializer(&vars);
+	initializer(&vars, ac, av);
 	export = NULL;
 	fill_export(&export, env);
 	while (1)
@@ -88,8 +89,8 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		}
 		vars->cmd = ft_parse(vars->line, export, vars);
-		// if (vars->cmd)
-		// 	ft_execution(vars->cmd, &export, env);
+		if (vars->cmd)
+			ft_execution(vars->cmd, &export);
 		free_parsed(&vars->cmd);
 	}
 	free(vars);
