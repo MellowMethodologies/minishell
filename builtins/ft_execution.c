@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/21 22:33:49 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/22 23:11:28 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,9 @@ void	ft_execut_cmnd_one(t_parsed *lexe, t_export **export)
 	char	*valid_path;
 	t_export	*tmp = (*export);
 	
-	
 	while(tmp && ft_strcmp("PATH", tmp->variable) != 0)
 		tmp = tmp->next;
-	if(!tmp)
+	if (!tmp)
 	{
 		write(1, " No such file or directory\n", 27);
 		exit(127);
@@ -95,26 +94,39 @@ void	ft_execut_cmnd_one(t_parsed *lexe, t_export **export)
 		exit(127);
 	}
 	execve(valid_path, lexe->args, NULL);
-	exit(126);
+	write(2, "command not found\n", 18);
+	exit(127);
 }
 
 void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
 {
-	if (ft_strncmp(lexe->args[0], "./", 2) == 0)
+	if (lexe->args[0][0] == '.' && lexe->args[0][1] == '/')
 	{
-		if(access(lexe->args[0], X_OK))
+		if (access(lexe->args[0],F_OK))
 		{
 			write(1, "No such file or directory\n", 26);
 			exit(127);
 		}
-	}
-	else if (ft_strncmp(lexe->args[0], "/", 1) == 0)
-	{
 		if (access(lexe->args[0], X_OK))
 		{
+			write(1, "Permission denied\n", 19);
+			exit(126);
+		}
+		exit(127);	
+	}
+	else if (lexe->args[0][0] == '/')
+	{
+		if (access(lexe->args[0],F_OK))
+		{
 			write(1, "No such file or directory\n", 26);
 			exit(127);
 		}
+		if (access(lexe->args[0], X_OK ))
+		{
+			write(1, "Permission denied\n", 19);
+			exit(126);
+		}
+		exit(127);	
 	}
 	else if (strcmp(lexe->args[0], "echo") == 0)
 		ft_echo(lexe);

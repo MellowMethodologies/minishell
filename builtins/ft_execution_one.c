@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/21 23:04:24 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/22 02:56:39 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,6 @@ void	ft_execution(t_parsed *lexe1, t_export **export)
 
 		while(lexe && lexe->args_null == 0)
 		{
-			write(2, "tsst\n",5);
 			ss = open("/tmp/ss", O_CREAT | O_RDWR, 0777);
 			stdin = ss;
 			lexe = lexe->next;
