@@ -6,11 +6,13 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/22 01:43:02 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/23 19:06:51 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
+
+int g_lobal;
 
 void	initial_cmd(int args, t_parsed **cmd, t_token *tmp)
 {

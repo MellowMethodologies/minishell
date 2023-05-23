@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 11:31:03 by sbadr             #+#    #+#             */
-/*   Updated: 2022/11/07 12:09:12 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/23 19:06:06 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_start(const char *s1, const char *set)
 	i = 0;
 	while (s1[i])
 	{
-		if (ft_strchr(set, s1[i]) == '\0')
+		if (ft_strchr(set, s1[i]) == NULL)
 			break ;
 		i++;
 	}
@@ -35,7 +35,7 @@ static int	ft_len(const char *s1, const char *set)
 	j = ft_strlen(s1) - 1;
 	while (s1[j])
 	{
-		if (ft_strrchr(set, s1[j]) == '\0')
+		if (ft_strrchr(set, s1[j]) == NULL)
 			break ;
 		j--;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functionss.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 10:51:27 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/21 16:35:17 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 19:02:33 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	free_args(char **str)
 	i = 0;
 	while (str[i])
 	{
-		if(str[i])
+		if (str[i])
 			free(str[i]);
 		str[i++] = NULL;
 	}
-	if(str)
+	if (str)
 		free(str);
 }
 

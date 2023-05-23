@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 17:06:33 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/20 14:06:47 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/23 19:06:28 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	heredoc_handle(int sig)
 	if (waitpid(-1, NULL, WNOHANG))
 	{
 		exit(130);
-		global = 130;
+		g_lobal = 130;
 	}
 }
