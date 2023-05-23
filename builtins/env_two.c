@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:13:44 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/14 18:19:44 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/22 23:17:42 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,22 @@ void	ft_print_strs(t_export **tmp)
 	write(1, "\n", 1);
 }
 
+void	show_env_ww(char *str)
+{
+	ft_putstr_fd(str, 1);
+	write(1, "=", 2);
+	write(1, "\n", 1);
+}
+
 void	show_env(t_export **export, t_parsed *lexe)
 {
 	t_export	*tmp;
 
-	if(lexe->args[1])
-		{
-			write(2, "env: asd: No such file or directory\n", 37);
-			exit(127);
-		}
+	if (lexe->args[1])
+	{
+		write(2, "env: asd: No such file or directory\n", 37);
+		exit(127);
+	}
 	tmp = (*export);
 	while (tmp)
 	{
@@ -39,9 +46,7 @@ void	show_env(t_export **export, t_parsed *lexe)
 		}
 		else if (tmp && tmp->there_is_equal == 1 && tmp->value == NULL)
 		{
-			ft_putstr_fd(tmp->variable, 1);
-			write(1, "=", 2);
-			write(1, "\n", 1);
+			show_env_ww(tmp->variable);
 		}
 		else if (tmp)
 			ft_print_strs(&tmp);

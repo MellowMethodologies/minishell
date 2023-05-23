@@ -6,13 +6,14 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 01:09:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/19 00:33:06 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 23:07:05 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
 
 int global;
+
 void	ft_setenv(char *variable, char *new_value, t_export **export)
 {
 	t_export	*tmp;
@@ -27,7 +28,8 @@ void	ft_setenv(char *variable, char *new_value, t_export **export)
 	}
 	else
 	{
-		ft_lstadd_back_texport(export, ft_lstnew_export(ft_strdup(variable), ft_strdup("")));
+		ft_lstadd_back_texport(export,
+			ft_lstnew_export(ft_strdup(variable), ft_strdup("")));
 	}
 }
 
@@ -40,7 +42,7 @@ void	ft_go_home(char *home, t_export **export)
 	{
 		write(2, "error home path\n", 16);
 		ft_change_exit_st(export, 1);
-		return;
+		return ;
 	}
 	oldpwd = getenv("PWD");
 	setenv("OLDPWD", oldpwd, 1);
@@ -78,8 +80,8 @@ char	*ft_home(t_export **export)
 	tmp = (*export);
 	while (tmp && ft_strcmp(tmp->variable, "HOME") != 0)
 		tmp = tmp->next;
-	if(tmp)
-	return (tmp->value);
+	if (tmp)
+		return (tmp->value);
 	return (NULL);
 }
 

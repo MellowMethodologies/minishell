@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 21:03:32 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/21 23:05:18 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 22:50:31 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_delet_node(char *str, t_export **export)
 void	ft_unset(t_parsed *lexe, t_export **export)
 {
 	int	i;
+
 	ft_change_exit_st(export, 0);
 	if (strcmp(lexe->args[0], "unset") && lexe->args[1] == NULL)
 		return ;

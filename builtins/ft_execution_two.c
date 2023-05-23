@@ -6,13 +6,11 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/21 22:31:20 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 22:28:07 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
-
-int global;
 
 void	fill_export_with_1(t_export **export)
 {
@@ -33,7 +31,7 @@ void	ft_change_exit_st(t_export **export, int exit_statu)
 	tmp = (*export);
 	while (tmp && ft_strcmp(tmp->variable, "?") != 0)
 		tmp = tmp->next;
-	free(tmp->value);	
+	free(tmp->value);
 	tmp->value = ft_itoa(exit_statu);
 }
 
@@ -48,12 +46,9 @@ void	ft_execution_5(t_ex_vars **ex_vars, t_parsed *lexe, t_export **export)
 void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 {
 	int	id;
-	float a = 13.5f;
-	 a = 45;
 
-	id = 0;
 	while (lexe && lexe->args[0] == NULL)
-			ignor_lexe(&lexe);
+		ignor_lexe(&lexe);
 	if (lexe)
 	{
 		if (!lexe->args[0]
@@ -67,14 +62,12 @@ void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 			if (id == -1)
 				exit(1);
 			if (id == 0)
-			{
 				ft_execution_5(ex_vars, lexe, export);
-			}
 			wait(&((*ex_vars)->status));
 		}
 	}
 	(*ex_vars)->exit_status = WEXITSTATUS((*ex_vars)->status);
-	if((*ex_vars)->exit_status >= 1)
+	if ((*ex_vars)->exit_status >= 1)
 		(*ex_vars)->exit_status = 127;
 	global = (*ex_vars)->exit_status;
 }

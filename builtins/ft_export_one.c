@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/21 22:32:00 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 22:28:57 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,17 @@ int	there_is_plus_equal(char *str)
 void	ft_join_value(t_export **export, char *str)
 {
 	t_export	*tmp;
-	char *s1;
-	char *s2;
+	char		*s1;
+	char		*s2;
+	char		*s3;
 
 	s1 = str_befor_equal(str, 1);
 	s2 = str_after_equal(str, 1);
 	tmp = (*export);
 	while (tmp && ft_strcmp(tmp->variable, s1) != 0)
 		tmp = tmp->next;
-	char *s3 = ft_strjoin(tmp->value, s2);
-	if(tmp->value)
+	s3 = ft_strjoin(tmp->value, s2);
+	if (tmp->value)
 		free(tmp->value);
 	tmp->value = s3;
 	free(s2);
