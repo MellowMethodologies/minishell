@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 16:30:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/23 19:06:21 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/23 23:19:20 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ void	check_lex(t_parsed *head, t_token *lex)
 		if (head && head->error == 2)
 		{
 			printf("%s", head->error_str);
-			g_lobal = 1;
+			global = 1;
 			break ;
 		}
 		else if (head && head->error == 1)
 		{
 			printf("%s", head->error_str);
-			g_lobal = 1;
+			global = 1;
 			head->args_null = 0;
 			head = head->next;
 			continue ;
@@ -90,7 +90,7 @@ int	check_syntax(t_token *tmp)
 			|| (tmp->type == PIPE && ((tmp->index == 0 || !tmp->next)
 					|| tmp->next->type == PIPE)))
 		{
-			g_lobal = 258;
+			global = 258;
 			ft_putstr_fd("syntax error\n", 2);
 			return (0);
 		}

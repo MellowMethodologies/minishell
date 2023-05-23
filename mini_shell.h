@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/23 19:05:31 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/23 23:03:12 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,7 @@
 # define VAR 7
 # define SYNTAX_ERROR 9
 
-extern int	g_lobal;
-
-//for the execution part
-typedef struct s_ex_vars{	
-	int			exit_status;
-	int			count;
-	int			id;
-	int			start;
-	int			end;
-	int			i;
-	pid_t		status;
-	char		**env;
-}	t_ex_vars;
+extern	int global;
 
 //for the lexer part
 typedef struct s_token{	
@@ -84,6 +72,23 @@ typedef struct s_parsed
 	struct s_parsed	*next;
 }	t_parsed;
 
+//for the execution part
+typedef struct s_ex_vars{	
+	int			exit_status;
+	int			count;
+	int			id;
+	int			start;
+	int			end;
+	int			i;
+	pid_t		status;
+	char		**env;
+	int			stdin_;
+	int			stdout_;
+	int			save_prev_stdin;
+	int			ss;
+	t_parsed	*lexe;
+}	t_ex_vars;
+
 typedef struct s_export
 {
 	char			*variable;
@@ -94,11 +99,22 @@ typedef struct s_export
 
 typedef struct s_var
 {
+	int				i;
+	int				j;
+	int				dollar_found;
 	t_parsed		*cmd;
 	t_parsed		*head;
 	t_token			*lexe;
 	t_token			*tmp;
+	t_export		*env;
+	t_token			*lex_without_spaces;
 	char			*line;
+	char			*temp;
+	char			*result;
+	char			*res;
+	char			*var;
+	char			*value;
+	char			**envs;
 }	t_var;
 
 char		*ft_get_word(char *str, int *i);
@@ -171,7 +187,7 @@ void		ft_putstr(int fd, char *str);
 int			word_len(const char *s, char c);
 char		**str_count(char **str, const char *s, char c);
 void		fill_export_with_1(t_export **export);
-t_export	*ft_lstnew_texport_one(void);
+t_export	*ft_lstnew_texport_one();
 int			find_me(char *str, int endquot, int stat);
 int			special(int c);
 void		check_for_quotes(t_token **lex, char *str, int *i);
@@ -259,5 +275,17 @@ int			there_is_equal(char *str);
 void		fill_export_with_1(t_export **export);
 void		ft_change_exit_st(t_export **export, int exit_statu);
 void		ignor_lexe(t_parsed **lexe);
+void		ft_execution_v1(t_parsed *l, t_export **ex, t_ex_vars v, int *fd);
+void		ft_execution_v4(t_ex_vars *vars, int *fd);
+void		ft_execution_v3(t_parsed **lexe, t_ex_vars *vars);
+void		ft_execution_v2(t_parsed *l, t_ex_vars *v, t_export **ex, int *fd);
+void		ft_execution_v5(t_parsed *l, t_ex_vars *v, t_export **ex, int *fd);
+void		hundle_2(int a);
+void		hundle_1(int a);
+void		ft_instantiate_export(t_export **export);
+int			exit_ww(char *s1, char *s2);
+void		ft_show_args( t_parsed *lexe);
+void		exit_(t_export **export, pid_t id, t_parsed *lexe1);
+int			check_builtins(char **strs);
 
 #endif
