@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/21 22:33:36 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 23:03:12 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,6 @@
 
 extern	int global;
 
-//for the execution part
-typedef struct s_ex_vars{	
-	int			exit_status;
-	int			count;
-	int			id;
-	int			start;
-	int			end;
-	int			i;
-	pid_t		status;
-	char		**env;
-}	t_ex_vars;
-
 //for the lexer part
 typedef struct s_token{	
 	int				type;
@@ -83,6 +71,23 @@ typedef struct s_parsed
 	int				out;
 	struct s_parsed	*next;
 }	t_parsed;
+
+//for the execution part
+typedef struct s_ex_vars{	
+	int			exit_status;
+	int			count;
+	int			id;
+	int			start;
+	int			end;
+	int			i;
+	pid_t		status;
+	char		**env;
+	int			stdin_;
+	int			stdout_;
+	int			save_prev_stdin;
+	int			ss;
+	t_parsed	*lexe;
+}	t_ex_vars;
 
 typedef struct s_export
 {
@@ -112,6 +117,7 @@ typedef struct s_var
 	char			**envs;
 }	t_var;
 
+char		*ft_get_word(char *str, int *i);
 int			args_count(t_token *lst);
 void		ft_expand(t_token *lexe, t_export *env);
 void		parsed_filler(t_parsed *cmd, t_token *l, \
@@ -197,7 +203,7 @@ void		fill_export_with_1(t_export **export);
 void		ft_expand(t_token *lexe, t_export *env);
 void		ft_cd(t_parsed *lexe, t_export **export);
 void		ft_echo(t_parsed *lexe);
-void		ft_pwd();
+void		ft_pwd(void);
 void		ft_lstdelone_texport(t_export *lst);
 void		ft_lstdelone_tparsed(t_parsed *lst);
 void		ft_lstadd_back_texport(t_export **lst, t_export *new);
@@ -269,5 +275,17 @@ int			there_is_equal(char *str);
 void		fill_export_with_1(t_export **export);
 void		ft_change_exit_st(t_export **export, int exit_statu);
 void		ignor_lexe(t_parsed **lexe);
+void		ft_execution_v1(t_parsed *l, t_export **ex, t_ex_vars v, int *fd);
+void		ft_execution_v4(t_ex_vars *vars, int *fd);
+void		ft_execution_v3(t_parsed **lexe, t_ex_vars *vars);
+void		ft_execution_v2(t_parsed *l, t_ex_vars *v, t_export **ex, int *fd);
+void		ft_execution_v5(t_parsed *l, t_ex_vars *v, t_export **ex, int *fd);
+void		hundle_2(int a);
+void		hundle_1(int a);
+void		ft_instantiate_export(t_export **export);
+int			exit_ww(char *s1, char *s2);
+void		ft_show_args( t_parsed *lexe);
+void		exit_(t_export **export, pid_t id, t_parsed *lexe1);
+int			check_builtins(char **strs);
 
 #endif

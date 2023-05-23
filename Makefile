@@ -33,7 +33,11 @@ SRCS_BUILTINS=  ./builtins/check_error_bonus.c\
 				./builtins/ft_read_bonus.c\
 				./builtins/ft_split_bonus.c\
 				./builtins/ft_unset.c\
-				./builtins/paths_bonus.c
+				./builtins/paths_bonus.c\
+				./builtins/ft_execution_one_v1.c\
+				./builtins/ft_execution_one_v3.c\
+				./builtins/ft_execution_one_v2.c\
+				./builtins/ft_execution__v4.c
 
 
 OBJS := $(SRCS:.c=.o)

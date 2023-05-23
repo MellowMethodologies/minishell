@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/17 01:36:58 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 22:29:15 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	ft_equal(char *str, t_export **export)
 {
 	t_export	*tmp;
-	char *s;
-	tmp = (*export);
+	char		*s;
 
+	tmp = (*export);
 	s = str_befor_equal(str, 1);
 	while (tmp && ft_strcmp(s, tmp->variable) != 0)
 		tmp = tmp->next;
