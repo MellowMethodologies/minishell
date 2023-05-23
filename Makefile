@@ -38,13 +38,13 @@ SRCS_BUILTINS=  ./builtins/check_error_bonus.c\
 
 OBJS := $(SRCS:.c=.o)
 CC  = cc -g
-CFLAGS = -I/USERS/isbarka/.brew/opt/readline/include -lreadline -Wall -Wextra -Werror
+CFLAGS = -I/USERS/sbadr/.brew/opt/readline/include -lreadline -Wall -Wextra -Werror
 NAME = minishell
 
 all: $(NAME)
 	
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $^ -lreadline -L/USERS/isbarka/.brew/opt/readline/lib -lhistory -o $(NAME)
+	$(CC) $(CFLAGS) $^ -lreadline -L/USERS/sbadr/.brew/opt/readline/lib -lhistory -o $(NAME)
 
 %.o: %.c mini_shell.h 
 	$(CC) -c $< -o $@

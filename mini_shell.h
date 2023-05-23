@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/21 22:33:36 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 19:05:31 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define VAR 7
 # define SYNTAX_ERROR 9
 
-extern	int global;
+extern int	g_lobal;
 
 //for the execution part
 typedef struct s_ex_vars{	
@@ -94,24 +94,14 @@ typedef struct s_export
 
 typedef struct s_var
 {
-	int				i;
-	int				j;
-	int				dollar_found;
 	t_parsed		*cmd;
 	t_parsed		*head;
 	t_token			*lexe;
 	t_token			*tmp;
-	t_export		*env;
-	t_token			*lex_without_spaces;
 	char			*line;
-	char			*temp;
-	char			*result;
-	char			*res;
-	char			*var;
-	char			*value;
-	char			**envs;
 }	t_var;
 
+char		*ft_get_word(char *str, int *i);
 int			args_count(t_token *lst);
 void		ft_expand(t_token *lexe, t_export *env);
 void		parsed_filler(t_parsed *cmd, t_token *l, \
@@ -181,7 +171,7 @@ void		ft_putstr(int fd, char *str);
 int			word_len(const char *s, char c);
 char		**str_count(char **str, const char *s, char c);
 void		fill_export_with_1(t_export **export);
-t_export	*ft_lstnew_texport_one();
+t_export	*ft_lstnew_texport_one(void);
 int			find_me(char *str, int endquot, int stat);
 int			special(int c);
 void		check_for_quotes(t_token **lex, char *str, int *i);
@@ -197,7 +187,7 @@ void		fill_export_with_1(t_export **export);
 void		ft_expand(t_token *lexe, t_export *env);
 void		ft_cd(t_parsed *lexe, t_export **export);
 void		ft_echo(t_parsed *lexe);
-void		ft_pwd();
+void		ft_pwd(void);
 void		ft_lstdelone_texport(t_export *lst);
 void		ft_lstdelone_tparsed(t_parsed *lst);
 void		ft_lstadd_back_texport(t_export **lst, t_export *new);
