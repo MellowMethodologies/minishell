@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 22:58:52 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/24 01:18:10 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/24 16:51:20 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	join_word_tokens(t_token *lex)
 				return ;
 			free(tmp->value);
 			tmp->value = cat;
-			tmp->type = WORD;
+			tmp->type = DOUBLE_QUOTE;
 			to_free = tmp->next;
 			tmp->next = tmp->next->next;
 			free(to_free->value);
