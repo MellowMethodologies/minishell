@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:16:37 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/21 16:58:35 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/24 02:22:49 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ t_parsed	*ft_parse(char *str, t_export *env, t_var *vars)
 	if (!str)
 	{
 		free(str);
-		str = NULL;
 		return (head);
 	}
 	vars->lexe = lexer(str, env);
@@ -92,6 +91,11 @@ t_parsed	*ft_parse(char *str, t_export *env, t_var *vars)
 		return (head);
 	}
 	parsed_filler(vars->cmd, vars->lexe, &head, env);
+	if (g_lobal == 229)
+	{
+		g_lobal = 1;
+		return (NULL);
+	}
 	check_lex(head, vars->lexe);
 	free_tokens(&vars->lexe);
 	return (head);

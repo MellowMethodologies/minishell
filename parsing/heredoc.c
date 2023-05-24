@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 23:16:25 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/22 02:25:03 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/24 02:10:06 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	child_do(int *pipefd, t_token *tmp1, t_export *env)
 void	heredoc_check(int *pipefd, t_token *tmp1, t_parsed *cmd, t_export *env)
 {
 	pid_t	pid;
+	int		exit;
 
 	pid = fork();
 	if (pid < 0)
@@ -55,7 +56,8 @@ void	heredoc_check(int *pipefd, t_token *tmp1, t_parsed *cmd, t_export *env)
 		child_do(pipefd, tmp1, env);
 	else
 	{
-		wait(0);
+		if (pid == waitpid(-1, &exit, 0) && WIFEXITED(exit))
+			g_lobal = WEXITSTATUS(exit);
 		close(pipefd[1]);
 		free(tmp1->value);
 		free(tmp1);

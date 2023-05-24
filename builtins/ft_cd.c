@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 01:09:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 23:07:05 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/23 23:15:58 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_shell.h"
-
-int global;
 
 void	ft_setenv(char *variable, char *new_value, t_export **export)
 {
@@ -60,7 +58,7 @@ void	ft_go_direction(char *dir, t_export **export)
 	if (chdir(dir) != 0)
 	{
 		write(2, "error dir path\n", 15);
-		global = 0;
+		g_lobal = 0;
 		ft_change_exit_st(export, 1);
 		ft_change_exit_st(export, 1);
 		return ;
@@ -94,5 +92,5 @@ void	ft_cd(t_parsed *lexe, t_export **export)
 		ft_go_home(home, export);
 	else
 		ft_go_direction(lexe->args[1], export);
-	global = 0;
+	g_lobal = 0;
 }

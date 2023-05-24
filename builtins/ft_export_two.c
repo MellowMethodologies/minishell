@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_two.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 22:31:09 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/24 00:33:57 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_export_one(t_parsed *lexe, int i, t_export **export, int there_is_eq)
 		if (error_var(lexe->args[i]) == 1)
 		{
 			write(2, "not a valid identifier\n", 23);
-			global = 1;
+			g_lobal = 1;
 		}
 		else
 		{
@@ -87,7 +87,7 @@ void	ft_export(t_parsed *lexe, t_export **export)
 	if (lexe->args[1] == NULL)
 	{
 		show_export(export);
-		global = 0;
+		g_lobal = 0;
 	}
 	else
 		ft_export_one(lexe, i, export, there_is_equal);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution_one_v1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 02:19:02 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/24 00:33:38 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_exit_1( t_parsed **tmp, int i)
 	else if ((*tmp)->args[1] != NULL && (*tmp)->args[2] != NULL)
 	{
 		write(1, "exit: too many arguments\n", 25);
-		global = 1;
+		g_lobal = 1;
 		return ;
 	}
 	while ((*tmp)->args[1][i])

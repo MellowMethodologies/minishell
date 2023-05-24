@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution_one_v3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 23:03:25 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/24 02:20:09 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	hundle_1(int a)
 {
-	a = a;
-	global = 131;
+	(void)a;
+	g_lobal = 131;
 }
 
 void	hundle_2(int a)
 {
-	a = a;
-	global = 0;
+	(void)a;
+	g_lobal = 0;
 }
 
 void	ft_execution_v5(t_parsed *l, t_ex_vars *v, t_export **export, int *fd)
@@ -55,9 +55,7 @@ void	ft_execution_v5(t_parsed *l, t_ex_vars *v, t_export **export, int *fd)
 void	ft_execution_v2(t_parsed *lexe, t_ex_vars *vars, t_export **ex, int *fd)
 {
 	if (lexe && check_builtins(lexe->args) == 1)
-	{
 		ft_execution_v5(lexe, vars, ex, fd);
-	}
 	else if (lexe)
 		ft_execut_cmnd(lexe, ex);
 }

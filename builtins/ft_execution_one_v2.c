@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution_one_v2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 02:19:46 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/24 00:33:43 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	exit_(t_export **export, pid_t id, t_parsed *lexe1)
 			{
 				if (exit_ww(tmp->args[0], tmp->args[1]) == 0)
 				{
-					global = WEXITSTATUS(exit);
-					ft_change_exit_st(export, global);
+					g_lobal = WEXITSTATUS(exit);
+					ft_change_exit_st(export, g_lobal);
 				}
 			}
 		}

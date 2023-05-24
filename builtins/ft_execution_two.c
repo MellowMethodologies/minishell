@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution_two.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 22:28:07 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/24 00:33:23 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 	(*ex_vars)->exit_status = WEXITSTATUS((*ex_vars)->status);
 	if ((*ex_vars)->exit_status >= 1)
 		(*ex_vars)->exit_status = 127;
-	global = (*ex_vars)->exit_status;
+	g_lobal = (*ex_vars)->exit_status;
 }
 
 void	ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
