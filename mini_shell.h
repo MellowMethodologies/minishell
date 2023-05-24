@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/24 00:35:55 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/24 15:29:39 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,6 @@ char		**str_count(char **str, const char *s, char c);
 void		fill_export_with_1(t_export **export);
 t_export	*ft_lstnew_texport_one(void);
 int			find_me(char *str, int endquot, int stat);
-int			special(int c);
 void		check_for_quotes(t_token **lex, char *str, int *i);
 int			check_for_specials(t_token **lex, char *str, int *i, int c);
 void		check_words(t_token **lex, char *str, int *i, int here);

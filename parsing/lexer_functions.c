@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 17:44:53 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/16 12:01:45 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/24 15:29:46 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	special(int c)
 {
 	if (c == 39 || c == 34 || c == '<' \
-	|| c == '>' || c == '|' || c == ' ')
+	|| c == '>' || c == '|' || c == ' ' || c == '\t')
 		return (1);
 	return (0);
 }
@@ -99,11 +99,11 @@ void	check_words(t_token **lex, char *str, int *i, int here)
 
 void	space_it(t_token **lex, char *str, int *i)
 {
-	if (str[*i] == ' ')
+	if (str[*i] == ' ' || str[*i] == '\t')
 	{
-		if (str[*i + 1] == ' ')
+		if (str[*i + 1] == ' ' || str[*i + 1] == '\t')
 		{
-			while (str[*i] == ' ')
+			while (str[*i] == ' ' || str[*i] == '\t')
 				(*i)++;
 			(*i)--;
 		}

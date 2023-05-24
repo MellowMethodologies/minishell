@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/20 13:37:30 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/24 15:26:13 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_token	*lexer_2(char *str, int i, int c, t_token *lex)
 {
 	while (str[i])
 	{
-		if (str[i] == ' ')
+		if (str[i] == ' ' || str[i] == '\t')
 			space_it(&lex, str, &i);
 		else if (str[i] == '$' && str[i + 1] == '$' && !c)
 			i += 1;
