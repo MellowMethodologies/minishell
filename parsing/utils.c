@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 02:46:21 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/22 02:24:38 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/26 09:30:21 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ char	*ft_quote_expander(char *str, t_export *env, int etat)
 		}
 		var.j = var.i;
 		var.temp = ft_get_word(str, &var.i);
-		var.i++;
+		if (str[var.i])
+			var.i++;
 		if (var.found_dol)
 			var.temp = ft_getenv(var.temp, env);
 		var.res = ft_strjoin1(var.res, var.temp);

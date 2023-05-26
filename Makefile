@@ -41,7 +41,7 @@ SRCS_BUILTINS=  ./builtins/check_error_bonus.c\
 
 
 OBJS := $(SRCS:.c=.o)
-CC  = cc
+CC  = cc -fsanitize=address
 CFLAGS = -I/USERS/sbadr/.brew/opt/readline/include -lreadline -Wall -Wextra -Werror
 NAME = minishell
 
