@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 20:59:39 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/29 16:38:10 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/29 22:15:00 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,31 @@ t_token	*lexer_2(char *str, int i, int c, t_token *lex)
 	return (lex);
 }
 
+void	check_here_doc(t_token *lex)
+{
+	t_token		*tmp;
+	t_token		*here;
+	static int	i;
+
+	if (!i)
+		i = 1;
+	here = NULL;
+	tmp = lex;
+	while (tmp)
+	{
+		if (tmp->next && (tmp->type == LESS || tmp ->type == HEREDOC))
+		{
+			if (here && here->here_me != 0)
+				here->here_me = 0;
+			here = tmp->next;
+			here->here_me = i++;
+		}
+		else if (tmp->type == PIPE)
+			i = 0;
+		tmp = tmp->next;
+	}
+}
+
 t_token	*lexer(char *str, t_export *env)
 {
 	int			i;
@@ -78,5 +103,8 @@ t_token	*lexer(char *str, t_export *env)
 	str = NULL;
 	ft_expand(lex, env);
 	join_word_tokens(lex);
+	indexer(&lex);
+	rm_space(&lex);
+	check_here_doc(lex);
 	return (lex);
 }
