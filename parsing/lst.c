@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/11 11:05:58 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/08 22:06:56 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/29 16:23:05 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_token	*ft_lstne(void *value, int type)
 		return (NULL);
 	new->value = value;
 	new->type = type;
+	new->here_me = 0;
 	new->ambiguous = 0;
 	new->next = NULL;
 	return (new);

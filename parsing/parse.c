@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:16:37 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/26 09:34:30 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/29 19:47:18 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,31 @@ void	parsed_filler(t_parsed *cmd, t_token *l, t_parsed **h, t_export *env)
 	add_back_parsed(h, cmd);
 }
 
+void	check_here_doc(t_token *lex)
+{
+	t_token		*tmp;
+	t_token		*here;
+	static int	i;
+
+	if (!i)
+		i = 1;
+	here = NULL;
+	tmp = lex;
+	while (tmp)
+	{
+		if (tmp->next && (tmp->type == LESS || tmp ->type == HEREDOC))
+		{
+			if (here && here->here_me != 0)
+				here->here_me = 0;
+			here = tmp->next;
+			here->here_me = i++;
+		}
+		else if (tmp->type == PIPE)
+			i = 0;
+		tmp = tmp->next;
+	}
+}
+
 t_parsed	*ft_parse(char *str, t_export *env, t_var *vars)
 {
 	t_parsed	*head;
@@ -85,6 +110,7 @@ t_parsed	*ft_parse(char *str, t_export *env, t_var *vars)
 	vars->lexe = lexer(str, env);
 	indexer(&vars->lexe);
 	rm_space(&vars->lexe);
+	check_here_doc(vars->lexe);
 	if (!check_syntax(vars->lexe))
 	{
 		free_tokens(&vars->lexe);

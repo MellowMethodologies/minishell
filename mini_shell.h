@@ -6,7 +6,7 @@
 /*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/24 15:29:39 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/29 16:20:12 by sbadr            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ extern int	g_lobal;
 //for the lexer part
 typedef struct s_token{	
 	int				type;
+	int				here_me;
 	int				ambiguous;
 	char			*value;
 	int				index;
