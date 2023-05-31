@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 22:58:56 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/31 01:09:53 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_execution(t_parsed *lexe1, t_export **export)
 	vars.stdin_ = -1;
 	vars.save_prev_stdin = -1;
 	lexe = lexe1;
+	vars.first_lexe = lexe;
 	signal(SIGINT, hundle_1);
 	signal(SIGQUIT, hundle_2);
 	ft_instantiate_export(export);

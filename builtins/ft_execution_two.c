@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution_two.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/24 00:33:23 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/31 01:25:38 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,26 @@ void	ft_execution_5(t_ex_vars **ex_vars, t_parsed *lexe, t_export **export)
 	ft_cmnd(lexe, (*ex_vars)->count, 0, export);
 }
 
-void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
+void	ft_execution_3(t_parsed *l, t_export **export, t_ex_vars **ex_vars)
 {
 	int	id;
 
-	while (lexe && lexe->args[0] == NULL)
-		ignor_lexe(&lexe);
-	if (lexe)
+	while (l && l->args[0] == NULL)
+		ignor_lexe(&l);
+	if (l)
 	{
-		if (!lexe->args[0]
-			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
-				|| ft_strcmp(lexe->args[0], "unset") == 0)
-			|| ft_strcmp(lexe->args[0], "cd") == 0)
-			ft_cmnd_one(lexe, export);
+		if (!l->args[0]
+			|| ((ft_strcmp(l->args[0], "export") == 0 && l->args[1] != NULL)
+				|| ft_strcmp(l->args[0], "unset") == 0)
+			|| ft_strcmp(l->args[0], "cd") == 0)
+			ft_cmnd_one(l, export);
 		else
 		{
 			id = fork();
 			if (id == -1)
 				exit(1);
 			if (id == 0)
-				ft_execution_5(ex_vars, lexe, export);
+				ft_execution_5(ex_vars, l, export);
 			wait(&((*ex_vars)->status));
 		}
 	}
@@ -72,28 +72,28 @@ void	ft_execution_3(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
 	g_lobal = (*ex_vars)->exit_status;
 }
 
-void	ft_execution_2(t_parsed *lexe, t_export **export, t_ex_vars **ex_vars)
+void	ft_execution_2(t_parsed *l, t_export **export, t_ex_vars **ex_vars)
 {
-	while (lexe && lexe->next)
+	while (l && l->next)
 	{
-		while (lexe && lexe->args[0] == NULL)
-			ignor_lexe(&lexe);
-		if (!lexe->args[0]
-			|| ((strcmp(lexe->args[0], "export") == 0 && lexe->args[1] != NULL)
-				|| ft_strcmp(lexe->args[0], "unset") == 0)
-			|| ft_strcmp(lexe->args[0], "cd") == 0)
-			ft_cmnd_one(lexe, export);
+		while (l && l->args[0] == NULL)
+			ignor_lexe(&l);
+		if (!l->args[0]
+			|| ((ft_strcmp(l->args[0], "export") == 0 && l->args[1] != NULL)
+				|| ft_strcmp(l->args[0], "unset") == 0)
+			|| ft_strcmp(l->args[0], "cd") == 0)
+			ft_cmnd_one(l, export);
 		else
 		{
 			(*ex_vars)->id = fork();
 			if ((*ex_vars)->id == -1)
 				exit(1);
 			if ((*ex_vars)->id == 0)
-				ft_execution_5(ex_vars, lexe, export);
+				ft_execution_5(ex_vars, l, export);
 			wait(&((*ex_vars)->status));
 		}
-		lexe = lexe->next;
+		l = l->next;
 		(*ex_vars)->count = (*ex_vars)->count + 1;
 	}
-	ft_execution_3(lexe, export, ex_vars);
+	ft_execution_3(l, export, ex_vars);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/29 16:20:12 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/31 01:12:16 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ extern int	g_lobal;
 //for the lexer part
 typedef struct s_token{	
 	int				type;
-	int				here_me;
 	int				ambiguous;
 	char			*value;
 	int				index;
@@ -88,6 +87,7 @@ typedef struct s_ex_vars{
 	int			save_prev_stdin;
 	int			ss;
 	t_parsed	*lexe;
+	t_parsed	*first_lexe;
 }	t_ex_vars;
 
 typedef struct s_export
@@ -241,7 +241,7 @@ void		ft_dup_1(int is_first, int *fd, int count, t_parsed *lexe);
 void		ft_dup(t_parsed *lexe, int is_first, int count);
 char		**errs(char *env);
 void		ft_execut_cmnd_one(t_parsed *lexe, t_export **export);
-void		ft_execut_cmnd(t_parsed *lexe, t_export **export);
+void		ft_execut_cmnd(t_parsed *lexe, t_export **export, t_ex_vars **v);
 void		ft_cmnd(t_parsed *lexe, int count, int is_first, t_export **export);
 void		ft_cmnd_one(t_parsed *lexe, t_export **ex);
 void		fill_export_with_1(t_export **export);
@@ -251,7 +251,7 @@ void		ft_execution_3(t_parsed *lexe, t_export **ex, t_ex_vars **ex_vars);
 void		ft_execution_2(t_parsed *lexe, t_export **ex, t_ex_vars **ex_vars);
 void		ft_instantiate_ex_vars(t_ex_vars **ex_vars, char **env);
 void		ft_exit_1( t_parsed **tmp, int i);
-void		ft_exit(t_parsed *lexe1);
+void		ft_exit(t_parsed *lexe1, t_ex_vars **v);
 void		ft_execution_4( t_ex_vars **ex_vars, t_export **ex);
 void		ft_print_strs(t_export **tmp);
 void		show_env(t_export **export, t_parsed *lexe);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution_one_v1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/24 00:33:38 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/31 01:23:43 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_exit_1( t_parsed **tmp, int i)
 	exit(ft_atoi((*tmp)->args[1]));
 }
 
-void	ft_exit(t_parsed *lexe1)
+void	ft_exit(t_parsed *lexe1, t_ex_vars **v)
 {
 	int			i;
 	t_parsed	*tmp;
@@ -64,7 +64,8 @@ void	ft_exit(t_parsed *lexe1)
 	}	
 	i = 0;
 	tmp = lexe1;
-	if (tmp && ft_strcmp(tmp->args[0], "exit") == 0)
+	if (tmp && ft_strcmp(tmp->args[0], "exit") == 0
+		&& (*v)->first_lexe->next == NULL)
 	{
 		if (!tmp->next)
 		{

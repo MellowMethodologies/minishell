@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 22:28:57 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/31 01:08:29 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	show_export(t_export **export)
 	tmp = (*export);
 	while (tmp)
 	{
-		if (strcmp(tmp->variable, "?") == 0)
+		if (ft_strcmp(tmp->variable, "?") == 0)
 			tmp = tmp->next;
 		show_export_1(&tmp);
 	}

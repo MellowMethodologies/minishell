@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 22:49:10 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/31 01:23:53 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_execut_cmnd_one(t_parsed *lexe, t_export **export)
 {
+	extern char	**environ;
 	char		**paths;
 	char		*valid_path;
 	t_export	*tmp;
@@ -33,7 +34,7 @@ void	ft_execut_cmnd_one(t_parsed *lexe, t_export **export)
 		write(2, "command not found\n", 18);
 		exit(127);
 	}
-	execve(valid_path, lexe->args, NULL);
+	execve(valid_path, lexe->args, environ);
 	write(2, "command not found\n", 18);
 	exit(127);
 }
@@ -70,22 +71,22 @@ void	ft_execut_cmnd_vv(char **args)
 	}
 }
 
-void	ft_execut_cmnd(t_parsed *lexe, t_export **export)
+void	ft_execut_cmnd(t_parsed *lexe, t_export **export, t_ex_vars **v)
 {
-	if (strcmp(lexe->args[0], "echo") == 0)
+	if (ft_strcmp(lexe->args[0], "echo") == 0)
 		ft_echo(lexe);
-	else if (strcmp(lexe->args[0], "pwd") == 0)
+	else if (ft_strcmp(lexe->args[0], "pwd") == 0)
 		ft_pwd();
-	else if (strcmp(lexe->args[0], "cd") == 0)
+	else if (ft_strcmp(lexe->args[0], "cd") == 0)
 		ft_cd(lexe, export);
-	else if (strcmp(lexe->args[0], "export") == 0)
+	else if (ft_strcmp(lexe->args[0], "export") == 0)
 		ft_export(lexe, export);
-	else if (strcmp(lexe->args[0], "unset") == 0)
+	else if (ft_strcmp(lexe->args[0], "unset") == 0)
 		ft_unset(lexe, export);
-	else if (strcmp(lexe->args[0], "env") == 0)
+	else if (ft_strcmp(lexe->args[0], "env") == 0)
 		show_env(export, lexe);
-	else if (strcmp(lexe->args[0], "exit") == 0)
-		ft_exit(lexe);
+	else if (ft_strcmp(lexe->args[0], "exit") == 0)
+		ft_exit(lexe, v);
 	else
 		ft_execut_cmnd_one(lexe, export);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution_one_v3.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/24 02:20:09 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/31 01:14:30 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_execution_v5(t_parsed *l, t_ex_vars *v, t_export **export, int *fd)
 		}
 		close((*v).stdout_);
 		close(fd[0]);
-		ft_execut_cmnd(l, export);
+		ft_execut_cmnd(l, export, &v);
 	}
 }
 
@@ -57,7 +57,7 @@ void	ft_execution_v2(t_parsed *lexe, t_ex_vars *vars, t_export **ex, int *fd)
 	if (lexe && check_builtins(lexe->args) == 1)
 		ft_execution_v5(lexe, vars, ex, fd);
 	else if (lexe)
-		ft_execut_cmnd(lexe, ex);
+		ft_execut_cmnd(lexe, ex, &vars);
 }
 
 void	ft_execution_v3(t_parsed **lexe, t_ex_vars *vars)

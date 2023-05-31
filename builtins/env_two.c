@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:13:44 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/22 23:17:42 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/31 01:08:29 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	show_env(t_export **export, t_parsed *lexe)
 	tmp = (*export);
 	while (tmp)
 	{
-		if (strcmp(tmp->variable, "?") == 0)
+		if (ft_strcmp(tmp->variable, "?") == 0)
 			tmp = tmp->next;
 		if (tmp && tmp->there_is_equal == 0)
 		{

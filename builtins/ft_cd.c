@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sbadr <sbadr@student.42.fr>                +#+  +:+       +#+        */
+/*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 01:09:16 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/23 23:15:58 by sbadr            ###   ########.fr       */
+/*   Updated: 2023/05/31 01:08:00 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ void	ft_go_home(char *home, t_export **export)
 		return ;
 	}
 	oldpwd = getenv("PWD");
-	setenv("OLDPWD", oldpwd, 1);
 	ft_setenv("OLDPWD", oldpwd, export);
 	getcwd(cwd, 1024);
-	setenv("PWD", cwd, 1);
 	ft_setenv("PWD", cwd, export);
 }
 
@@ -67,7 +65,6 @@ void	ft_go_direction(char *dir, t_export **export)
 	setenv("OLDPWD", oldpwd, 1);
 	ft_setenv("OLDPWD", oldpwd, export);
 	getcwd(cwd, 1024);
-	setenv("PWD", cwd, 1);
 	ft_setenv("PWD", cwd, export);
 }
 

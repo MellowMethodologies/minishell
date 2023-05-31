@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/09 02:11:02 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/14 15:47:50 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/05/31 01:08:29 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	there_already(char *str1, t_export **export)
 	tmp = (*export);
 	while (tmp)
 	{
-		if (strcmp(str1, tmp->variable) == 0)
+		if (ft_strcmp(str1, tmp->variable) == 0)
 			return (1);
 		tmp = tmp->next;
 	}
