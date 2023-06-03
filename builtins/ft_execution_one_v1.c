@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 14:19:36 by isbarka           #+#    #+#             */
-/*   Updated: 2023/05/31 01:23:43 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/06/03 15:14:35 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ void	ft_instantiate_export(t_export **export)
 	{
 		tmp = malloc(sizeof(t_parsed));
 		tmp->args = malloc(5 * sizeof(char *));
-		tmp->args[0] = strdup("export");
-		tmp->args[1] = strdup("PWD=/Users/isbarka/Desktop/mini_shell2");
-		tmp->args[2] = strdup("SHLVL=1");
-		tmp->args[3] = strdup("_=/usr/bin/env");
+		tmp->args[0] = ft_strdup("export");
+		tmp->args[1] = ft_strdup("PWD=/Users/isbarka/Desktop/mini_shell2");
+		tmp->args[2] = ft_strdup("SHLVL=1");
+		tmp->args[3] = ft_strdup("_=/usr/bin/env");
 		tmp->args[4] = NULL;
 		ft_export(tmp, export);
 		free(tmp->args[0]);

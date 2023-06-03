@@ -6,7 +6,7 @@
 /*   By: isbarka <isbarka@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 00:53:47 by sbadr             #+#    #+#             */
-/*   Updated: 2023/05/31 01:12:16 by isbarka          ###   ########.fr       */
+/*   Updated: 2023/06/03 15:11:34 by isbarka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_token{
 	int				type;
 	int				ambiguous;
 	char			*value;
+	int				here_me;
 	int				index;
 	struct s_token	*next;
 }	t_token;
